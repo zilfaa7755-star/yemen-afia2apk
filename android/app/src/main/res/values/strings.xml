@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">يمن عافية</string>
+    <string name="title_activity_main">يمن عافية</string>
+    <string name="package_name">com.yemenafia.app</string>
+    <string name="custom_url_scheme">com.yemenafia.app</string>
+</resources>

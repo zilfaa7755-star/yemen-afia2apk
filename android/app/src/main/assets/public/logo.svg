@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 180" fill="none" width="100%" height="100%">
+  <defs>
+    <linearGradient id="yaStethGrad" x1="20" y1="20" x2="160" y2="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00C4AC" />
+      <stop offset="100%" stop-color="#00A391" />
+    </linearGradient>
+    <linearGradient id="yaBadgeGrad" x1="0" y1="0" x2="150" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B337A" />
+      <stop offset="60%" stop-color="#08285F" />
+      <stop offset="100%" stop-color="#00A896" />
+    </linearGradient>
+    <filter id="yaShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0B337A" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <!-- Left Emblem Container / Rounded Square -->
+  <g transform="translate(15, 15)">
+    <rect width="150" height="150" rx="36" fill="url(#yaBadgeGrad)" filter="url(#yaShadow)" />
+    <rect width="150" height="150" rx="36" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5" />
+
+    <!-- Stethoscope Symbol -->
+    <g transform="translate(-5, -5)" stroke="url(#yaStethGrad)" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Ear tips -->
+      <circle cx="48" cy="34" r="6" fill="#00B39F" stroke="none" />
+      <circle cx="112" cy="34" r="6" fill="#00B39F" stroke="none" />
+
+      <!-- Tension bridge -->
+      <path d="M 58 58 Q 80 64 102 58" stroke-width="3.5" stroke="#ffffff" stroke-opacity="0.8" fill="none" />
+
+      <!-- Left binaural arch -->
+      <path d="M 48 34 C 48 56, 68 84, 80 96" stroke-width="9" fill="none" />
+
+      <!-- Right binaural arch -->
+      <path d="M 112 34 C 112 56, 92 84, 80 96" stroke-width="9" fill="none" />
+
+      <!-- Central stem -->
+      <path d="M 80 96 L 80 112" stroke-width="9" fill="none" />
+
+      <!-- Flexible tubing loop -->
+      <path d="M 80 112 C 80 132, 102 142, 118 132 C 128 124, 132 110, 130 94" stroke-width="9" fill="none" />
+
+      <!-- Chest Piece / Diaphragm -->
+      <circle cx="130" cy="80" r="16" fill="#0B337A" stroke="#00B39F" stroke-width="6" />
+      <circle cx="130" cy="80" r="9" fill="#00B39F" stroke="none" />
+      <circle cx="130" cy="80" r="4" fill="#ffffff" stroke="none" />
+    </g>
+  </g>
+
+  <!-- Typography Right Side -->
+  <!-- Arabic Brand: يمن عافية -->
+  <g direction="rtl">
+    <text x="515" y="82" font-family="'Tajawal', 'Cairo', 'Segoe UI', system-ui, sans-serif" font-size="52" font-weight="900" text-anchor="end">
+      <tspan fill="#0B337A">يمن </tspan>
+      <tspan fill="#00B39F">عافية</tspan>
+    </text>
+  </g>
+
+  <!-- English Brand: YEMEN AFIA -->
+  <text x="185" y="118" font-family="'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="22" font-weight="900" letter-spacing="4" fill="#0B337A">
+    YEMEN <tspan fill="#00B39F">AFIA</tspan>
+  </text>
+
+  <!-- Tagline: المنظومة الوطنية للرعاية الصحية -->
+  <g direction="rtl">
+    <text x="515" y="146" font-family="'Tajawal', 'Cairo', 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" fill="#64748B" text-anchor="end">
+      المنظومة الوطنية الموحدة للرعاية الصحية
+    </text>
+  </g>
+</svg>

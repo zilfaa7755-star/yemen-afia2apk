@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <defs>
+    <linearGradient id="favGrad" x1="0" y1="0" x2="160" y2="160" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B337A" />
+      <stop offset="60%" stop-color="#08285F" />
+      <stop offset="100%" stop-color="#00A896" />
+    </linearGradient>
+    <linearGradient id="stethFavGrad" x1="40" y1="30" x2="140" y2="130" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00C4AC" />
+      <stop offset="100%" stop-color="#00A391" />
+    </linearGradient>
+  </defs>
+
+  <rect width="160" height="160" rx="38" fill="url(#favGrad)" />
+
+  <g stroke="url(#stethFavGrad)" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="48" cy="34" r="6" fill="#00B39F" stroke="none" />
+    <circle cx="112" cy="34" r="6" fill="#00B39F" stroke="none" />
+
+    <path d="M 58 58 Q 80 64 102 58" stroke-width="3.5" stroke="#ffffff" stroke-opacity="0.8" fill="none" />
+    <path d="M 48 34 C 48 56, 68 84, 80 96" stroke-width="9" fill="none" />
+    <path d="M 112 34 C 112 56, 92 84, 80 96" stroke-width="9" fill="none" />
+    <path d="M 80 96 L 80 112" stroke-width="9" fill="none" />
+    <path d="M 80 112 C 80 132, 102 142, 118 132 C 128 124, 132 110, 130 94" stroke-width="9" fill="none" />
+
+    <circle cx="130" cy="80" r="16" fill="#0B337A" stroke="#00B39F" stroke-width="6" />
+    <circle cx="130" cy="80" r="9" fill="#00B39F" stroke="none" />
+    <circle cx="130" cy="80" r="4" fill="#ffffff" stroke="none" />
+  </g>
+</svg>
