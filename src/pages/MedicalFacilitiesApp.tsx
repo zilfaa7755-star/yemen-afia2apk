@@ -168,7 +168,7 @@ const demoFacilities: Facility[] = [
 ];
 
 const serviceTypeConfig: Record<string, { label: string; icon: typeof Stethoscope; color: string; bg: string }> = {
-  clinic: { label: 'عيادات', icon: Stethoscope, color: 'text-[#2196F3]', bg: 'bg-blue-50' },
+  clinic: { label: 'عيادات', icon: Stethoscope, color: 'text-[#199A8E]', bg: 'bg-[#E8F5F4]' },
   lab: { label: 'مختبر', icon: FlaskConical, color: 'text-purple-600', bg: 'bg-purple-50' },
   imaging: { label: 'أشعة', icon: Radiation, color: 'text-teal-600', bg: 'bg-teal-50' },
   pharmacy: { label: 'صيدلية', icon: Pill, color: 'text-green-600', bg: 'bg-green-50' },
@@ -253,7 +253,7 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
                   <button
                     key={id}
                     onClick={() => handleSelectCategory(id)}
-                    className="flex flex-col items-center gap-2 p-4 rounded-xl bg-gray-50 hover:bg-blue-50 transition-colors active:scale-95"
+                    className="flex flex-col items-center gap-2 p-4 rounded-xl bg-gray-50 hover:bg-[#E8F5F4] transition-colors active:scale-95"
                   >
                     <div className={`w-14 h-14 ${bg} rounded-2xl flex items-center justify-center`}>
                       <Icon size={28} className={color} />
@@ -333,9 +333,9 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
                           <span className="text-xs font-bold text-gray-700">{facility.rating}</span>
                           <span className="text-xs text-gray-400">({facility.totalReviews})</span>
                         </div>
-                        <div className="flex items-center gap-0.5 bg-blue-50 rounded-lg px-2 py-0.5">
-                          <MapPin size={10} className="text-[#2196F3]" />
-                          <span className="text-xs text-[#2196F3] font-medium">{facility.distance} كم</span>
+                        <div className="flex items-center gap-0.5 bg-[#E8F5F4] rounded-lg px-2 py-0.5">
+                          <MapPin size={10} className="text-[#199A8E]" />
+                          <span className="text-xs text-[#199A8E] font-medium">{facility.distance} كم</span>
                         </div>
                         <button
                           type="button"
@@ -358,7 +358,7 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
                       {facility.category === 'hospital' && (
                         <div className="flex gap-1 mt-2 flex-wrap justify-end">
                           {facility.services.filter((s) => s.type === 'clinic').slice(0, 2).map((s) => (
-                            <span key={s.id} className="text-[10px] bg-blue-50 text-[#2196F3] rounded-lg px-1.5 py-0.5">{s.name}</span>
+                            <span key={s.id} className="text-[10px] bg-[#E8F5F4] text-[#199A8E] rounded-lg px-1.5 py-0.5">{s.name}</span>
                           ))}
                           {facility.services.filter((s) => s.type !== 'clinic').length > 0 && (
                             <span className="text-[10px] text-gray-400">+{facility.services.length - 2} خدمات</span>
@@ -411,7 +411,7 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
               <div className="flex items-center gap-2 text-gray-600">
                 <MapPin size={16} className="text-gray-400 flex-shrink-0" />
                 <span className="text-sm flex-1 text-right">{selectedFacility.address}</span>
-                <span className="text-[#2196F3] text-sm font-bold flex-shrink-0">{selectedFacility.distance} كم</span>
+                <span className="text-[#199A8E] text-sm font-bold flex-shrink-0">{selectedFacility.distance} كم</span>
               </div>
               <div className="flex items-center gap-2 text-gray-600">
                 <Clock size={16} className="text-gray-400" />
@@ -486,7 +486,7 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
 
           {/* Contact actions */}
           <div className="grid grid-cols-2 gap-3">
-            <a href={`tel:${selectedFacility.phone}`} className="bg-[#2196F3] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2">
+            <a href={`tel:${selectedFacility.phone}`} className="bg-[#199A8E] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2">
               <Phone size={18} /> اتصال
             </a>
             <button
@@ -527,7 +527,7 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
     const StIcon = stConfig.icon;
     return (
       <div className="min-h-screen bg-gray-50 pb-8">
-        <div className={`bg-gradient-to-b ${selectedService.type === 'clinic' ? 'from-[#2196F3] to-[#1976D2]' : selectedService.type === 'lab' ? 'from-purple-600 to-purple-800' : selectedService.type === 'imaging' ? 'from-teal-600 to-teal-800' : 'from-green-600 to-green-800'} px-4 pt-10 pb-16`}>
+        <div className={`bg-gradient-to-b ${selectedService.type === 'clinic' ? 'from-[#104C48] via-[#125853] to-[#199A8E]' : selectedService.type === 'lab' ? 'from-purple-600 to-purple-800' : selectedService.type === 'imaging' ? 'from-teal-600 to-teal-800' : 'from-green-600 to-green-800'} px-4 pt-10 pb-16`}>
           <button onClick={handleBack} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mb-3">
             <ChevronLeft size={22} className="text-white rotate-180" />
           </button>
@@ -546,8 +546,8 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
           {/* Service info */}
           <div className="bg-white rounded-2xl shadow-lg p-5 space-y-3">
             {selectedService.doctorName && (
-              <div className="flex items-center gap-3 bg-blue-50 rounded-xl p-3">
-                <div className="w-10 h-10 bg-[#2196F3] rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="flex items-center gap-3 bg-[#E8F5F4] rounded-xl p-3">
+                <div className="w-10 h-10 bg-[#199A8E] rounded-full flex items-center justify-center flex-shrink-0">
                   <User size={20} className="text-white" />
                 </div>
                 <div className="flex-1 text-right">
@@ -561,7 +561,7 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
             )}
             {selectedService.price && (
               <div className="flex items-center justify-between bg-gray-50 rounded-xl px-4 py-3">
-                <span className="text-[#2196F3] font-black text-lg">{selectedService.price.toLocaleString()} ر.ي</span>
+                <span className="text-[#199A8E] font-black text-lg">{selectedService.price.toLocaleString()} ر.ي</span>
                 <span className="text-sm text-gray-500">السعر</span>
               </div>
             )}
@@ -580,7 +580,7 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
                 <span>رفع طلب / وصفة طبية</span>
                 <Upload size={18} className="text-gray-500" />
               </h3>
-              <button className="w-full border-2 border-dashed border-gray-200 rounded-2xl py-8 flex flex-col items-center gap-2 hover:border-[#2196F3] transition-colors">
+              <button className="w-full border-2 border-dashed border-gray-200 rounded-2xl py-8 flex flex-col items-center gap-2 hover:border-[#199A8E] transition-colors">
                 <Upload size={32} className="text-gray-300" />
                 <p className="text-sm text-gray-500 font-medium">اضغط لرفع صورة الطلب أو الوصفة</p>
                 <p className="text-xs text-gray-400">PDF, JPG, PNG</p>
@@ -613,7 +613,7 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
                   <Clock size={16} className="text-teal-500" />
                   <span className="text-sm text-teal-700 font-medium">مدة الانتظار: ~15 دقيقة</span>
                 </div>
-                <button className="w-full py-4 rounded-2xl bg-gradient-to-l from-[#2196F3] to-[#18A98C] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-95">
+                <button className="w-full py-4 rounded-2xl bg-gradient-to-l from-[#104C48] to-[#199A8E] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-95">
                   <Calendar size={18} /> حجز موعد في العيادة
                 </button>
               </div>
@@ -634,7 +634,7 @@ export function MedicalFacilitiesApp({ onExit }: MedicalFacilitiesAppProps) {
                       className="w-full flex items-center justify-between bg-gray-50 rounded-xl px-4 py-3 text-right hover:bg-gray-100 transition-colors"
                     >
                       <div className="flex items-center gap-2">
-                        {s.price && <span className="text-xs text-[#2196F3] font-bold">{s.price.toLocaleString()} ر.ي</span>}
+                        {s.price && <span className="text-xs text-[#199A8E] font-bold">{s.price.toLocaleString()} ر.ي</span>}
                         <ArrowRight size={14} className="text-gray-300" />
                       </div>
                       <span className="text-sm font-medium text-gray-700">{s.name}</span>

@@ -58,12 +58,12 @@ export function LoginPage({ onLogin }: LoginPageProps) {
   });
 
   const roles = [
-    { id: 'patient' as UserRole, label: 'مريض', icon: User, description: 'حجز المواعيد والخدمات الطبية', gradient: 'from-sky-400 to-blue-500', bg: 'bg-sky-50', color: 'text-sky-600' },
-    { id: 'doctor' as UserRole, label: 'طبيب', icon: Stethoscope, description: 'إدارة المواعيد والمرضى', gradient: 'from-emerald-400 to-teal-500', bg: 'bg-emerald-50', color: 'text-emerald-600' },
-    { id: 'secretary' as UserRole, label: 'سكرتاري', icon: ClipboardList, description: 'إدارة الطابور والحجوزات', gradient: 'from-violet-400 to-purple-500', bg: 'bg-violet-50', color: 'text-violet-600' },
-    { id: 'nurse' as UserRole, label: 'ممرض/ة', icon: Activity, description: 'الخدمات التمريضية المنزلية', gradient: 'from-teal-400 to-cyan-500', bg: 'bg-teal-50', color: 'text-teal-600' },
-    { id: 'hospital' as UserRole, label: 'منشآة طبية', icon: Building2, description: 'مستشفى أو صيدلية أو مختبر', gradient: 'from-rose-400 to-pink-500', bg: 'bg-rose-50', color: 'text-rose-600' },
-    { id: 'admin' as UserRole, label: 'مدير النظام', icon: Shield, description: 'لوحة الإدارة والتحكم الكاملة', gradient: 'from-slate-400 to-gray-500', bg: 'bg-slate-100', color: 'text-slate-700' },
+    { id: 'patient' as UserRole, label: 'مريض', icon: User, description: 'حجز المواعيد والخدمات الطبية', gradient: 'from-[#104C48] to-[#199A8E]', bg: 'bg-sky-50', color: 'text-sky-600' },
+    { id: 'doctor' as UserRole, label: 'طبيب', icon: Stethoscope, description: 'إدارة المواعيد والمرضى', gradient: 'from-[#00897B] to-[#199A8E]', bg: 'bg-emerald-50', color: 'text-emerald-600' },
+    { id: 'secretary' as UserRole, label: 'سكرتاري', icon: ClipboardList, description: 'إدارة الطابور والحجوزات', gradient: 'from-[#104C48] to-[#38B2AC]', bg: 'bg-violet-50', color: 'text-violet-600' },
+    { id: 'nurse' as UserRole, label: 'ممرض/ة', icon: Activity, description: 'الخدمات التمريضية المنزلية', gradient: 'from-[#199A8E] to-[#38B2AC]', bg: 'bg-teal-50', color: 'text-teal-600' },
+    { id: 'hospital' as UserRole, label: 'منشآة طبية', icon: Building2, description: 'مستشفى أو صيدلية أو مختبر', gradient: 'from-[#0B337A] to-[#104C48]', bg: 'bg-rose-50', color: 'text-rose-600' },
+    { id: 'admin' as UserRole, label: 'مدير النظام', icon: Shield, description: 'لوحة الإدارة والتحكم الكاملة', gradient: 'from-[#334155] to-[#104C48]', bg: 'bg-slate-100', color: 'text-slate-700' },
   ];
 
   const handleRoleSelect = (role: UserRole) => {
@@ -133,7 +133,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0B337A] via-[#08285F] to-[#00B39F] flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-[#104C48] via-[#0D3B38] to-[#199A8E] flex flex-col">
       {/* Decorative circles */}
       <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-y-24 -translate-x-24" />
       <div className="absolute top-40 right-0 w-40 h-40 bg-white/5 rounded-full translate-x-20" />
@@ -154,29 +154,58 @@ export function LoginPage({ onLogin }: LoginPageProps) {
         {step === 'role' && (
           <div>
             <h2 className="text-xl font-bold text-slate-800 text-center mb-1">اختر نوع الحساب</h2>
-            <p className="text-center text-slate-400 text-sm mb-6">حدد دورك للبدء</p>
+            <p className="text-center text-slate-400 text-sm mb-5">حدد دورك للانتقال إلى بوابتك المتخصصة</p>
+            
+            {/* Quick Demo Switcher Info */}
+            <div className="mb-4 bg-[#E8F5F4] border border-[#199A8E]/30 rounded-2xl p-3 text-center">
+              <p className="text-xs text-[#104C48] font-bold">بوابات منظومة يمن عافية الوطنية الست (6 أدوار)</p>
+              <p className="text-[11px] text-[#199A8E] mt-0.5">يمكنك الدخول المباشر بنقرة واحدة للتجربة أو إدخال رقم هاتفك</p>
+            </div>
+
             <div className="space-y-3">
               {roles.map((role) => {
                 const Icon = role.icon;
                 return (
-                  <button
+                  <div
                     key={role.id}
-                    onClick={() => handleRoleSelect(role.id)}
-                    className="w-full bg-slate-50 hover:bg-slate-100 rounded-2xl p-4 border border-slate-100 flex items-center gap-4 text-right transition-all active:scale-[0.98] hover:shadow-md"
+                    className="w-full bg-slate-50 hover:bg-slate-100 rounded-2xl p-3.5 border border-slate-200/80 flex items-center gap-3 text-right transition-all hover:shadow-md"
                   >
-                    <div className={`w-14 h-14 bg-gradient-to-br ${role.gradient} rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md`}>
-                      <Icon size={26} className="text-white" />
+                    <div className={`w-13 h-13 bg-gradient-to-br ${role.gradient} rounded-2xl flex items-center justify-center flex-shrink-0 shadow-md p-3`}>
+                      <Icon size={24} className="text-white" />
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-bold text-slate-800 text-lg">{role.label}</h3>
-                      <p className="text-sm text-slate-500">{role.description}</p>
+                    <div className="flex-1 min-w-0" onClick={() => handleRoleSelect(role.id)} role="button">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-slate-800 text-base">{role.label}</h3>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white text-slate-600 border border-slate-200">
+                          بوابة مخصصة
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-0.5 truncate">{role.description}</p>
                     </div>
-                    <ChevronLeft size={22} className="text-slate-300" />
-                  </button>
+                    
+                    {/* Instant Entrance Button */}
+                    <button
+                      onClick={async () => {
+                        setIsLoading(true);
+                        try {
+                          await login('777123456', role.id);
+                          onLogin();
+                        } catch {
+                          onLogin();
+                        } finally {
+                          setIsLoading(false);
+                        }
+                      }}
+                      className="px-3 py-2 rounded-xl bg-gradient-to-r from-[#104C48] to-[#199A8E] hover:opacity-95 text-white text-xs font-bold transition shadow-sm active:scale-95 shrink-0"
+                      title="دخول تجريبي فوري"
+                    >
+                      دخول مباشر
+                    </button>
+                  </div>
                 );
               })}
             </div>
-            <p className="text-center text-xs text-slate-400 mt-8">
+            <p className="text-center text-xs text-slate-400 mt-6">
               جميع الحقوق محفوظة © 2026 يمن عافية
             </p>
           </div>
@@ -189,7 +218,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
               رجوع
             </button>
             <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-sky-400 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-sky-200">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#104C48] to-[#199A8E] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-sm">
                 <Phone size={28} className="text-white" />
               </div>
               <h2 className="text-xl font-bold text-slate-800">أدخل رقم هاتفك</h2>
@@ -207,7 +236,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 9))}
                 placeholder="777123456"
-                className="w-full pr-28 pl-4 py-4 rounded-2xl border-2 border-slate-200 focus:border-sky-400 focus:ring-4 focus:ring-sky-50 outline-none text-lg transition-all"
+                className="w-full pr-28 pl-4 py-4 rounded-2xl border-2 border-slate-200 focus:border-[#199A8E] focus:ring-4 focus:ring-[#199A8E]/10 outline-none text-lg transition-all"
                 dir="ltr"
               />
             </div>
@@ -215,7 +244,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
               onClick={handlePhoneSubmit}
               disabled={phone.length < 9 || isLoading}
               className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
-                phone.length >= 9 ? 'bg-gradient-to-r from-sky-500 to-teal-500 text-white shadow-lg shadow-sky-200 active:scale-[0.98]' : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                phone.length >= 9 ? 'bg-gradient-to-r from-[#104C48] to-[#199A8E] text-white shadow-lg shadow-sm active:scale-[0.98]' : 'bg-slate-200 text-slate-400 cursor-not-allowed'
               }`}
             >
               {isLoading ? 'جاري التحميل...' : 'متابعة'}
@@ -231,7 +260,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
             </button>
 
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 bg-gradient-to-br from-sky-400 to-teal-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#104C48] to-[#199A8E] rounded-xl flex items-center justify-center flex-shrink-0 shadow-md">
                 <Heart size={20} className="text-white" />
               </div>
               <div>
@@ -243,7 +272,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
             {/* Indicators */}
             <div className="flex gap-2 mb-5">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="flex-1 h-1.5 rounded-full bg-gradient-to-r from-sky-400 to-teal-500" />
+                <div key={i} className="flex-1 h-1.5 rounded-full bg-gradient-to-r from-[#104C48] to-[#199A8E]" />
               ))}
             </div>
 
@@ -255,7 +284,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                 value={profile.full_name}
                 onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
                 placeholder="أدخل اسمك الكامل"
-                className="w-full p-3.5 rounded-xl border border-slate-200 focus:border-sky-400 focus:ring-2 focus:ring-sky-50 outline-none text-right transition-all"
+                className="w-full p-3.5 rounded-xl border border-slate-200 focus:border-[#199A8E] focus:ring-2 focus:ring-[#199A8E]/10 outline-none text-right transition-all"
               />
             </div>
 
@@ -268,7 +297,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                     key={v}
                     onClick={() => setProfile({ ...profile, gender: v as 'male' | 'female' })}
                     className={`py-3 rounded-xl border-2 font-medium transition-all ${
-                      profile.gender === v ? 'border-sky-400 bg-sky-50 text-sky-600' : 'border-slate-200 text-slate-600'
+                      profile.gender === v ? 'border-[#199A8E] bg-[#E8F5F4] text-[#104C48]' : 'border-slate-200 text-slate-600'
                     }`}
                   >
                     {label}
@@ -287,7 +316,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                 placeholder="مثال: 1990"
                 min="1920"
                 max={new Date().getFullYear()}
-                className="w-full p-3.5 rounded-xl border border-slate-200 focus:border-sky-400 focus:ring-2 focus:ring-sky-50 outline-none text-right transition-all"
+                className="w-full p-3.5 rounded-xl border border-slate-200 focus:border-[#199A8E] focus:ring-2 focus:ring-[#199A8E]/10 outline-none text-right transition-all"
               />
             </div>
 
@@ -453,7 +482,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                 disabled={isLoading || !profile.full_name}
                 className={`flex-1 flex-grow-[2] py-4 rounded-2xl font-bold text-base shadow-lg transition-all ${
                   !isLoading && profile.full_name
-                    ? 'bg-gradient-to-r from-sky-500 to-teal-500 text-white shadow-sky-200 active:scale-[0.98]'
+                    ? 'bg-gradient-to-r from-[#104C48] to-[#199A8E] text-white shadow-sm active:scale-[0.98]'
                     : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                 }`}
               >

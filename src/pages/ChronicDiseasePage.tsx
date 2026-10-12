@@ -74,10 +74,10 @@ const vitalConfig: Record<VitalType, {
   blood_sugar: {
     label: 'سكر الدم',
     icon: Droplet,
-    color: 'text-blue-600',
-    bg: 'bg-blue-50',
+    color: 'text-[#199A8E]',
+    bg: 'bg-[#E8F5F4]',
     unit: 'mg/dL',
-    gradient: 'from-blue-500 to-cyan-600',
+    gradient: 'from-[#104C48] to-[#199A8E]',
   },
   weight: {
     label: 'الوزن',
@@ -385,7 +385,7 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
                 onClick={() => setActiveTab(tab.id as typeof activeTab)}
                 className={`flex-shrink-0 flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-medium text-sm transition-all ${
                   activeTab === tab.id
-                    ? 'bg-[#2196F3] text-white shadow-md shadow-blue-200'
+                    ? 'bg-[#199A8E] text-white shadow-md shadow-blue-200'
                     : 'bg-white text-gray-600 border border-gray-200'
                 }`}
               >
@@ -413,7 +413,7 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
       <div className="px-4 mt-2">
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]"></div>
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#199A8E]"></div>
           </div>
         ) : activeTab === 'overview' ? (
           /* ---- Overview ---- */
@@ -495,7 +495,7 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
                   <p className="text-gray-400 text-sm">لم تسجل أي قياسات بعد</p>
                   <button
                     onClick={() => setActiveTab('add')}
-                    className="mt-3 text-[#2196F3] font-medium text-sm"
+                    className="mt-3 text-[#199A8E] font-medium text-sm"
                   >
                     سجل أول قياس
                   </button>
@@ -574,7 +574,7 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
                       value={systolic}
                       onChange={(e) => setSystolic(e.target.value)}
                       placeholder="120"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-lg font-bold text-center focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-lg font-bold text-center focus:ring-2 focus:ring-[#199A8E]/30 focus:border-[#199A8E] outline-none"
                     />
                   </div>
                   <div>
@@ -585,7 +585,7 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
                       value={diastolic}
                       onChange={(e) => setDiastolic(e.target.value)}
                       placeholder="80"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-lg font-bold text-center focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-lg font-bold text-center focus:ring-2 focus:ring-[#199A8E]/30 focus:border-[#199A8E] outline-none"
                     />
                   </div>
                 </div>
@@ -600,7 +600,7 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                     placeholder={formVitalType === 'blood_sugar' ? '120' : formVitalType === 'weight' ? '75' : '72'}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-lg font-bold text-center focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-lg font-bold text-center focus:ring-2 focus:ring-[#199A8E]/30 focus:border-[#199A8E] outline-none"
                   />
                 </div>
               )}
@@ -615,7 +615,7 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
                       onClick={() => setFormContext(key)}
                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                         formContext === key
-                          ? 'bg-[#2196F3] text-white'
+                          ? 'bg-[#199A8E] text-white'
                           : 'bg-gray-50 text-gray-600 border border-gray-200'
                       }`}
                     >
@@ -633,13 +633,13 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="أضف ملاحظة..."
                   rows={2}
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none resize-none"
+                  className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-[#199A8E]/30 focus:border-[#199A8E] outline-none resize-none"
                 />
               </div>
 
               <button
                 onClick={handleSaveReading}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-l from-[#2196F3] to-[#1976D2] text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-l from-[#104C48] via-[#125853] to-[#199A8E] text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
               >
                 <Check size={20} />
                 حفظ القياس
@@ -647,12 +647,12 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
             </div>
 
             {/* Quick tips */}
-            <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100">
+            <div className="bg-[#E8F5F4] rounded-2xl p-4 border border-[#199A8E]/20">
               <div className="flex items-start gap-3">
-                <Zap size={18} className="text-blue-500 flex-shrink-0 mt-0.5" />
+                <Zap size={18} className="text-[#199A8E] flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-medium text-blue-800 mb-1">نصائح للقياس الصحيح</p>
-                  <ul className="text-xs text-blue-700 space-y-1 leading-relaxed">
+                  <p className="text-sm font-medium text-[#104C48] mb-1">نصائح للقياس الصحيح</p>
+                  <ul className="text-xs text-slate-600 space-y-1 leading-relaxed">
                     <li>• قس الضغط بعد 5 دقائق من الراحة في وضع الجلوس</li>
                     <li>• قس السكر الصائم قبل الإفطار مباشرة</li>
                     <li>• سجل القياسات في نفس الوقت يومياً للحصول على نتائج دقيقة</li>
@@ -730,7 +730,7 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
                         onClick={() => setReminderDisease(d.id)}
                         className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all ${
                           reminderDisease === d.id
-                            ? 'bg-[#2196F3] text-white'
+                            ? 'bg-[#199A8E] text-white'
                             : 'bg-gray-50 text-gray-600 border border-gray-200'
                         }`}
                       >
@@ -742,7 +742,7 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
 
                 <button
                   onClick={handleSaveReminder}
-                  className="w-full py-3 rounded-2xl bg-gradient-to-l from-[#2196F3] to-[#1976D2] text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                  className="w-full py-3 rounded-2xl bg-gradient-to-l from-[#104C48] via-[#125853] to-[#199A8E] text-white font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform"
                 >
                   <Plus size={20} />
                   إضافة التذكير
@@ -836,7 +836,7 @@ export function ChronicDiseasePage({ onBack }: ChronicDiseasePageProps) {
                       {!alert.is_read && (
                         <button
                           onClick={() => handleMarkAlertRead(alert.id)}
-                          className="mt-2 text-xs text-[#2196F3] font-medium"
+                          className="mt-2 text-xs text-[#199A8E] font-medium"
                         >
                           تعليم كمقروء
                         </button>

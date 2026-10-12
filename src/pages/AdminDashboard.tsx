@@ -4,7 +4,7 @@ import {
   Heart, Stethoscope, Building2, BarChart2, Settings, LogOut,
   Bell, TrendingUp, RefreshCw, Search, CheckCircle, XCircle,
   AlertTriangle, Shield, Edit3, Trash2, Plus, Download, Send,
-  Clock, MapPin, ArrowUpRight, ArrowDownRight, UserCheck, UserX,
+  Clock, MapPin, ArrowUpRight, ArrowDownRight, UserCheck, UserX, ArrowRight,
   Database, ToggleLeft, ToggleRight, Save, X, FileText, Award,
   Zap, Star, Radio, ChevronDown,
 } from 'lucide-react';
@@ -62,7 +62,7 @@ const timeAgo = (d: string) => {
 };
 
 const roleLabel: Record<string, { label: string; cls: string }> = {
-  patient:   { label: 'مريض',       cls: 'bg-blue-100 text-blue-700' },
+  patient:   { label: 'مريض',       cls: 'bg-[#E8F5F4] text-[#104C48]' },
   doctor:    { label: 'طبيب',       cls: 'bg-green-100 text-green-700' },
   secretary: { label: 'سكرتاري',    cls: 'bg-purple-100 text-purple-700' },
   nurse:     { label: 'ممرض/ة',     cls: 'bg-teal-100 text-teal-700' },
@@ -72,7 +72,7 @@ const roleLabel: Record<string, { label: string; cls: string }> = {
 
 const apptStatusConfig: Record<string, { label: string; cls: string }> = {
   pending:     { label: 'معلق',     cls: 'bg-amber-100 text-amber-700' },
-  confirmed:   { label: 'مؤكد',     cls: 'bg-blue-100 text-blue-700' },
+  confirmed:   { label: 'مؤكد',     cls: 'bg-[#E8F5F4] text-[#104C48]' },
   in_progress: { label: 'جارٍ',     cls: 'bg-green-100 text-green-700' },
   completed:   { label: 'مكتمل',    cls: 'bg-gray-100 text-gray-600' },
   cancelled:   { label: 'ملغي',     cls: 'bg-red-100 text-red-600' },
@@ -171,7 +171,7 @@ export function AdminDashboard() {
   const todayAppts = appointments.filter(a => a.appointment_date === new Date().toISOString().split('T')[0]).length;
 
   const kpiCards: StatCard[] = [
-    { label: 'إجمالي المستخدمين', value: totalUsers, change: 12, icon: Users, color: 'text-blue-600', bg: 'bg-blue-50' },
+    { label: 'إجمالي المستخدمين', value: totalUsers, change: 12, icon: Users, color: 'text-[#199A8E]', bg: 'bg-[#E8F5F4]' },
     { label: 'المرضى المسجلون', value: totalPatients, change: 8, icon: UserCheck, color: 'text-teal-600', bg: 'bg-teal-50' },
     { label: 'الأطباء النشطون', value: totalDoctors, change: 5, icon: Stethoscope, color: 'text-green-600', bg: 'bg-green-50' },
     { label: 'إجمالي المواعيد', value: totalAppts, change: 15, icon: Calendar, color: 'text-amber-600', bg: 'bg-amber-50' },
@@ -264,11 +264,19 @@ export function AdminDashboard() {
     <div className="min-h-screen bg-[#F0F2F5]">
       <header className="bg-gradient-to-l from-[#0D1B2A] to-[#1B2B3A] px-4 pt-10 pb-4 sticky top-0 z-50 shadow-xl">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <button onClick={refresh} className={`w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center ${isLoading ? 'animate-spin' : ''}`}>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => { logout(); window.dispatchEvent(new CustomEvent('nav-to-main')); }}
+              className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-sm active:scale-95 border border-white/20"
+              title="العودة لشاشة الواجهات الخمس شاشة البداية"
+            >
+              <ArrowRight size={16} />
+              <span>الواجهات الخمس</span>
+            </button>
+            <button onClick={refresh} className={`w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center ${isLoading ? 'animate-spin' : ''}`} title="تحديث">
               <RefreshCw size={16} className="text-white/80" />
             </button>
-            <button onClick={logout} className="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center">
+            <button onClick={logout} className="w-9 h-9 bg-white/10 rounded-xl flex items-center justify-center" title="خروج">
               <LogOut size={16} className="text-white/80" />
             </button>
           </div>
@@ -305,7 +313,7 @@ export function AdminDashboard() {
               {[
                 { label: 'المواعيد المكتملة', val: completedAppts, total: totalAppts, color: 'bg-green-500' },
                 { label: 'المواعيد الملغية', val: cancelledAppts, total: totalAppts, color: 'bg-red-400' },
-                { label: 'المستخدمون النشطون', val: activeUsers, total: totalUsers, color: 'bg-blue-500' },
+                { label: 'المستخدمون النشطون', val: activeUsers, total: totalUsers, color: 'bg-[#E8F5F4]0' },
                 { label: 'نسبة الإنجاز الكلية', val: completedAppts, total: totalAppts, color: 'bg-emerald-500' },
               ].map(({ label, val, total, color }) => (
                 <div key={label} className="mb-3 last:mb-0">
@@ -385,7 +393,7 @@ export function AdminDashboard() {
             </div>
             <div className="grid grid-cols-3 gap-2">
               {[
-                { label: 'إجمالي', val: users.length, cls: 'bg-blue-50 text-blue-700' },
+                { label: 'إجمالي', val: users.length, cls: 'bg-[#E8F5F4] text-[#104C48]' },
                 { label: 'نشط', val: activeUsers, cls: 'bg-green-50 text-green-700' },
                 { label: 'موقوف', val: users.filter(u => u.is_active === false).length, cls: 'bg-red-50 text-red-600' },
               ].map(({ label, val, cls }) => (
@@ -464,7 +472,7 @@ export function AdminDashboard() {
             </div>
             <div className="grid grid-cols-4 gap-2">
               {[
-                { label: 'اليوم', val: todayAppts, cls: 'bg-blue-50 text-blue-700' },
+                { label: 'اليوم', val: todayAppts, cls: 'bg-[#E8F5F4] text-[#104C48]' },
                 { label: 'مكتمل', val: completedAppts, cls: 'bg-green-50 text-green-700' },
                 { label: 'ملغي', val: cancelledAppts, cls: 'bg-red-50 text-red-600' },
                 { label: 'الكل', val: totalAppts, cls: 'bg-gray-100 text-gray-700' },
@@ -523,7 +531,7 @@ export function AdminDashboard() {
             <div className="grid grid-cols-2 gap-3">
               {[
                 { label: 'طلبات التمريض', value: 67, icon: Activity, color: 'text-teal-600', bg: 'bg-teal-50', change: 22 },
-                { label: 'طلبات الصيدلية', value: 134, icon: Pill, color: 'text-blue-600', bg: 'bg-blue-50', change: 11 },
+                { label: 'طلبات الصيدلية', value: 134, icon: Pill, color: 'text-[#199A8E]', bg: 'bg-[#E8F5F4]', change: 11 },
                 { label: 'فحوصات مختبر', value: 289, icon: FlaskConical, color: 'text-purple-600', bg: 'bg-purple-50', change: 8 },
                 { label: 'طلبات تبرع دم', value: 23, icon: Heart, color: 'text-red-500', bg: 'bg-red-50', change: -5 },
                 { label: 'جلسات نفسية', value: 41, icon: Radio, color: 'text-pink-600', bg: 'bg-pink-50', change: 34 },
@@ -537,7 +545,7 @@ export function AdminDashboard() {
               {[
                 { label: 'طلبات نشطة', val: 12, cls: 'text-red-600' },
                 { label: 'تم التوفير', val: 45, cls: 'text-green-600' },
-                { label: 'متبرعون مسجلون', val: 234, cls: 'text-blue-600' },
+                { label: 'متبرعون مسجلون', val: 234, cls: 'text-[#199A8E]' },
                 { label: 'بنوك الدم', val: 8, cls: 'text-gray-700' },
               ].map(({ label, val, cls }) => (
                 <div key={label} className="flex items-center justify-between py-2.5 border-b border-gray-50 last:border-0">
@@ -585,7 +593,7 @@ export function AdminDashboard() {
           <>
             <SectionHeader title="المنشآت الطبية" subtitle="مستشفيات وصيدليات ومختبرات" />
             {[
-              { type: 'مستشفيات', icon: Building2, color: 'text-blue-600', stats: [{ label: 'إجمالي المستشفيات', val: 14 }, { label: 'نشطة', val: 12 }, { label: 'تحويلات واردة هذا الشهر', val: 189 }, { label: 'متوسط وقت الاستجابة', val: '4 ساعات' }] },
+              { type: 'مستشفيات', icon: Building2, color: 'text-[#199A8E]', stats: [{ label: 'إجمالي المستشفيات', val: 14 }, { label: 'نشطة', val: 12 }, { label: 'تحويلات واردة هذا الشهر', val: 189 }, { label: 'متوسط وقت الاستجابة', val: '4 ساعات' }] },
               { type: 'صيدليات', icon: Pill, color: 'text-teal-600', stats: [{ label: 'إجمالي الصيدليات', val: 31 }, { label: 'نشطة', val: 28 }, { label: 'وصفات صُرفت هذا الشهر', val: 456 }, { label: 'طلبات توصيل', val: 134 }] },
               { type: 'مختبرات ومراكز أشعة', icon: FlaskConical, color: 'text-purple-600', stats: [{ label: 'إجمالي المراكز', val: 19 }, { label: 'نشطة', val: 17 }, { label: 'فحوصات منجزة هذا الشهر', val: 2341 }, { label: 'متوسط وقت الإنجاز', val: '3.2 ساعة' }] },
             ].map(({ type, icon: Icon, color, stats }) => (
@@ -653,7 +661,7 @@ export function AdminDashboard() {
               <h3 className="font-black text-gray-800 text-sm mb-3 text-right">مؤشرات الأداء الرئيسية</h3>
               {[
                 { label: 'متوسط تقييم الأطباء', val: '4.7/5', icon: Star, color: 'text-amber-500' },
-                { label: 'متوسط وقت الانتظار', val: '18 دقيقة', icon: Clock, color: 'text-blue-500' },
+                { label: 'متوسط وقت الانتظار', val: '18 دقيقة', icon: Clock, color: 'text-[#199A8E]' },
                 { label: 'نسبة رضا المرضى', val: '89%', icon: TrendingUp, color: 'text-green-500' },
                 { label: 'نسبة إكمال الملف الصحي', val: '63%', icon: UserCheck, color: 'text-teal-500' },
                 { label: 'معدل الحجوزات/طبيب/يوم', val: '14.3', icon: Calendar, color: 'text-purple-500' },
@@ -685,7 +693,7 @@ export function AdminDashboard() {
                     <span className="text-gray-500">{label}</span>
                   </div>
                   <div className="w-full bg-gray-100 rounded-full h-2">
-                    <div className="bg-gradient-to-l from-[#0D1B2A] to-[#2196F3] rounded-full h-2" style={{ width: `${pct}%` }} />
+                    <div className="bg-gradient-to-l from-[#0D1B2A] to-[#199A8E] rounded-full h-2" style={{ width: `${pct}%` }} />
                   </div>
                 </div>
               ))}
@@ -708,7 +716,7 @@ export function AdminDashboard() {
                     <span className="font-bold text-gray-700">{city}</span>
                   </div>
                   <div className="w-full bg-gray-100 rounded-full h-1.5">
-                    <div className="bg-blue-500 rounded-full h-1.5" style={{ width: `${pct}%` }} />
+                    <div className="bg-[#E8F5F4]0 rounded-full h-1.5" style={{ width: `${pct}%` }} />
                   </div>
                 </div>
               ))}
@@ -730,12 +738,12 @@ export function AdminDashboard() {
               <div className="text-center py-12 bg-white rounded-2xl border border-gray-100">
                 <Bell size={48} className="mx-auto text-gray-200 mb-3" />
                 <p className="text-gray-500 font-medium">لا توجد إعلانات بعد</p>
-                <button onClick={() => setShowAnnouncementForm(true)} className="mt-3 text-blue-600 font-bold text-sm">إرسال أول إعلان</button>
+                <button onClick={() => setShowAnnouncementForm(true)} className="mt-3 text-[#199A8E] font-bold text-sm">إرسال أول إعلان</button>
               </div>
             ) : (
               <div className="space-y-3">
                 {announcements.map(ann => {
-                  const prioMap: Record<string, string> = { low: 'bg-gray-100 text-gray-600', normal: 'bg-blue-100 text-blue-700', high: 'bg-amber-100 text-amber-700', critical: 'bg-red-100 text-red-700' };
+                  const prioMap: Record<string, string> = { low: 'bg-gray-100 text-gray-600', normal: 'bg-[#E8F5F4] text-[#104C48]', high: 'bg-amber-100 text-amber-700', critical: 'bg-red-100 text-red-700' };
                   const prioLabel: Record<string, string> = { low: 'منخفض', normal: 'عادي', high: 'مهم', critical: 'حرج' };
                   return (
                     <div key={ann.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -814,7 +822,7 @@ export function AdminDashboard() {
             </button>
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
               <h3 className="font-black text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                <Database size={16} className="text-blue-600" />معلومات النظام
+                <Database size={16} className="text-[#199A8E]" />معلومات النظام
               </h3>
               {[
                 { label: 'إصدار التطبيق', val: '1.0.0' },
@@ -858,7 +866,7 @@ export function AdminDashboard() {
                 <div className="grid grid-cols-4 gap-2">
                   {[
                     { v: 'low', l: 'منخفض', cls: 'bg-gray-100 text-gray-700' },
-                    { v: 'normal', l: 'عادي', cls: 'bg-blue-100 text-blue-700' },
+                    { v: 'normal', l: 'عادي', cls: 'bg-[#E8F5F4] text-[#104C48]' },
                     { v: 'high', l: 'مهم', cls: 'bg-amber-100 text-amber-700' },
                     { v: 'critical', l: 'حرج', cls: 'bg-red-100 text-red-700' },
                   ].map(({ v, l, cls }) => (

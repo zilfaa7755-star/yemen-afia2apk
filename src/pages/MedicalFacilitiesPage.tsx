@@ -66,7 +66,7 @@ const demoFacilities: Facility[] = [
 const facilityTypes: { id: FacilityType; label: string; icon: React.ElementType; color: string; bg: string }[] = [
   { id: 'all', label: 'الكل', icon: Building2, color: 'text-gray-600', bg: 'bg-gray-100' },
   { id: 'hospital', label: 'مستشفيات', icon: Heart, color: 'text-red-500', bg: 'bg-red-50' },
-  { id: 'clinic', label: 'عيادات', icon: Stethoscope, color: 'text-[#2196F3]', bg: 'bg-blue-50' },
+  { id: 'clinic', label: 'عيادات', icon: Stethoscope, color: 'text-[#199A8E]', bg: 'bg-[#E8F5F4]' },
   { id: 'lab', label: 'مختبرات', icon: FlaskConical, color: 'text-purple-600', bg: 'bg-purple-50' },
   { id: 'pharmacy', label: 'صيدليات', icon: Pill, color: 'text-green-600', bg: 'bg-green-50' },
   { id: 'imaging', label: 'أشعة', icon: Eye, color: 'text-teal-600', bg: 'bg-teal-50' },
@@ -168,7 +168,7 @@ export function MedicalFacilitiesPage({ onBack }: MedicalFacilitiesPageProps) {
                 <MapPin size={16} className="text-gray-400 flex-shrink-0" />
                 <span className="text-sm">{selectedFacility.address}</span>
                 {selectedFacility.distance !== undefined && (
-                  <span className="mr-auto text-[#2196F3] text-sm font-medium">{selectedFacility.distance} كم</span>
+                  <span className="mr-auto text-[#199A8E] text-sm font-medium">{selectedFacility.distance} كم</span>
                 )}
               </div>
               {selectedFacility.working_hours && (
@@ -202,7 +202,7 @@ export function MedicalFacilitiesPage({ onBack }: MedicalFacilitiesPageProps) {
             {selectedFacility.phone && (
               <a
                 href={`tel:${selectedFacility.phone}`}
-                className="bg-[#2196F3] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2"
+                className="bg-[#199A8E] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2"
               >
                 <Phone size={18} />
                 اتصال
@@ -298,7 +298,7 @@ export function MedicalFacilitiesPage({ onBack }: MedicalFacilitiesPageProps) {
       <div className="px-4 mb-3 flex items-center justify-between">
         <span className="text-sm text-gray-500">{filtered.length} منشأة</span>
         {showOpen24Only && (
-          <button onClick={() => setShowOpen24Only(false)} className="text-[#2196F3] text-sm font-medium">إزالة الفلتر</button>
+          <button onClick={() => setShowOpen24Only(false)} className="text-[#199A8E] text-sm font-medium">إزالة الفلتر</button>
         )}
       </div>
 

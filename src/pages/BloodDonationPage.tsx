@@ -97,19 +97,21 @@ export function BloodDonationPage({ onBack }: BloodDonationPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-8">
+    <div className="min-h-screen bg-[#F8FAFB] pb-12">
       {/* Header */}
-      <div className="bg-gradient-to-b from-red-600 to-red-800 pt-3 pb-20 px-4 sticky top-0 z-40">
+      <div className="bg-gradient-to-l from-[#104C48] via-[#0B337A] to-rose-700 pt-4 pb-20 px-4 sticky top-0 z-40 text-white">
         <div className="flex items-center justify-between mb-4">
-          <button onClick={onBack} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+          <button onClick={onBack} className="w-10 h-10 bg-white/15 hover:bg-white/25 rounded-xl flex items-center justify-center transition active:scale-95">
             <ChevronLeft size={22} className="text-white rotate-180" />
           </button>
-          <h1 className="text-xl font-bold text-white">البحث عن دم</h1>
+          <h1 className="text-lg font-bold text-white">البحث عن فصائل الدم والمتبرعين</h1>
           <div className="w-10" />
         </div>
-        <div className="flex items-center gap-2 bg-white/15 rounded-xl px-4 py-2.5">
-          <Droplets size={18} className="text-white/80" />
-          <p className="text-white/90 text-sm">اختر الفصيلة ونوع مكون الدم المطلوب وابحث في بنوك الدم القريبة</p>
+        <div className="flex items-center gap-2.5 bg-white/15 backdrop-blur-md rounded-2xl px-4 py-3 border border-white/20">
+          <Droplets size={20} className="text-rose-300 shrink-0" />
+          <p className="text-white/95 text-xs font-medium leading-relaxed">
+            منظومة الربط المباشر مع بنوك الدم والمستشفيات اليمنية على مدار الساعة
+          </p>
         </div>
       </div>
 
@@ -241,7 +243,7 @@ export function BloodDonationPage({ onBack }: BloodDonationPageProps) {
                           <h3 className="font-bold text-gray-800 text-sm text-right">{bank.name}</h3>
                         </div>
                         <div className="flex items-center gap-2 text-xs text-gray-500 justify-end mb-1">
-                          <span className="text-[#2196F3] font-medium">{bank.distance} كم</span>
+                          <span className="text-[#199A8E] font-medium">{bank.distance} كم</span>
                           <MapPin size={12} />
                           <span className="text-right">{bank.address}</span>
                         </div>
@@ -261,7 +263,7 @@ export function BloodDonationPage({ onBack }: BloodDonationPageProps) {
                         >
                           <Phone size={15} /> اتصال للحجز
                         </a>
-                        <button className="flex-1 py-2.5 rounded-xl bg-blue-50 text-[#2196F3] text-sm font-bold flex items-center justify-center gap-1.5">
+                        <button className="flex-1 py-2.5 rounded-xl bg-[#E8F5F4] text-[#199A8E] text-sm font-bold flex items-center justify-center gap-1.5">
                           <Navigation size={15} /> الاتجاهات
                         </button>
                       </div>
@@ -290,13 +292,13 @@ export function BloodDonationPage({ onBack }: BloodDonationPageProps) {
 
         {/* Info banner */}
         {!hasSearched && !searching && (
-          <div className="bg-blue-50 rounded-2xl p-4 flex items-start gap-3 border border-blue-100">
-            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-              <Droplets size={20} className="text-blue-600" />
+          <div className="bg-[#E8F5F4] rounded-2xl p-4 flex items-start gap-3 border border-blue-100">
+            <div className="w-10 h-10 bg-[#E8F5F4] rounded-lg flex items-center justify-center flex-shrink-0">
+              <Droplets size={20} className="text-[#199A8E]" />
             </div>
             <div>
               <p className="font-bold text-blue-800 text-sm mb-1">كيف يعمل البحث عن دم؟</p>
-              <p className="text-blue-600 text-xs leading-relaxed">
+              <p className="text-[#199A8E] text-xs leading-relaxed">
                 حدد فصيلة الدم ونوع المكون المطلوب، ثم اضغط بحث. سيتم البحث في بنوك الدم القريبة وإشعارك بالبنوك التي يتوفر لديها الدم المطلوب مع عدد الوحدات المتاحة.
               </p>
             </div>

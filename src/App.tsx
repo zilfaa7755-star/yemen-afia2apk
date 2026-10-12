@@ -33,6 +33,7 @@ import { NurseDashboard } from './pages/NurseDashboard';
 import { MedicalFacilityDashboard } from './pages/MedicalFacilityDashboard';
 import { AdminDashboard } from './pages/AdminDashboard';
 import FacilityApp from './facility_modules/FacilityApp';
+import { TelemedicinePage } from './pages/TelemedicinePage';
 import { useQueueNotifications } from './hooks/useQueueNotifications';
 import type { Doctor, Appointment } from './types';
 
@@ -43,6 +44,7 @@ type Page =
   | 'doctor-search'
   | 'booking'
   | 'appointments'
+  | 'telemedicine'
   | 'messages'
   | 'health-record'
   | 'more'
@@ -92,6 +94,7 @@ function AppContent() {
   const [queueBookingInfo, setQueueBookingInfo] = useState<QueueBookingInfo | null>(null);
   const [activeQueueData, setActiveQueueData] = useState<ActiveQueueData | null>(null);
   const [navigationStack, setNavigationStack] = useState<Page[]>([]);
+  const [secretaryMode, setSecretaryMode] = useState<'reception' | 'queue'>('reception');
 
   React.useEffect(() => {
     const handleNavToMain = () => {
@@ -132,12 +135,12 @@ function AppContent() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#2196F3] to-[#1976D2] flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-[#104C48] to-[#199A8E] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-[#2196F3] font-black text-3xl">ع</span>
+          <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mx-auto mb-4 shadow-xl">
+            <span className="text-[#199A8E] font-black text-3xl">ع</span>
           </div>
-          <p className="text-white/80">جاري التحميل...</p>
+          <p className="text-white/90 text-sm font-semibold">جاري التحميل...</p>
         </div>
       </div>
     );
@@ -148,7 +151,47 @@ function AppContent() {
   }
 
   if (role === 'secretary') {
-    return <FacilityApp initialScreen="reception" singleScreen title="الاستقبال والفرز — لوحة السكرتارية" onBack={logout} />;
+    return secretaryMode === 'reception' ? (
+      <div className="relative">
+        <FacilityApp initialScreen="reception" singleScreen title="الاستقبال والفرز — لوحة السكرتارية" onBack={logout} />
+        <div className="fixed bottom-5 left-5 z-50 flex items-center gap-2">
+          <button
+            onClick={() => setSecretaryMode('queue')}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-xl transition active:scale-95 border border-white/20"
+            title="التبديل إلى لوحة الطابور المبسطة"
+          >
+            <span>لوحة الطابور المبسطة</span>
+          </button>
+          <button
+            onClick={logout}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-xl transition active:scale-95 border border-white/20"
+            title="العودة لشاشة البداية"
+          >
+            <span>الواجهات الخمس</span>
+          </button>
+        </div>
+      </div>
+    ) : (
+      <div className="relative">
+        <SecretaryDashboard onBack={logout} />
+        <div className="fixed bottom-5 left-5 z-50 flex items-center gap-2">
+          <button
+            onClick={() => setSecretaryMode('reception')}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#199A8E] hover:bg-[#104C48] text-white text-xs font-bold shadow-xl transition active:scale-95 border border-white/20"
+            title="التبديل إلى نظام الاستقبال المتقدم"
+          >
+            <span>نظام الاستقبال المتقدم</span>
+          </button>
+          <button
+            onClick={logout}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-xl transition active:scale-95 border border-white/20"
+            title="العودة لشاشة البداية"
+          >
+            <span>الواجهات الخمس</span>
+          </button>
+        </div>
+      </div>
+    );
   }
 
   if (role === 'doctor') {
@@ -167,12 +210,17 @@ function AppContent() {
     return <AdminDashboard />;
   }
 
-  const shouldShowBottomNav = ['home', 'appointments', 'ai-assistant', 'medical-facilities', 'more'].includes(currentPage);
+  const shouldShowBottomNav = ['home', 'appointments', 'telemedicine', 'health-record', 'more'].includes(currentPage);
 
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <HomePage onNavigate={(page) => navigateTo(page as Page)} />;
+        return (
+          <HomePage
+            onNavigate={(page) => navigateTo(page as Page)}
+            onSelectDoctor={handleSelectDoctor}
+          />
+        );
 
       case 'ai-assistant':
         return (
@@ -221,11 +269,19 @@ function AppContent() {
             onBack={() => navigateTo('appointments', false)}
           />
         ) : (
-          <AppointmentsPage onBack={() => navigateTo('home')} />
+          <AppointmentsPage onBack={() => navigateTo('home')} onBookNew={() => navigateTo('clinics')} />
         );
 
       case 'appointments':
-        return <AppointmentsPage onBack={() => navigateTo('home')} />;
+        return <AppointmentsPage onBack={() => navigateTo('home')} onBookNew={() => navigateTo('clinics')} />;
+
+      case 'telemedicine':
+        return (
+          <TelemedicinePage
+            onBack={() => navigateTo('home')}
+            onBookDoctor={() => navigateTo('clinics')}
+          />
+        );
 
       case 'messages':
         return <MessagesPage onBack={() => navigateTo('home')} />;

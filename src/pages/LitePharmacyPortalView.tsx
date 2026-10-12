@@ -259,7 +259,7 @@ export function LitePharmacyPortalView({ onBack }: LitePharmacyPortalViewProps) 
 
   const statusConfig: Record<PrescriptionStatus, { label: string; cls: string }> = {
     pending:   { label: 'غير مصروفة',     cls: 'bg-amber-100 text-amber-700' },
-    partial:   { label: 'صرف جزئي',       cls: 'bg-blue-100 text-blue-700' },
+    partial:   { label: 'صرف جزئي',       cls: 'bg-[#E8F5F4] text-[#104C48]' },
     dispensed: { label: 'مصروفة بالكامل', cls: 'bg-green-100 text-green-700' },
   };
 

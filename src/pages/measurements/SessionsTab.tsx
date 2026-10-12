@@ -150,7 +150,7 @@ export function SessionsTab() {
           {/* Lab results */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
             <div className="flex items-center gap-2 mb-3">
-              <FlaskConical size={18} className="text-blue-500" />
+              <FlaskConical size={18} className="text-[#199A8E]" />
               <p className="text-sm font-bold text-gray-800">تحاليل المختبر الدورية</p>
             </div>
             <ul className="space-y-2">

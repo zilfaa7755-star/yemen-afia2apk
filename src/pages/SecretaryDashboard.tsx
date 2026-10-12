@@ -226,21 +226,28 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-[#F8FAFB] flex flex-col">
       {/* ── Header ── */}
-      <header className="bg-gradient-to-l from-[#7B1FA2] to-[#4A148C] px-4 pt-10 pb-16 flex-shrink-0">
+      <header className="bg-gradient-to-l from-[#104C48] via-[#0B337A] to-[#199A8E] px-4 pt-10 pb-16 flex-shrink-0 shadow-lg">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <button
-              onClick={onBack ? onBack : () => { logout(); }}
-              className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-sm active:scale-95"
+              onClick={() => {
+                if (onBack) onBack();
+                logout();
+                window.dispatchEvent(new CustomEvent('nav-to-main'));
+              }}
+              className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-sm active:scale-95 border border-white/20"
               title="العودة لشاشة الواجهات الخمس"
             >
               <ArrowRight size={16} />
               <span>الواجهات الخمس</span>
             </button>
             <button
-              onClick={logout}
+              onClick={() => {
+                logout();
+                window.dispatchEvent(new CustomEvent('nav-to-main'));
+              }}
               className="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-xl flex items-center justify-center text-white transition active:scale-95"
               title="تسجيل الخروج"
             >
@@ -248,8 +255,8 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
             </button>
           </div>
           <div className="text-center">
-            <h1 className="text-white font-bold text-lg">لوحة السكرتاري</h1>
-            <p className="text-white/70 text-xs">{currentTime.toLocaleDateString('ar-YE', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
+            <h1 className="text-white font-bold text-lg">لوحة الاستقبال والسكرتارية</h1>
+            <p className="text-teal-100/80 text-xs">{currentTime.toLocaleDateString('ar-YE', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
           </div>
           <div className="text-white text-right">
             <p className="font-mono text-lg font-bold">{currentTime.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}</p>
@@ -260,28 +267,28 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
         <div className="grid grid-cols-4 gap-2">
           {[
             { label: 'في الانتظار', val: waiting.length, cls: 'text-amber-300' },
-            { label: 'مع الطبيب', val: currentPatient ? 1 : 0, cls: 'text-blue-300' },
-            { label: 'أُنجز اليوم', val: completed.length, cls: 'text-green-300' },
+            { label: 'مع الطبيب', val: currentPatient ? 1 : 0, cls: 'text-teal-200' },
+            { label: 'أُنجز اليوم', val: completed.length, cls: 'text-emerald-300' },
             { label: 'الإجمالي', val: queue.length, cls: 'text-white' },
           ].map(({ label, val, cls }) => (
-            <div key={label} className="bg-white/15 rounded-2xl p-3 text-center">
+            <div key={label} className="bg-white/15 rounded-2xl p-3 text-center border border-white/10">
               <p className={`text-xl font-black ${cls}`}>{val}</p>
-              <p className="text-white/60 text-[10px]">{label}</p>
+              <p className="text-white/70 text-[10px]">{label}</p>
             </div>
           ))}
         </div>
       </header>
 
       {/* ── Tabs ── */}
-      <nav className="bg-white sticky top-0 z-40 shadow-sm -mt-1 flex-shrink-0">
+      <nav className="bg-white sticky top-0 z-40 shadow-sm -mt-1 flex-shrink-0 border-b border-[#E2E8F0]">
         <div className="flex">
           {tabs.map(({ id, label, icon: Icon, badge }) => (
             <button key={id} onClick={() => setTab(id)}
-              className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium border-b-2 transition-colors relative ${tab === id ? 'border-[#7B1FA2] text-[#7B1FA2]' : 'border-transparent text-gray-400'}`}>
+              className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-semibold border-b-2 transition-colors relative ${tab === id ? 'border-[#199A8E] text-[#199A8E] bg-[#E8F5F4]/30' : 'border-transparent text-slate-500 hover:text-[#104C48]'}`}>
               <Icon size={17} />
               {label}
               {badge !== undefined && badge > 0 && (
-                <span className="absolute top-1.5 right-2 w-4 h-4 bg-red-500 rounded-full text-white text-[9px] font-bold flex items-center justify-center">{badge}</span>
+                <span className="absolute top-1.5 right-2 w-4 h-4 bg-[#E53935] rounded-full text-white text-[9px] font-bold flex items-center justify-center">{badge}</span>
               )}
             </button>
           ))}
@@ -306,7 +313,7 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
               </button>
               <div className="flex-1 relative">
                 <Search size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input value={searchQ} onChange={e => setSearchQ(e.target.value)} placeholder="بحث بالاسم أو الهاتف..." dir="rtl" className="w-full py-2.5 pr-8 pl-3 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-[#7B1FA2]" />
+                <input value={searchQ} onChange={e => setSearchQ(e.target.value)} placeholder="بحث بالاسم أو الهاتف..." dir="rtl" className="w-full py-2.5 pr-8 pl-3 rounded-xl border border-gray-200 bg-white text-sm outline-none focus:border-[#199A8E]" />
               </div>
             </div>
 
@@ -322,17 +329,17 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
 
             {/* Current patient */}
             {currentPatient && (
-              <div className="bg-gradient-to-l from-[#7B1FA2] to-[#4A148C] rounded-2xl p-4 text-white">
+              <div className="bg-gradient-to-l from-[#104C48] to-[#199A8E] rounded-2xl p-4 text-white shadow-md">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                  <p className="text-white/80 text-xs font-medium">يُعاين الآن</p>
+                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                  <p className="text-white/80 text-xs font-medium">يُعاين الآن بالعيادة</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <button onClick={() => handleComplete(currentPatient.id)}
-                    className="px-4 py-2 bg-white text-[#7B1FA2] rounded-xl font-bold text-sm">أنهى الكشف</button>
+                    className="px-4 py-2 bg-white text-[#104C48] rounded-xl font-bold text-sm shadow-xs hover:bg-[#E8F5F4] transition">أنهى الكشف</button>
                   <div className="text-right">
                     <p className="font-black text-lg">{currentPatient.appointment?.patient?.full_name}</p>
-                    <p className="text-white/70 text-xs">{currentPatient.appointment?.symptoms}</p>
+                    <p className="text-teal-100 text-xs">{currentPatient.appointment?.symptoms}</p>
                     <a href={`tel:${currentPatient.appointment?.patient?.phone}`} className="flex items-center gap-1 justify-end text-white/80 text-xs mt-1">
                       <Phone size={11} />{currentPatient.appointment?.patient?.phone}
                     </a>
@@ -343,10 +350,10 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
 
             {/* Waiting queue */}
             {filtered.filter(q => q.status === 'waiting').length === 0 && !searchQ ? (
-              <div className="text-center py-10 bg-white rounded-2xl border border-gray-100">
+              <div className="text-center py-10 bg-white rounded-2xl border border-gray-100 shadow-sm">
                 <Users size={48} className="mx-auto text-gray-200 mb-3" />
                 <p className="text-gray-400 font-medium">لا يوجد مرضى في الانتظار</p>
-                <button onClick={() => setTab('add')} className="mt-3 px-5 py-2.5 bg-[#7B1FA2] text-white rounded-xl text-sm font-bold">
+                <button onClick={() => setTab('add')} className="mt-3 px-5 py-2.5 bg-[#199A8E] text-white rounded-xl text-sm font-bold shadow-sm hover:bg-[#104C48] transition">
                   + إضافة مريض
                 </button>
               </div>
@@ -396,51 +403,51 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
         {/* ══════ ADD TAB ══════ */}
         {tab === 'add' && (
           <div className="space-y-4">
-            <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-5">
+            <div className="bg-white border border-[#E2E8F0] rounded-2xl shadow-sm p-5">
               <h2 className="font-black text-gray-800 text-lg mb-4 text-right flex items-center gap-2 justify-end">
-                إضافة مريض للطابور <User size={18} className="text-[#7B1FA2]" />
+                إضافة مريض للطابور <User size={18} className="text-[#199A8E]" />
               </h2>
               <div className="space-y-3">
                 <div>
-                  <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">اسم المريض *</label>
+                  <label className="text-xs text-slate-500 block mb-1.5 text-right font-medium">اسم المريض *</label>
                   <input type="text" value={manual.name} onChange={e => setManual(p => ({ ...p, name: e.target.value }))}
                     placeholder="أدخل الاسم الكامل..." dir="rtl"
-                    className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#7B1FA2]" />
+                    className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E]" />
                 </div>
                 <div>
-                  <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">رقم الهاتف</label>
+                  <label className="text-xs text-slate-500 block mb-1.5 text-right font-medium">رقم الهاتف</label>
                   <div className="flex gap-2">
                     <input type="tel" value={manual.phone} onChange={e => setManual(p => ({ ...p, phone: e.target.value.replace(/\D/g,'') }))}
                       placeholder="777123456" dir="ltr"
-                      className="flex-1 p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#7B1FA2] text-right" />
+                      className="flex-1 p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] text-right" />
                     <span className="flex items-center px-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-500">+967</span>
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">سبب الزيارة / الأعراض</label>
+                  <label className="text-xs text-slate-500 block mb-1.5 text-right font-medium">سبب الزيارة / الأعراض</label>
                   <textarea value={manual.symptoms} onChange={e => setManual(p => ({ ...p, symptoms: e.target.value }))}
                     placeholder="أدخل الأعراض أو سبب الزيارة..." rows={2} dir="rtl"
-                    className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none resize-none focus:border-[#7B1FA2]" />
+                    className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none resize-none focus:border-[#199A8E]" />
                 </div>
-                <label className="flex items-center gap-3 bg-red-50 border border-red-100 rounded-xl px-4 py-3 cursor-pointer select-none">
+                <label className="flex items-center gap-3 bg-rose-50 border border-rose-100 rounded-xl px-4 py-3 cursor-pointer select-none">
                   <input type="checkbox" checked={manual.is_emergency} onChange={e => setManual(p => ({ ...p, is_emergency: e.target.checked }))} className="w-5 h-5 accent-red-600" />
                   <div className="flex-1 text-right">
-                    <p className="font-bold text-red-700 text-sm flex items-center gap-1.5 justify-end"><AlertTriangle size={14} />حالة طارئة</p>
-                    <p className="text-xs text-red-500">سيُضاف في مقدمة الطابور</p>
+                    <p className="font-bold text-[#E53935] text-sm flex items-center gap-1.5 justify-end"><AlertTriangle size={14} />حالة طارئة حرجة</p>
+                    <p className="text-xs text-rose-500">سيُعطى أولوية في مقدمة الطابور</p>
                   </div>
                 </label>
                 <button onClick={handleAddManual} disabled={!manual.name.trim() || manualSaving}
-                  className={`w-full py-4 rounded-2xl font-bold text-base transition-all ${manual.name.trim() ? 'bg-[#7B1FA2] text-white' : 'bg-gray-200 text-gray-400'}`}>
-                  {manualSaving ? 'جاري الإضافة...' : 'إضافة للطابور'}
+                  className={`w-full py-4 rounded-2xl font-bold text-base transition-all ${manual.name.trim() ? 'bg-[#199A8E] text-white hover:bg-[#104C48] shadow-md shadow-[#199A8E]/20' : 'bg-gray-200 text-gray-400'}`}>
+                  {manualSaving ? 'جاري الإضافة...' : 'إضافة إلى طابور اليوم'}
                 </button>
               </div>
             </div>
 
             {/* Today's bookings list */}
-            <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-4">
+            <div className="bg-white border border-[#E2E8F0] rounded-2xl shadow-sm p-4">
               <h3 className="font-bold text-gray-700 text-sm mb-3 text-right flex items-center gap-2 justify-end">
                 حجوزات اليوم ({queue.length})
-                <Calendar size={14} className="text-[#7B1FA2]" />
+                <Calendar size={14} className="text-[#199A8E]" />
               </h3>
               {queue.length === 0 ? (
                 <p className="text-center text-gray-400 text-sm py-4">لا توجد حجوزات اليوم</p>
@@ -449,18 +456,18 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
                   {queue.map(item => {
                     const stMap: Record<string, { label: string; cls: string }> = {
                       waiting: { label: 'انتظار', cls: 'bg-amber-100 text-amber-700' },
-                      in_progress: { label: 'يُعاين', cls: 'bg-blue-100 text-blue-700' },
-                      completed: { label: 'مكتمل', cls: 'bg-green-100 text-green-700' },
+                      in_progress: { label: 'يُعاين', cls: 'bg-[#E8F5F4] text-[#199A8E] font-bold' },
+                      completed: { label: 'مكتمل', cls: 'bg-emerald-100 text-emerald-700' },
                     };
                     const st = stMap[item.status] || stMap.waiting;
                     return (
-                      <div key={item.id} className="flex items-center gap-3 bg-gray-50 rounded-xl px-3 py-2.5">
+                      <div key={item.id} className="flex items-center gap-3 bg-[#F8FAFB] border border-[#E2E8F0] rounded-xl px-3 py-2.5">
                         <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${st.cls}`}>{st.label}</span>
                         <div className="flex-1 text-right min-w-0">
                           <p className="text-sm font-bold text-gray-800 truncate">{item.appointment?.patient?.full_name}</p>
                           <p className="text-xs text-gray-500 truncate">{item.appointment?.symptoms || '—'}</p>
                         </div>
-                        <span className="text-xs text-gray-400 flex-shrink-0">#{item.queue_number}</span>
+                        <span className="text-xs text-gray-400 flex-shrink-0 font-bold">#{item.queue_number}</span>
                         {item.appointment?.is_emergency && <AlertCircle size={14} className="text-red-500 flex-shrink-0" />}
                       </div>
                     );
@@ -474,18 +481,18 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
         {/* ══════ REPORT TAB ══════ */}
         {tab === 'report' && (
           <div className="space-y-4">
-            <div className="bg-gradient-to-br from-[#7B1FA2] to-[#4A148C] rounded-2xl p-5 text-white">
-              <p className="text-white/70 text-sm text-right">تقرير اليوم</p>
+            <div className="bg-gradient-to-br from-[#104C48] to-[#199A8E] rounded-2xl p-5 text-white shadow-md">
+              <p className="text-teal-100/80 text-sm text-right">تقرير الأداء اليومي</p>
               <p className="text-2xl font-black">{new Date().toLocaleDateString('ar-YE', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: 'إجمالي الحجوزات', val: queue.length, cls: 'bg-purple-50 text-purple-700' },
-                { label: 'تمت المعاينة', val: completed.length, cls: 'bg-green-50 text-green-700' },
+                { label: 'إجمالي الحجوزات', val: queue.length, cls: 'bg-[#E8F5F4] text-[#104C48]' },
+                { label: 'تمت المعاينة', val: completed.length, cls: 'bg-emerald-50 text-emerald-700' },
                 { label: 'في الانتظار', val: waiting.length, cls: 'bg-amber-50 text-amber-700' },
-                { label: 'حالات طارئة', val: queue.filter(q => q.appointment?.is_emergency).length, cls: 'bg-red-50 text-red-700' },
+                { label: 'حالات طارئة', val: queue.filter(q => q.appointment?.is_emergency).length, cls: 'bg-rose-50 text-rose-700' },
               ].map(({ label, val, cls }) => (
-                <div key={label} className={`${cls.split(' ')[0]} rounded-2xl p-4`}>
+                <div key={label} className={`${cls.split(' ')[0]} rounded-2xl p-4 border border-black/5`}>
                   <p className={`text-3xl font-black ${cls.split(' ')[1]}`}>{val}</p>
                   <p className="text-xs text-gray-500 mt-1">{label}</p>
                 </div>
@@ -533,11 +540,11 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="text-xs text-gray-500 block mb-1 text-right flex items-center gap-1 justify-end"><span>الوزن (كجم)</span></label>
-                  <input type="number" value={vitals.weight} onChange={e => setVitals(p => ({ ...p, weight: e.target.value }))} placeholder="70" className="w-full p-3 rounded-xl border border-gray-200 text-sm text-center outline-none focus:border-[#7B1FA2]" />
+                  <input type="number" value={vitals.weight} onChange={e => setVitals(p => ({ ...p, weight: e.target.value }))} placeholder="70" className="w-full p-3 rounded-xl border border-gray-200 text-sm text-center outline-none focus:border-[#199A8E]" />
                 </div>
                 <div>
                   <label className="text-xs text-gray-500 block mb-1 text-right">الطول (سم)</label>
-                  <input type="number" value={vitals.height} onChange={e => setVitals(p => ({ ...p, height: e.target.value }))} placeholder="170" className="w-full p-3 rounded-xl border border-gray-200 text-sm text-center outline-none focus:border-[#7B1FA2]" />
+                  <input type="number" value={vitals.height} onChange={e => setVitals(p => ({ ...p, height: e.target.value }))} placeholder="170" className="w-full p-3 rounded-xl border border-gray-200 text-sm text-center outline-none focus:border-[#199A8E]" />
                 </div>
               </div>
 
@@ -560,22 +567,22 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
               <div className="grid grid-cols-3 gap-2">
                 <div>
                   <label className="text-[10px] text-gray-400 block mb-1 text-center">النبض<br/>(ن/د)</label>
-                  <input type="number" value={vitals.pulse} onChange={e => setVitals(p => ({ ...p, pulse: e.target.value }))} placeholder="75" className="w-full p-2.5 rounded-xl border border-gray-200 text-sm text-center outline-none focus:border-[#7B1FA2]" />
+                  <input type="number" value={vitals.pulse} onChange={e => setVitals(p => ({ ...p, pulse: e.target.value }))} placeholder="75" className="w-full p-2.5 rounded-xl border border-gray-200 text-sm text-center outline-none focus:border-[#199A8E]" />
                 </div>
                 <div>
                   <label className="text-[10px] text-gray-400 block mb-1 text-center">الحرارة<br/>(°م)</label>
-                  <input type="number" step="0.1" value={vitals.temperature} onChange={e => setVitals(p => ({ ...p, temperature: e.target.value }))} placeholder="36.6" className="w-full p-2.5 rounded-xl border border-gray-200 text-sm text-center outline-none focus:border-[#7B1FA2]" />
+                  <input type="number" step="0.1" value={vitals.temperature} onChange={e => setVitals(p => ({ ...p, temperature: e.target.value }))} placeholder="36.6" className="w-full p-2.5 rounded-xl border border-gray-200 text-sm text-center outline-none focus:border-[#199A8E]" />
                 </div>
                 <div>
                   <label className="text-[10px] text-gray-400 block mb-1 text-center">الأكسجين<br/>SpO₂ (%)</label>
-                  <input type="number" value={vitals.spo2} onChange={e => setVitals(p => ({ ...p, spo2: e.target.value }))} placeholder="98" className="w-full p-2.5 rounded-xl border border-gray-200 text-sm text-center outline-none focus:border-[#7B1FA2]" />
+                  <input type="number" value={vitals.spo2} onChange={e => setVitals(p => ({ ...p, spo2: e.target.value }))} placeholder="98" className="w-full p-2.5 rounded-xl border border-gray-200 text-sm text-center outline-none focus:border-[#199A8E]" />
                 </div>
               </div>
 
               {/* Blood sugar */}
               <div>
                 <label className="text-xs text-gray-500 block mb-1.5 text-right">سكر الدم العشوائي (mg/dL)</label>
-                <input type="number" value={vitals.blood_sugar} onChange={e => setVitals(p => ({ ...p, blood_sugar: e.target.value }))} placeholder="100 (اختياري)" className="w-full p-3 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#7B1FA2]" dir="rtl" />
+                <input type="number" value={vitals.blood_sugar} onChange={e => setVitals(p => ({ ...p, blood_sugar: e.target.value }))} placeholder="100 (اختياري)" className="w-full p-3 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E]" dir="rtl" />
               </div>
 
               {/* Pain level */}
@@ -597,11 +604,11 @@ export function SecretaryDashboard({ onBack }: { onBack?: () => void }) {
               {/* Notes */}
               <div>
                 <label className="text-xs text-gray-500 block mb-1.5 text-right">ملاحظات للطبيب</label>
-                <textarea value={vitals.notes} onChange={e => setVitals(p => ({ ...p, notes: e.target.value }))} rows={2} placeholder="أي معلومات مهمة..." dir="rtl" className="w-full p-3 rounded-xl border border-gray-200 text-sm outline-none resize-none focus:border-[#7B1FA2]" />
+                <textarea value={vitals.notes} onChange={e => setVitals(p => ({ ...p, notes: e.target.value }))} rows={2} placeholder="أي معلومات مهمة..." dir="rtl" className="w-full p-3 rounded-xl border border-gray-200 text-sm outline-none resize-none focus:border-[#199A8E]" />
               </div>
 
               <button onClick={saveVitals} disabled={vitalsSaving}
-                className="w-full py-4 bg-[#7B1FA2] text-white rounded-2xl font-bold text-base">
+                className="w-full py-4 bg-[#199A8E] hover:bg-[#104C48] text-white rounded-2xl font-bold text-base shadow-md shadow-[#199A8E]/20 transition">
                 {vitalsSaving ? 'جاري الحفظ...' : 'حفظ وتجهيز للدخول'}
               </button>
             </div>
@@ -624,8 +631,8 @@ function QueueCard({ item, index, showStartBtn, onStart, onVitals, onDelete }: {
 }) {
   return (
     <div className={`bg-white rounded-2xl border shadow-sm overflow-hidden ${item.appointment?.is_emergency ? 'border-red-300' : item.vitals_saved ? 'border-green-200' : 'border-gray-100'}`}>
-      <div className={`px-4 py-3 flex items-center gap-3 ${item.appointment?.is_emergency ? 'bg-red-50' : 'bg-gray-50'}`}>
-        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm flex-shrink-0 ${item.appointment?.is_emergency ? 'bg-red-100 text-red-700' : 'bg-purple-100 text-[#7B1FA2]'}`}>
+      <div className={`px-4 py-3 flex items-center gap-3 ${item.appointment?.is_emergency ? 'bg-red-50' : 'bg-[#F8FAFB]'}`}>
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm flex-shrink-0 ${item.appointment?.is_emergency ? 'bg-red-100 text-red-700' : 'bg-[#E8F5F4] text-[#199A8E]'}`}>
           #{item.queue_number}
         </div>
         <div className="flex-1 text-right min-w-0">
@@ -640,14 +647,14 @@ function QueueCard({ item, index, showStartBtn, onStart, onVitals, onDelete }: {
       <div className="px-4 py-2.5 flex items-center justify-between">
         <div className="flex gap-2">
           {showStartBtn && (
-            <button onClick={onStart} className="px-3 py-2 bg-[#7B1FA2] text-white rounded-xl text-xs font-bold">
+            <button onClick={onStart} className="px-3 py-2 bg-[#199A8E] hover:bg-[#104C48] text-white rounded-xl text-xs font-bold transition shadow-xs">
               إدخال
             </button>
           )}
           <button onClick={onVitals} className={`px-3 py-2 rounded-xl text-xs font-bold ${item.vitals_saved ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
             {item.vitals_saved ? '✓ بيانات' : 'إدخال البيانات'}
           </button>
-          <button onClick={onDelete} className="p-2 rounded-xl bg-red-50 text-red-400">
+          <button onClick={onDelete} className="p-2 rounded-xl bg-red-50 text-red-400 hover:text-red-600 transition">
             <Trash2 size={13} />
           </button>
         </div>

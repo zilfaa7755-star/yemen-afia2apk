@@ -83,15 +83,15 @@ const urgencyOptions = [
 const referralOptions: Record<ReferralFromRole, ReferralOption[]> = {
   nurse: [
     { id: 'gp', icon: Stethoscope, label: 'طبيب عام', color: 'text-green-700', bg: 'bg-green-50 border-green-300' },
-    { id: 'specialist', icon: UserCheck, label: 'أخصائي', color: 'text-blue-700', bg: 'bg-blue-50 border-blue-300' },
+    { id: 'specialist', icon: UserCheck, label: 'أخصائي', color: 'text-[#104C48]', bg: 'bg-[#E8F5F4] border-[#199A8E]/30' },
     { id: 'hospital', icon: Building2, label: 'مستشفى', color: 'text-red-700', bg: 'bg-red-50 border-red-300' },
   ],
   gp: [
-    { id: 'specialist', icon: UserCheck, label: 'أخصائي', color: 'text-blue-700', bg: 'bg-blue-50 border-blue-300' },
+    { id: 'specialist', icon: UserCheck, label: 'أخصائي', color: 'text-[#104C48]', bg: 'bg-[#E8F5F4] border-[#199A8E]/30' },
     { id: 'hospital', icon: Building2, label: 'مستشفى', color: 'text-red-700', bg: 'bg-red-50 border-red-300' },
   ],
   specialist: [
-    { id: 'specialist', icon: UserCheck, label: 'أخصائي آخر', color: 'text-blue-700', bg: 'bg-blue-50 border-blue-300' },
+    { id: 'specialist', icon: UserCheck, label: 'أخصائي آخر', color: 'text-[#104C48]', bg: 'bg-[#E8F5F4] border-[#199A8E]/30' },
     { id: 'hospital', icon: Building2, label: 'مستشفى', color: 'text-red-700', bg: 'bg-red-50 border-red-300' },
   ],
   hospital: [
@@ -194,7 +194,7 @@ export function ReferralModal({ fromRole, patientId = 'demo', patientName, onClo
               </div>
               {savedResult.procedure_name && (
                 <div className="flex justify-between text-sm">
-                  <span className="font-bold text-blue-700">{savedResult.procedure_name}</span>
+                  <span className="font-bold text-[#104C48]">{savedResult.procedure_name}</span>
                   <span className="text-gray-500">{savedResult.referral_type === 'operation' ? 'العملية' : 'الإجراء'}</span>
                 </div>
               )}
@@ -203,7 +203,7 @@ export function ReferralModal({ fromRole, patientId = 'demo', patientName, onClo
                 <span className="text-gray-500">الاستعجال</span>
               </div>
             </div>
-            <button onClick={onClose} className="w-full bg-[#2196F3] text-white py-4 rounded-2xl font-bold">إغلاق</button>
+            <button onClick={onClose} className="w-full bg-[#199A8E] text-white py-4 rounded-2xl font-bold">إغلاق</button>
           </div>
         ) : (
           <div className="flex-1 overflow-y-auto px-5 pt-4 pb-8 space-y-5">
@@ -231,7 +231,7 @@ export function ReferralModal({ fromRole, patientId = 'demo', patientName, onClo
                 <div className="flex flex-wrap gap-2 justify-end">
                   {specialties.map(s => (
                     <button key={s} onClick={() => setSpecialty(s)}
-                      className={`text-sm px-3 py-2 rounded-xl border transition-all ${specialty === s ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-50 text-gray-700 border-gray-200'}`}>{s}</button>
+                      className={`text-sm px-3 py-2 rounded-xl border transition-all ${specialty === s ? 'bg-[#199A8E] text-white border-[#199A8E]' : 'bg-gray-50 text-gray-700 border-gray-200'}`}>{s}</button>
                   ))}
                 </div>
               </div>
@@ -275,7 +275,7 @@ export function ReferralModal({ fromRole, patientId = 'demo', patientName, onClo
                 <div className="grid grid-cols-3 gap-2">
                   {procedureTypes.map(pt => (
                     <button key={pt.id} onClick={() => { setHospitalReferralType(pt.id); setProcedureName(''); }}
-                      className={`py-3 rounded-xl border-2 font-bold text-sm transition-all ${hospitalReferralType === pt.id ? 'bg-[#2196F3] text-white border-[#2196F3]' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>{pt.label}</button>
+                      className={`py-3 rounded-xl border-2 font-bold text-sm transition-all ${hospitalReferralType === pt.id ? 'bg-[#199A8E] text-white border-[#199A8E]' : 'bg-gray-50 border-gray-200 text-gray-600'}`}>{pt.label}</button>
                   ))}
                 </div>
               </div>
@@ -290,12 +290,12 @@ export function ReferralModal({ fromRole, patientId = 'demo', patientName, onClo
                 <div className="flex flex-wrap gap-2 justify-end mb-2">
                   {procedureNames[hospitalReferralType].map(p => (
                     <button key={p} onClick={() => setProcedureName(p)}
-                      className={`text-sm px-3 py-2 rounded-xl border transition-all ${procedureName === p ? 'bg-[#2196F3] text-white border-[#2196F3]' : 'bg-gray-50 text-gray-700 border-gray-200'}`}>{p}</button>
+                      className={`text-sm px-3 py-2 rounded-xl border transition-all ${procedureName === p ? 'bg-[#199A8E] text-white border-[#199A8E]' : 'bg-gray-50 text-gray-700 border-gray-200'}`}>{p}</button>
                   ))}
                 </div>
                 <input type="text" value={procedureName} onChange={e => setProcedureName(e.target.value)}
                   placeholder="أو اكتب اسم الإجراء يدوياً..." dir="rtl"
-                  className="w-full p-3 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3]" />
+                  className="w-full p-3 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E]" />
               </div>
             )}
 
@@ -318,7 +318,7 @@ export function ReferralModal({ fromRole, patientId = 'demo', patientName, onClo
                 <p className="font-bold text-gray-700 text-sm mb-2 text-right">سبب التحويل *</p>
                 <textarea value={reason} onChange={e => setReason(e.target.value)}
                   rows={3} dir="rtl" placeholder="اشرح سبب التحويل بالتفصيل..."
-                  className="w-full p-3.5 rounded-xl border border-gray-200 resize-none text-sm outline-none focus:border-[#2196F3]" />
+                  className="w-full p-3.5 rounded-xl border border-gray-200 resize-none text-sm outline-none focus:border-[#199A8E]" />
               </div>
             )}
 
@@ -334,7 +334,7 @@ export function ReferralModal({ fromRole, patientId = 'demo', patientName, onClo
 
             {/* Submit */}
             <button onClick={handleSave} disabled={!canSave || saving}
-              className={`w-full py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2 transition-all ${canSave ? 'bg-[#2196F3] text-white shadow-lg' : 'bg-gray-200 text-gray-400'}`}>
+              className={`w-full py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2 transition-all ${canSave ? 'bg-[#199A8E] text-white shadow-lg' : 'bg-gray-200 text-gray-400'}`}>
               {saving
                 ? <div className="w-5 h-5 border-2 border-white/50 border-t-white rounded-full animate-spin" />
                 : <><Send size={18} />إرسال التحويل</>}

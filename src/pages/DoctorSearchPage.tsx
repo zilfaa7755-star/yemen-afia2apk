@@ -314,7 +314,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
       <div className="fixed inset-0 z-50 bg-black/60 flex items-end justify-center">
         <div className="bg-white rounded-t-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto">
           {/* Header with gradient */}
-          <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-5 pt-6 pb-8 rounded-t-3xl relative">
+          <div className="bg-gradient-to-b from-[#104C48] via-[#125853] to-[#199A8E] px-5 pt-6 pb-8 rounded-t-3xl relative">
             <button onClick={() => setShowProfileModal(false)}
               className="absolute top-4 left-4 w-9 h-9 bg-white/20 rounded-full flex items-center justify-center">
               <X size={18} className="text-white" />
@@ -345,7 +345,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                 { id: 'schedule', label: 'التقييمات ومواعيد العمل' },
               ].map((tab) => (
                 <button key={tab.id} onClick={() => setProfileTab(tab.id as 'booking' | 'bio' | 'schedule')}
-                  className={`flex-1 rounded-xl px-2 py-3 text-[11px] font-bold transition-all ${profileTab === tab.id ? 'bg-[#2196F3] text-white shadow-sm' : 'text-gray-500 hover:bg-gray-50'}`}>
+                  className={`flex-1 rounded-xl px-2 py-3 text-[11px] font-bold transition-all ${profileTab === tab.id ? 'bg-[#199A8E] text-white shadow-sm' : 'text-gray-500 hover:bg-gray-50'}`}>
                   {tab.label}
                 </button>
               ))}
@@ -365,10 +365,10 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                       <button
                         key={id}
                         onClick={() => setConsultationType(id as 'clinic' | 'emergency' | 'remote')}
-                        className={`rounded-xl border-2 p-3 text-center transition-all ${consultationType === id ? 'border-[#2196F3] bg-blue-50' : 'border-gray-100 bg-white'}`}
+                        className={`rounded-xl border-2 p-3 text-center transition-all ${consultationType === id ? 'border-[#199A8E] bg-[#E8F5F4]' : 'border-gray-100 bg-white'}`}
                       >
-                        <Icon size={20} className={`mx-auto mb-1.5 ${consultationType === id ? 'text-[#2196F3]' : 'text-gray-400'}`} />
-                        <span className={`block text-xs font-bold ${consultationType === id ? 'text-[#2196F3]' : 'text-gray-600'}`}>{label}</span>
+                        <Icon size={20} className={`mx-auto mb-1.5 ${consultationType === id ? 'text-[#199A8E]' : 'text-gray-400'}`} />
+                        <span className={`block text-xs font-bold ${consultationType === id ? 'text-[#199A8E]' : 'text-gray-600'}`}>{label}</span>
                         <span className="block text-[10px] text-gray-400 mt-0.5">{desc}</span>
                         <span className="block text-[10px] font-bold text-gray-500 mt-1">{fee.toLocaleString()} ر.ي</span>
                       </button>
@@ -394,7 +394,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                   <div className="flex flex-wrap gap-2 mb-3">
                     {['فحص روتيني ومتابعة', 'ألم أو أعراض مستمرة', 'صداع ودوخة', 'ضغط وسكر', 'استشارة وتعديل أدوية'].map((reason) => (
                       <button key={reason} onClick={() => setBookingReason(reason)}
-                        className={`rounded-full px-3 py-2 text-xs font-medium transition-colors ${bookingReason === reason ? 'bg-[#0B337A] text-white' : 'bg-blue-50 text-[#0B337A]'}`}>
+                        className={`rounded-full px-3 py-2 text-xs font-medium transition-colors ${bookingReason === reason ? 'bg-[#0B337A] text-white' : 'bg-[#E8F5F4] text-[#0B337A]'}`}>
                         {reason}
                       </button>
                     ))}
@@ -407,7 +407,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                 <section className="bg-white rounded-2xl border border-gray-100 p-4">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs text-gray-500">{qd.distKm} كم • حوالي {qd.waitMin} دقيقة</span>
-                    <h3 className="font-bold text-gray-800 text-sm flex items-center gap-2">مكان العيادة <MapPin size={15} className="text-[#2196F3]" /></h3>
+                    <h3 className="font-bold text-gray-800 text-sm flex items-center gap-2">مكان العيادة <MapPin size={15} className="text-[#199A8E]" /></h3>
                   </div>
                   <p className="text-sm font-bold text-gray-800 text-right">{selectedDoctor.clinic?.name}</p>
                   <p className="text-xs text-gray-500 mt-1 text-right">{selectedDoctor.clinic?.address}</p>
@@ -424,8 +424,8 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                   <h3 className="font-bold text-gray-800 text-sm mb-3">اختر وسيلة الدفع الإلكتروني:</h3>
                   <div className="grid grid-cols-3 gap-2">
                     {[{ id: 'wallet', label: 'المحفظة الإلكترونية', Icon: Wallet }, { id: 'card', label: 'بطاقة مصرفية', Icon: CreditCard }, { id: 'cash', label: 'نقداً عند الوصول', Icon: Banknote }].map(({ id, label, Icon }) => (
-                      <button key={id} onClick={() => setPaymentChoice(id)} className={`rounded-xl border-2 p-3 text-center transition-all ${paymentChoice === id ? 'border-[#2196F3] bg-blue-50' : 'border-gray-100 bg-white'}`}>
-                        <Icon size={19} className={`mx-auto mb-2 ${paymentChoice === id ? 'text-[#2196F3]' : 'text-gray-400'}`} />
+                      <button key={id} onClick={() => setPaymentChoice(id)} className={`rounded-xl border-2 p-3 text-center transition-all ${paymentChoice === id ? 'border-[#199A8E] bg-[#E8F5F4]' : 'border-gray-100 bg-white'}`}>
+                        <Icon size={19} className={`mx-auto mb-2 ${paymentChoice === id ? 'text-[#199A8E]' : 'text-gray-400'}`} />
                         <span className="block text-[10px] leading-4 text-gray-600">{label}</span>
                       </button>
                     ))}
@@ -437,7 +437,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                   </div>
                 </section>
 
-                <button onClick={handleBook} className="w-full rounded-2xl bg-gradient-to-l from-[#2196F3] to-[#18A98C] py-4 text-white font-black text-base shadow-lg flex items-center justify-center gap-2">
+                <button onClick={handleBook} className="w-full rounded-2xl bg-gradient-to-l from-[#104C48] to-[#199A8E] py-4 text-white font-black text-base shadow-lg flex items-center justify-center gap-2">
                   تأكيد الحجز والحصول على التذكرة ({currentFee.toLocaleString()} ر.ي) <Check size={19} />
                 </button>
               </div>
@@ -449,29 +449,29 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                   <div className="mt-4 h-2 rounded-full bg-gray-100 overflow-hidden"><div className="h-full w-[92%] rounded-full bg-amber-400" /></div>
                 </div>
                 <div className="bg-white rounded-2xl border border-gray-100 p-4">
-                  <h3 className="font-bold text-gray-800 text-sm mb-3 flex items-center gap-2">أيام وساعات الدوام <CalendarDays size={16} className="text-[#2196F3]" /></h3>
+                  <h3 className="font-bold text-gray-800 text-sm mb-3 flex items-center gap-2">أيام وساعات الدوام <CalendarDays size={16} className="text-[#199A8E]" /></h3>
                   <div className="flex flex-wrap gap-1.5 mb-3">{ALL_DAYS.map((day) => <span key={day} className={`text-xs px-2.5 py-1.5 rounded-lg font-medium ${selectedDoctor.working_days?.includes(day) ? 'bg-green-100 text-green-700' : 'bg-gray-50 text-gray-300 line-through'}`}>{DAY_LABELS[day]}</span>)}</div>
-                  <div className="space-y-2">{selectedDoctor.working_hours?.morning && <div className="flex justify-between rounded-xl bg-amber-50 px-3 py-2.5 text-sm"><span className="font-bold text-gray-700">{selectedDoctor.working_hours.morning.start} - {selectedDoctor.working_hours.morning.end}</span><span className="text-amber-600">الفترة الصباحية</span></div>}{selectedDoctor.working_hours?.evening && <div className="flex justify-between rounded-xl bg-blue-50 px-3 py-2.5 text-sm"><span className="font-bold text-gray-700">{selectedDoctor.working_hours.evening.start} - {selectedDoctor.working_hours.evening.end}</span><span className="text-[#1565C0]">الفترة المسائية</span></div>}</div>
+                  <div className="space-y-2">{selectedDoctor.working_hours?.morning && <div className="flex justify-between rounded-xl bg-amber-50 px-3 py-2.5 text-sm"><span className="font-bold text-gray-700">{selectedDoctor.working_hours.morning.start} - {selectedDoctor.working_hours.morning.end}</span><span className="text-amber-600">الفترة الصباحية</span></div>}{selectedDoctor.working_hours?.evening && <div className="flex justify-between rounded-xl bg-[#E8F5F4] px-3 py-2.5 text-sm"><span className="font-bold text-gray-700">{selectedDoctor.working_hours.evening.start} - {selectedDoctor.working_hours.evening.end}</span><span className="text-[#104C48]">الفترة المسائية</span></div>}</div>
                 </div>
                 <div className="bg-[#EBF8F4] rounded-2xl border border-teal-100 p-4"><div className="flex justify-between items-center"><div><p className="text-xs text-gray-500">المتوقع قبلك</p><p className="text-2xl font-black text-gray-900">{qd.waiting} مرضى</p></div><div className="text-left"><p className="text-xs text-gray-500">الانتظار التقريبي</p><p className="text-2xl font-black text-teal-700">{qd.waitMin} دقيقة</p></div></div></div>
-                <button onClick={handleBook} className="w-full rounded-2xl bg-[#2196F3] py-4 text-white font-bold">اختيار هذا الطبيب والحجز</button>
+                <button onClick={handleBook} className="w-full rounded-2xl bg-[#199A8E] py-4 text-white font-bold">اختيار هذا الطبيب والحجز</button>
               </div>
             ) : (
               <div className="pt-5 space-y-4">
             {/* Quick stats */}
             <div className="grid grid-cols-4 gap-2">
               <div className="bg-gray-50 rounded-xl p-3 text-center">
-                <Briefcase size={18} className="mx-auto text-[#2196F3] mb-1" />
+                <Briefcase size={18} className="mx-auto text-[#199A8E] mb-1" />
                 <p className="font-bold text-gray-800 text-base">{extras.experienceYears}س</p>
                 <p className="text-xs text-gray-500">خبرة</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-3 text-center">
-                <Clock size={18} className="mx-auto text-[#2196F3] mb-1" />
+                <Clock size={18} className="mx-auto text-[#199A8E] mb-1" />
                 <p className="font-bold text-gray-800 text-base">{selectedDoctor.average_consultation_time}د</p>
                 <p className="text-xs text-gray-500">معاينة</p>
               </div>
               <div className="bg-gray-50 rounded-xl p-3 text-center">
-                <Users size={18} className="mx-auto text-[#2196F3] mb-1" />
+                <Users size={18} className="mx-auto text-[#199A8E] mb-1" />
                 <p className="font-bold text-gray-800 text-base">{qd.waiting}</p>
                 <p className="text-xs text-gray-500">في الطابور</p>
               </div>
@@ -486,7 +486,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             {selectedDoctor.bio && (
               <div className="bg-white rounded-2xl border border-gray-100 p-4">
                 <h3 className="font-bold text-gray-800 text-sm mb-2 text-right flex items-center gap-2 justify-end">
-                  نبذة عن الطبيب<FileText size={15} className="text-[#2196F3]" />
+                  نبذة عن الطبيب<FileText size={15} className="text-[#199A8E]" />
                 </h3>
                 <p className="text-gray-500 text-sm leading-relaxed text-right">{selectedDoctor.bio}</p>
               </div>
@@ -495,7 +495,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             {/* Qualifications */}
             <div className="bg-white rounded-2xl border border-gray-100 p-4">
               <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                المؤهلات العلمية<GraduationCap size={15} className="text-[#2196F3]" />
+                المؤهلات العلمية<GraduationCap size={15} className="text-[#199A8E]" />
               </h3>
               <div className="space-y-2">
                 {extras.qualifications.map((q, i) => (
@@ -510,10 +510,10 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             {/* Education & License */}
             <div className="bg-white rounded-2xl border border-gray-100 p-4">
               <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                التعليم والترخيص<BookOpen size={15} className="text-[#2196F3]" />
+                التعليم والترخيص<BookOpen size={15} className="text-[#199A8E]" />
               </h3>
               <div className="space-y-2">
-                <div className="flex items-center justify-between bg-blue-50 rounded-xl px-3 py-2.5">
+                <div className="flex items-center justify-between bg-[#E8F5F4] rounded-xl px-3 py-2.5">
                   <span className="text-sm font-mono font-bold text-gray-700">{extras.licenseNumber}</span>
                   <div className="flex items-center gap-2">
                     <ShieldCheck size={14} className="text-green-500" />
@@ -522,7 +522,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                 </div>
                 <div className="flex items-center justify-between bg-gray-50 rounded-xl px-3 py-2.5">
                   <span className="text-sm text-gray-700 text-right flex-1">{extras.education}</span>
-                  <BookOpen size={14} className="text-[#2196F3] flex-shrink-0" />
+                  <BookOpen size={14} className="text-[#199A8E] flex-shrink-0" />
                 </div>
               </div>
             </div>
@@ -530,11 +530,11 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             {/* Services offered */}
             <div className="bg-white rounded-2xl border border-gray-100 p-4">
               <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                الخدمات المقدمة<Activity size={15} className="text-[#2196F3]" />
+                الخدمات المقدمة<Activity size={15} className="text-[#199A8E]" />
               </h3>
               <div className="flex flex-wrap gap-2 justify-end">
                 {extras.services.map((s, i) => (
-                  <span key={i} className="bg-blue-50 text-[#2196F3] text-xs px-3 py-1.5 rounded-xl font-medium">{s}</span>
+                  <span key={i} className="bg-[#E8F5F4] text-[#199A8E] text-xs px-3 py-1.5 rounded-xl font-medium">{s}</span>
                 ))}
               </div>
             </div>
@@ -542,13 +542,13 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             {/* Certificates */}
             <div className="bg-white rounded-2xl border border-gray-100 p-4">
               <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                الشهادات والتدريب<Award size={15} className="text-[#2196F3]" />
+                الشهادات والتدريب<Award size={15} className="text-[#199A8E]" />
               </h3>
               <div className="space-y-2">
                 {extras.certificates.map((c, i) => (
-                  <div key={i} className="bg-blue-50 rounded-xl px-3 py-2.5 border border-blue-100">
+                  <div key={i} className="bg-[#E8F5F4] rounded-xl px-3 py-2.5 border border-[#199A8E]/20">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs text-blue-600 font-bold bg-white px-2 py-0.5 rounded-full">{c.year}</span>
+                      <span className="text-xs text-[#104C48] font-bold bg-white px-2 py-0.5 rounded-full">{c.year}</span>
                       <p className="font-bold text-gray-800 text-sm text-right flex-1 ml-2">{c.title}</p>
                     </div>
                     <p className="text-xs text-gray-500 text-right">{c.issuer}</p>
@@ -560,7 +560,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             {/* Languages */}
             <div className="bg-white rounded-2xl border border-gray-100 p-4">
               <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                اللغات<Languages size={15} className="text-[#2196F3]" />
+                اللغات<Languages size={15} className="text-[#199A8E]" />
               </h3>
               <div className="flex flex-wrap gap-2 justify-end">
                 {extras.languages.map((lang, i) => (
@@ -573,7 +573,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             {extras.publications.length > 0 && (
               <div className="bg-white rounded-2xl border border-gray-100 p-4">
                 <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                  الأبحاث والمنشورات<FileText size={15} className="text-[#2196F3]" />
+                  الأبحاث والمنشورات<FileText size={15} className="text-[#199A8E]" />
                 </h3>
                 <div className="space-y-2">
                   {extras.publications.map((p, i) => (
@@ -613,7 +613,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             <div className="grid grid-cols-1 gap-3">
               <div className="bg-white rounded-2xl border border-gray-100 p-4">
                 <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                  شركات التأمين المقبولة<Shield size={15} className="text-[#2196F3]" />
+                  شركات التأمين المقبولة<Shield size={15} className="text-[#199A8E]" />
                 </h3>
                 <div className="flex flex-wrap gap-2 justify-end">
                   {extras.insuranceAccepted.map((ins, i) => (
@@ -623,7 +623,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
               </div>
               <div className="bg-white rounded-2xl border border-gray-100 p-4">
                 <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                  العضويات المهنية<Users size={15} className="text-[#2196F3]" />
+                  العضويات المهنية<Users size={15} className="text-[#199A8E]" />
                 </h3>
                 <div className="space-y-1.5">
                   {extras.members.map((m, i) => (
@@ -639,24 +639,24 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             {/* Contact info */}
             <div className="bg-white rounded-2xl border border-gray-100 p-4">
               <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                معلومات التواصل<Phone size={15} className="text-[#2196F3]" />
+                معلومات التواصل<Phone size={15} className="text-[#199A8E]" />
               </h3>
               <div className="space-y-2">
                 <div className="flex items-center justify-between bg-gray-50 rounded-xl px-3 py-2.5">
                   <span className="text-sm font-mono text-gray-700" dir="ltr">{extras.phone}</span>
-                  <div className="flex items-center gap-2"><Phone size={14} className="text-[#2196F3]" /><span className="text-sm text-gray-600">الهاتف</span></div>
+                  <div className="flex items-center gap-2"><Phone size={14} className="text-[#199A8E]" /><span className="text-sm text-gray-600">الهاتف</span></div>
                 </div>
                 <div className="flex items-center justify-between bg-gray-50 rounded-xl px-3 py-2.5">
                   <span className="text-sm font-mono text-gray-700" dir="ltr">{extras.email}</span>
-                  <div className="flex items-center gap-2"><FileText size={14} className="text-[#2196F3]" /><span className="text-sm text-gray-600">البريد</span></div>
+                  <div className="flex items-center gap-2"><FileText size={14} className="text-[#199A8E]" /><span className="text-sm text-gray-600">البريد</span></div>
                 </div>
               </div>
             </div>
 
             {/* Patient stats */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-4 text-center">
-                <Users size={20} className="mx-auto text-[#2196F3] mb-1" />
+              <div className="bg-gradient-to-br from-[#E8F5F4] to-teal-50 rounded-2xl p-4 text-center">
+                <Users size={20} className="mx-auto text-[#199A8E] mb-1" />
                 <p className="text-xl font-black text-gray-800">{extras.totalPatients.toLocaleString('ar')}</p>
                 <p className="text-xs text-gray-500">إجمالي المرضى</p>
               </div>
@@ -670,13 +670,13 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             {/* Clinic location */}
             <div className="bg-white rounded-2xl border border-gray-100 p-4">
               <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                مكان العيادة<Building2 size={15} className="text-[#2196F3]" />
+                مكان العيادة<Building2 size={15} className="text-[#199A8E]" />
               </h3>
               <div className="space-y-2">
                 <div className="flex items-center justify-between bg-gray-50 rounded-xl px-3 py-2.5">
                   <span className="text-sm text-gray-600">{qd.distKm} كم</span>
                   <div className="flex items-center gap-2">
-                    <MapPin size={14} className="text-[#2196F3]" />
+                    <MapPin size={14} className="text-[#199A8E]" />
                     <span className="text-sm font-medium text-gray-700">{selectedDoctor.clinic?.address || '—'}</span>
                   </div>
                 </div>
@@ -684,7 +684,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                   <span className="text-sm text-gray-600">العيادة</span>
                   <span className="text-sm font-bold text-gray-800">{selectedDoctor.clinic?.name || '—'}</span>
                 </div>
-                <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-blue-50 text-[#2196F3] font-bold text-sm">
+                <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#E8F5F4] text-[#199A8E] font-bold text-sm">
                   <Navigation size={15} />الاتجاهات للعيادة
                 </button>
               </div>
@@ -693,7 +693,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             {/* Working days & hours */}
             <div className="bg-white rounded-2xl border border-gray-100 p-4">
               <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                أيام وساعات الدوام<CalendarDays size={15} className="text-[#2196F3]" />
+                أيام وساعات الدوام<CalendarDays size={15} className="text-[#199A8E]" />
               </h3>
               {/* Days */}
               <div className="flex flex-wrap gap-1.5 mb-3 justify-end">
@@ -718,11 +718,11 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                   </div>
                 )}
                 {selectedDoctor.working_hours?.evening && (
-                  <div className="flex items-center justify-between bg-indigo-50 rounded-xl px-3 py-2.5">
+                  <div className="flex items-center justify-between bg-[#E8F5F4] rounded-xl px-3 py-2.5">
                     <span className="text-sm font-bold text-gray-700">{selectedDoctor.working_hours.evening.start} - {selectedDoctor.working_hours.evening.end}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-indigo-600 font-medium">مسائي</span>
-                      <Clock size={14} className="text-indigo-500" />
+                      <span className="text-xs text-[#104C48] font-medium">مسائي</span>
+                      <Clock size={14} className="text-[#199A8E]" />
                     </div>
                   </div>
                 )}
@@ -730,9 +730,9 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
             </div>
 
             {/* Queue info */}
-            <div className="bg-[#EBF5FB] rounded-2xl p-4 border border-[#BEE3F8]">
+            <div className="bg-[#E8F5F4] rounded-2xl p-4 border border-[#199A8E]/30">
               <div className="flex items-center justify-between mb-3">
-                <Timer size={18} className="text-[#2196F3]" />
+                <Timer size={18} className="text-[#199A8E]" />
                 <p className="font-bold text-gray-800 text-sm">حالة الطابور الآن</p>
               </div>
               <div className="flex items-start justify-between">
@@ -743,7 +743,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                 </div>
                 <div className="text-left">
                   <p className="text-gray-500 text-xs">رقمك المتوقع</p>
-                  <p className="text-2xl font-bold text-[#2196F3] mt-1">#{myQueueNumber}</p>
+                  <p className="text-2xl font-bold text-[#199A8E] mt-1">#{myQueueNumber}</p>
                   <p className="text-gray-400 text-xs mt-1">{qd.waiting} قبلك</p>
                 </div>
               </div>
@@ -751,7 +751,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
 
             {/* Fee */}
             <div className="bg-white rounded-2xl border border-gray-100 p-4 flex items-center justify-between">
-              <span className="text-[#2196F3] font-black text-lg">{(selectedDoctor.consultation_fee ?? selectedDoctor.price ?? 3000).toLocaleString()} ر.ي</span>
+              <span className="text-[#199A8E] font-black text-lg">{(selectedDoctor.consultation_fee ?? selectedDoctor.price ?? 3000).toLocaleString()} ر.ي</span>
               <div className="flex items-center gap-2">
                 <DollarSign size={16} className="text-gray-400" />
                 <span className="text-sm text-gray-500">رسوم الكشف</span>
@@ -803,12 +803,12 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
       <div className="px-4 pt-4">
         <div className="flex gap-2 overflow-x-auto pb-3 -mx-4 px-4">
           <button onClick={() => setSelectedSpec('')}
-            className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${!selectedSpec ? 'bg-[#2196F3] text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>
+            className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${!selectedSpec ? 'bg-[#199A8E] text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>
             الكل
           </button>
           {specializations.map((s) => (
             <button key={s.id} onClick={() => setSelectedSpec(s.id)}
-              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedSpec === s.id ? 'bg-[#2196F3] text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>
+              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedSpec === s.id ? 'bg-[#199A8E] text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>
               {s.name_ar}
             </button>
           ))}
@@ -818,7 +818,7 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
 
         {isLoading ? (
           <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]" />
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#199A8E]" />
           </div>
         ) : (
           <div className="space-y-3">
@@ -839,9 +839,9 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                         <span className="text-gray-400 text-xs">({doctor.total_reviews})</span>
                       </div>
                       <div className="flex items-center gap-2 mt-2 flex-wrap">
-                        <div className="flex items-center gap-1 bg-blue-50 rounded-lg px-2 py-1">
-                          <MapPin size={11} className="text-[#2196F3]" />
-                          <span className="text-xs text-[#2196F3] font-medium">{qd.distKm} كم</span>
+                        <div className="flex items-center gap-1 bg-[#E8F5F4] rounded-lg px-2 py-1">
+                          <MapPin size={11} className="text-[#199A8E]" />
+                          <span className="text-xs text-[#199A8E] font-medium">{qd.distKm} كم</span>
                         </div>
                         <div className="flex items-center gap-1 bg-teal-50 rounded-lg px-2 py-1">
                           <Clock size={11} className="text-teal-600" />
@@ -850,12 +850,12 @@ export function DoctorSearchPage({ onBack, onSelectDoctor, preselectedSpecializa
                         <span className="text-xs text-gray-500">{qd.waiting} في الانتظار</span>
                       </div>
                     </div>
-                    <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gradient-to-br from-[#2196F3] to-[#1565C0] flex-shrink-0">
+                    <div className="w-16 h-16 rounded-2xl overflow-hidden bg-gradient-to-br from-[#104C48] to-[#199A8E] flex-shrink-0">
                       <img src={doctorPhotos[doctor.id]} alt={doctor.full_name} className="w-full h-full object-cover" />
                     </div>
                   </div>
                   <div className="mt-3 flex items-center justify-between pt-3 border-t border-gray-100">
-                    <span className="text-[#2196F3] font-bold">{(doctor.consultation_fee ?? doctor.price ?? 3000).toLocaleString()} ر.ي</span>
+                    <span className="text-[#199A8E] font-bold">{(doctor.consultation_fee ?? doctor.price ?? 3000).toLocaleString()} ر.ي</span>
                     <span className="text-xs text-gray-400 flex items-center gap-1">
                       <Stethoscope size={12} />اضغط للتفاصيل
                     </span>

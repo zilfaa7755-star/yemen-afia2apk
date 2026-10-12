@@ -6,7 +6,7 @@ import { PhoneFrame, StatusBar, WBox, WLine, WTitle, WMuted, WHeader, WBottomNav
 // ═══════════════════════════════════════════════════════════════════════════
 export function LoginRoleScreen() {
   const roles = [
-    { label: 'مريض', icon: '👤', color: 'bg-blue-50', text: 'text-[#2196F3]' },
+    { label: 'مريض', icon: '👤', color: 'bg-[#E8F5F4]', text: 'text-[#199A8E]' },
     { label: 'طبيب', icon: '🩺', color: 'bg-green-50', text: 'text-green-600' },
     { label: 'سكرتاري', icon: '📋', color: 'bg-purple-50', text: 'text-purple-600' },
     { label: 'ممرض/ة', icon: '💉', color: 'bg-teal-50', text: 'text-teal-600' },
@@ -15,11 +15,11 @@ export function LoginRoleScreen() {
   ];
   return (
     <PhoneFrame label="تسجيل الدخول — اختيار الدور">
-      <div className="h-full bg-gradient-to-b from-[#2196F3] to-[#1565C0] flex flex-col">
+      <div className="h-full bg-gradient-to-b from-[#199A8E] to-[#1565C0] flex flex-col">
         <StatusBar dark />
         <div className="text-center py-4">
           <div className="w-12 h-12 bg-white rounded-2xl mx-auto flex items-center justify-center mb-1">
-            <span className="text-[#2196F3] font-black text-xl">ع</span>
+            <span className="text-[#199A8E] font-black text-xl">ع</span>
           </div>
           <h2 className="text-white font-black text-base">يمن عافية</h2>
           <p className="text-white/60 text-[8px]">المنصة الصحية المتكاملة</p>
@@ -50,17 +50,17 @@ export function LoginRoleScreen() {
 export function LoginPhoneScreen() {
   return (
     <PhoneFrame label="تسجيل الدخول — رقم الهاتف">
-      <div className="h-full bg-gradient-to-b from-[#2196F3] to-[#1565C0] flex flex-col">
+      <div className="h-full bg-gradient-to-b from-[#199A8E] to-[#1565C0] flex flex-col">
         <StatusBar dark />
         <div className="text-center py-4">
           <div className="w-12 h-12 bg-white rounded-2xl mx-auto flex items-center justify-center mb-1">
-            <span className="text-[#2196F3] font-black text-xl">ع</span>
+            <span className="text-[#199A8E] font-black text-xl">ع</span>
           </div>
           <h2 className="text-white font-black text-base">يمن عافية</h2>
         </div>
         <div className="flex-1 bg-white rounded-t-3xl p-4">
           <div className="text-center mb-4">
-            <div className="w-10 h-10 bg-blue-50 rounded-xl mx-auto flex items-center justify-center mb-2">📱</div>
+            <div className="w-10 h-10 bg-[#E8F5F4] rounded-xl mx-auto flex items-center justify-center mb-2">📱</div>
             <h3 className="text-[12px] font-bold text-gray-800">أدخل رقم هاتفك</h3>
             <p className="text-[8px] text-gray-400">سيتم إكمال ملفك الصحي في الخطوة التالية</p>
           </div>
@@ -86,20 +86,20 @@ export function LoginPhoneScreen() {
 export function LoginProfileScreen() {
   return (
     <PhoneFrame label="تسجيل الدخول — الملف الصحي">
-      <div className="h-full bg-gradient-to-b from-[#2196F3] to-[#1565C0] flex flex-col">
+      <div className="h-full bg-gradient-to-b from-[#199A8E] to-[#1565C0] flex flex-col">
         <StatusBar dark />
         <div className="flex-1 bg-white rounded-t-3xl p-3 overflow-y-auto">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-7 h-7 bg-blue-100 rounded-lg flex items-center justify-center text-xs">❤️</div>
+            <div className="w-7 h-7 bg-[#E8F5F4] rounded-lg flex items-center justify-center text-xs">❤️</div>
             <div>
               <p className="text-[10px] font-bold text-gray-800">ملفك الصحي</p>
               <p className="text-[7px] text-gray-400">تساعد الطبيب على تقديم رعاية أفضل</p>
             </div>
           </div>
           <div className="flex gap-1 mb-3">
-            <div className="flex-1 h-1 rounded-full bg-[#2196F3]" />
-            <div className="flex-1 h-1 rounded-full bg-[#2196F3]" />
-            <div className="flex-1 h-1 rounded-full bg-[#2196F3]" />
+            <div className="flex-1 h-1 rounded-full bg-[#199A8E]" />
+            <div className="flex-1 h-1 rounded-full bg-[#199A8E]" />
+            <div className="flex-1 h-1 rounded-full bg-[#199A8E]" />
           </div>
           <div className="space-y-2">
             <div>
@@ -111,7 +111,7 @@ export function LoginProfileScreen() {
             <div>
               <p className="text-[8px] font-semibold text-gray-600 mb-1">الجنس</p>
               <div className="grid grid-cols-2 gap-2">
-                <div className="py-2 rounded-lg border-2 border-[#2196F3] bg-blue-50 text-center text-[9px] text-[#2196F3] font-bold">ذكر</div>
+                <div className="py-2 rounded-lg border-2 border-[#199A8E] bg-[#E8F5F4] text-center text-[9px] text-[#199A8E] font-bold">ذكر</div>
                 <div className="py-2 rounded-lg border-2 border-gray-200 text-center text-[9px] text-gray-500">أنثى</div>
               </div>
             </div>
@@ -142,7 +142,7 @@ export function LoginProfileScreen() {
           </div>
           <div className="flex gap-2 mt-3">
             <div className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-center text-[9px] text-gray-500">تخطى</div>
-            <div className="flex-1 py-2.5 rounded-xl bg-[#2196F3] text-white text-center text-[9px] font-bold">حفظ والمتابعة</div>
+            <div className="flex-1 py-2.5 rounded-xl bg-[#199A8E] text-white text-center text-[9px] font-bold">حفظ والمتابعة</div>
           </div>
         </div>
       </div>
@@ -155,7 +155,7 @@ export function LoginProfileScreen() {
 // ═══════════════════════════════════════════════════════════════════════════
 export function HomeScreen() {
   const quickServices = [
-    { icon: '🩺', bg: 'bg-blue-100', title: 'العيادات', desc: 'احجز طبيب' },
+    { icon: '🩺', bg: 'bg-[#E8F5F4]', title: 'العيادات', desc: 'احجز طبيب' },
     { icon: '🩸', bg: 'bg-red-50', title: 'التبرع بالدم', desc: 'أنقذ حياة' },
     { icon: '🎁', bg: 'bg-amber-100', title: 'نقاطي', desc: 'اكسب نقاط' },
     { icon: '🔔', bg: 'bg-violet-100', title: 'تذكيرات', desc: 'متابعة الأدوية' },
@@ -176,7 +176,7 @@ export function HomeScreen() {
     <PhoneFrame label="الصفحة الرئيسية">
       <div className="h-full bg-gray-50 overflow-y-auto pb-14">
         <StatusBar dark />
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 pt-2 pb-10">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 pt-2 pb-10">
           <div className="flex items-center justify-between mb-2">
             <div className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center">🔔</div>
             <div className="text-right">
@@ -192,12 +192,12 @@ export function HomeScreen() {
             <span className="text-[9px] text-gray-400">ابحث عن طبيب أو خدمة...</span>
           </div>
           <div className="mt-2 bg-gradient-to-l from-[#E3F8F8] to-[#D1F2FF] rounded-xl px-3 py-2.5 flex items-center justify-between border border-cyan-100">
-            <span className="text-[#2196F3] text-xs">‹</span>
+            <span className="text-[#199A8E] text-xs">‹</span>
             <div className="text-right flex-1 mx-2">
               <p className="text-[9px] font-bold text-gray-800">المساعد الذكي</p>
               <p className="text-[7px] text-gray-500">صف أعراضك ونقترح لك التخصص</p>
             </div>
-            <div className="w-8 h-8 bg-[#2196F3] rounded-lg flex items-center justify-center">✨</div>
+            <div className="w-8 h-8 bg-[#199A8E] rounded-lg flex items-center justify-center">✨</div>
           </div>
         </div>
         <div className="px-3 mt-3">
@@ -249,7 +249,7 @@ export function AIAssistantScreen() {
   return (
     <PhoneFrame label="المساعد الذكي">
       <div className="h-full bg-gray-50 flex flex-col">
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 py-2 flex items-center justify-between">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 py-2 flex items-center justify-between">
           <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">›</div>
           <h3 className="text-white text-[11px] font-bold">المساعد الذكي</h3>
           <div className="w-6" />
@@ -258,13 +258,13 @@ export function AIAssistantScreen() {
           <div className="flex justify-end">
             <div className="max-w-[80%] bg-white rounded-xl p-2.5 shadow-sm">
               <div className="flex items-start gap-1.5">
-                <span className="text-[#2196F3] text-sm">🤖</span>
+                <span className="text-[#199A8E] text-sm">🤖</span>
                 <p className="text-[8px] text-gray-700">مرحباً! أنا المساعد الصحي الذكي. أخبرني بالأعراض التي تعاني منها وسأساعدك في تحديد التخصص.</p>
               </div>
             </div>
           </div>
           <div className="flex justify-start">
-            <div className="max-w-[80%] bg-[#2196F3] text-white rounded-xl p-2.5">
+            <div className="max-w-[80%] bg-[#199A8E] text-white rounded-xl p-2.5">
               <div className="flex items-start gap-1.5">
                 <span className="text-white text-sm">👤</span>
                 <p className="text-[8px]">صداع وألم في الرأس منذ يومين</p>
@@ -277,10 +277,10 @@ export function AIAssistantScreen() {
               <p className="text-[8px] text-gray-700 mt-1">يُنصح بمراجعة طبيب الأعصاب لتشخيص سبب الصداع</p>
               <div className="mt-2 pt-2 border-t border-gray-100 flex items-center justify-between">
                 <div className="flex items-center gap-1">
-                  <span className="text-[#2196F3] text-xs">🩺</span>
-                  <span className="text-[8px] font-bold text-[#2196F3]">طب الأعصاب</span>
+                  <span className="text-[#199A8E] text-xs">🩺</span>
+                  <span className="text-[8px] font-bold text-[#199A8E]">طب الأعصاب</span>
                 </div>
-                <div className="bg-[#2196F3] text-white text-[7px] px-2 py-1 rounded-lg font-bold">حجز موعد ←</div>
+                <div className="bg-[#199A8E] text-white text-[7px] px-2 py-1 rounded-lg font-bold">حجز موعد ←</div>
               </div>
             </div>
           </div>
@@ -297,7 +297,7 @@ export function AIAssistantScreen() {
           <div className="flex-1 bg-gray-100 rounded-lg px-2 py-2">
             <span className="text-[8px] text-gray-400">اشرح أعراضك هنا...</span>
           </div>
-          <div className="w-8 h-8 bg-[#2196F3] rounded-lg flex items-center justify-center text-white text-xs">➤</div>
+          <div className="w-8 h-8 bg-[#199A8E] rounded-lg flex items-center justify-center text-white text-xs">➤</div>
         </div>
       </div>
     </PhoneFrame>
@@ -317,7 +317,7 @@ export function ClinicsScreen() {
   return (
     <PhoneFrame label="العيادات الاستشارية">
       <div className="h-full bg-gray-50 overflow-y-auto">
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 pt-2 pb-10 sticky top-0">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 pt-2 pb-10 sticky top-0">
           <StatusBar dark />
           <div className="flex items-center justify-between mb-2 mt-1">
             <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">›</div>
@@ -335,9 +335,9 @@ export function ClinicsScreen() {
             <p className="text-[8px] font-bold text-gray-700 mb-2">اختر التخصص</p>
             <div className="grid grid-cols-4 gap-1.5">
               {specs.map((s, i) => (
-                <div key={s} className={`flex flex-col items-center gap-1 p-1.5 rounded-lg ${i === 0 ? 'bg-[#2196F3]/10 border border-[#2196F3]' : 'bg-gray-50 border border-transparent'}`}>
-                  <div className={`w-6 h-6 ${i === 0 ? 'bg-[#2196F3]' : 'bg-blue-100'} rounded-full flex items-center justify-center text-[10px]`}>●</div>
-                  <span className={`text-[7px] ${i === 0 ? 'text-[#2196F3]' : 'text-gray-600'}`}>{s}</span>
+                <div key={s} className={`flex flex-col items-center gap-1 p-1.5 rounded-lg ${i === 0 ? 'bg-[#199A8E]/10 border border-[#199A8E]' : 'bg-gray-50 border border-transparent'}`}>
+                  <div className={`w-6 h-6 ${i === 0 ? 'bg-[#199A8E]' : 'bg-[#E8F5F4]'} rounded-full flex items-center justify-center text-[10px]`}>●</div>
+                  <span className={`text-[7px] ${i === 0 ? 'text-[#199A8E]' : 'text-gray-600'}`}>{s}</span>
                 </div>
               ))}
             </div>
@@ -360,13 +360,13 @@ export function ClinicsScreen() {
                   <div className="flex items-center gap-1 mt-1 justify-end">
                     <span className="text-[7px] text-gray-400">{d.wait} في الانتظار</span>
                     <span className="text-[7px] bg-teal-50 text-teal-600 px-1 py-0.5 rounded">~{d.time}</span>
-                    <span className="text-[7px] bg-blue-50 text-[#2196F3] px-1 py-0.5 rounded">📍 {d.dist}كم</span>
+                    <span className="text-[7px] bg-[#E8F5F4] text-[#199A8E] px-1 py-0.5 rounded">📍 {d.dist}كم</span>
                   </div>
                 </div>
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#2196F3] to-[#1565C0] flex items-center justify-center text-white font-bold text-[10px]">أ</div>
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#199A8E] to-[#1565C0] flex items-center justify-center text-white font-bold text-[10px]">أ</div>
               </div>
               <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-100">
-                <div className="bg-[#2196F3] text-white text-[8px] px-3 py-1 rounded-lg font-bold">احجز الآن</div>
+                <div className="bg-[#199A8E] text-white text-[8px] px-3 py-1 rounded-lg font-bold">احجز الآن</div>
                 <div className="text-left">
                   <span className="text-[7px] text-gray-400">سعر الكشف</span>
                   <p className="text-[8px] font-bold text-gray-800">{d.price} ر.ي</p>
@@ -387,19 +387,19 @@ export function DoctorSearchScreen() {
   return (
     <PhoneFrame label="البحث عن الأطباء — ملف الطبيب">
       <div className="h-full bg-gray-50 flex flex-col">
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 py-2 flex items-center justify-between">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 py-2 flex items-center justify-between">
           <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">›</div>
           <h3 className="text-white text-[11px] font-bold">البحث عن طبيب</h3>
           <div className="w-6" />
         </div>
         <div className="bg-white px-3 py-2 flex gap-1.5 border-b border-gray-100">
           {['الكل', 'قلب', 'أعصاب', 'أطفال', 'عظام'].map((s, i) => (
-            <div key={s} className={`px-2 py-1 rounded-full text-[7px] font-bold ${i === 0 ? 'bg-[#2196F3] text-white' : 'bg-gray-100 text-gray-500'}`}>{s}</div>
+            <div key={s} className={`px-2 py-1 rounded-full text-[7px] font-bold ${i === 0 ? 'bg-[#199A8E] text-white' : 'bg-gray-100 text-gray-500'}`}>{s}</div>
           ))}
         </div>
         <div className="flex-1 overflow-y-auto px-3 py-3 space-y-2">
           <div className="bg-white rounded-xl p-3 shadow-sm border border-gray-100 flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2196F3] to-[#1565C0] flex items-center justify-center text-white font-bold text-xs">ف</div>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#199A8E] to-[#1565C0] flex items-center justify-center text-white font-bold text-xs">ف</div>
             <div className="flex-1 text-right">
               <p className="text-[9px] font-bold text-gray-900">د. فاطمة الشامي</p>
               <p className="text-[7px] text-gray-400">قلب وأوعية دموية</p>
@@ -410,7 +410,7 @@ export function DoctorSearchScreen() {
             </div>
           </div>
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] p-3 flex items-center gap-2">
+            <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] p-3 flex items-center gap-2">
               <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white font-bold text-base">ف</div>
               <div className="flex-1 text-right">
                 <p className="text-white text-[10px] font-bold">د. فاطمة الشامي</p>
@@ -420,7 +420,7 @@ export function DoctorSearchScreen() {
             </div>
             <div className="flex border-b border-gray-100">
               {['الحجز', 'السيرة', 'التقييمات'].map((t, i) => (
-                <div key={t} className={`flex-1 text-center py-2 text-[8px] font-bold ${i === 0 ? 'text-[#2196F3] border-b-2 border-[#2196F3]' : 'text-gray-400'}`}>{t}</div>
+                <div key={t} className={`flex-1 text-center py-2 text-[8px] font-bold ${i === 0 ? 'text-[#199A8E] border-b-2 border-[#199A8E]' : 'text-gray-400'}`}>{t}</div>
               ))}
             </div>
             <div className="p-3 space-y-2">
@@ -432,14 +432,14 @@ export function DoctorSearchScreen() {
                 <p className="text-[7px] text-gray-400 mb-1">وسيلة الدفع</p>
                 <div className="grid grid-cols-3 gap-1.5">
                   {[['محفظة', true], ['بطاقة', false], ['نقداً', false]].map(([l, a]) => (
-                    <div key={l as string} className={`py-1.5 rounded-lg border-2 text-center text-[7px] font-bold ${a ? 'border-[#2196F3] bg-blue-50 text-[#2196F3]' : 'border-gray-200 text-gray-500'}`}>{l}</div>
+                    <div key={l as string} className={`py-1.5 rounded-lg border-2 text-center text-[7px] font-bold ${a ? 'border-[#199A8E] bg-[#E8F5F4] text-[#199A8E]' : 'border-gray-200 text-gray-500'}`}>{l}</div>
                   ))}
                 </div>
               </div>
               <div className="bg-gray-50 rounded-lg p-2 space-y-1">
                 <div className="flex justify-between text-[7px]"><span className="text-gray-400">سعر الكشف</span><span className="text-gray-700">4,200 ر.ي</span></div>
                 <div className="flex justify-between text-[7px]"><span className="text-gray-400">رسوم الخدمة</span><span className="text-gray-700">200 ر.ي</span></div>
-                <div className="flex justify-between text-[8px] font-bold pt-1 border-t border-gray-200"><span className="text-gray-700">الإجمالي</span><span className="text-[#2196F3]">4,400 ر.ي</span></div>
+                <div className="flex justify-between text-[8px] font-bold pt-1 border-t border-gray-200"><span className="text-gray-700">الإجمالي</span><span className="text-[#199A8E]">4,400 ر.ي</span></div>
               </div>
               <WButton label="تأكيد الحجز" />
             </div>
@@ -456,7 +456,7 @@ export function DoctorSearchScreen() {
 export function BookingScreen() {
   return (
     <PhoneFrame label="صفحة الحجز — الأعراض">
-      <div className="h-full bg-gradient-to-b from-[#2196F3] to-[#1976D2] flex flex-col">
+      <div className="h-full bg-gradient-to-b from-[#199A8E] to-[#1976D2] flex flex-col">
         <StatusBar dark />
         <div className="flex items-center justify-between px-3 py-2">
           <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">›</div>
@@ -465,12 +465,12 @@ export function BookingScreen() {
         </div>
         <div className="flex-1 bg-gray-50 rounded-t-3xl p-3 overflow-y-auto">
           <div className="flex gap-1 mb-3">
-            <div className="flex-1 h-1 rounded-full bg-[#2196F3]" />
+            <div className="flex-1 h-1 rounded-full bg-[#199A8E]" />
             <div className="flex-1 h-1 rounded-full bg-gray-200" />
             <div className="flex-1 h-1 rounded-full bg-gray-200" />
           </div>
           <div className="bg-white rounded-xl p-2.5 mb-3 flex items-center gap-2 border border-gray-100">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#2196F3] to-[#1565C0] flex items-center justify-center text-white font-bold text-[10px]">أ</div>
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#199A8E] to-[#1565C0] flex items-center justify-center text-white font-bold text-[10px]">أ</div>
             <div className="flex-1 text-right">
               <p className="text-[9px] font-bold text-gray-800">د. أحمد المقطري</p>
               <p className="text-[7px] text-gray-400">باطنية عامة • مركز اليمن الطبي</p>
@@ -503,9 +503,9 @@ export function BookingScreen() {
             <p className="text-[8px] font-semibold text-gray-700 mb-1.5">وسيلة الدفع</p>
             <div className="space-y-1.5">
               {['MTN Cash', 'Yemen Mobile', 'تحويل بنكي', 'نقداً عند الوصول'].map((m, i) => (
-                <div key={m} className={`flex items-center gap-2 p-2 rounded-xl border-2 ${i === 0 ? 'border-[#2196F3] bg-blue-50' : 'border-gray-200'}`}>
-                  <div className={`w-3 h-3 rounded-full border-2 ${i === 0 ? 'border-[#2196F3] bg-[#2196F3]' : 'border-gray-300'}`} />
-                  <span className={`text-[8px] flex-1 ${i === 0 ? 'text-[#2196F3] font-bold' : 'text-gray-600'}`}>{m}</span>
+                <div key={m} className={`flex items-center gap-2 p-2 rounded-xl border-2 ${i === 0 ? 'border-[#199A8E] bg-[#E8F5F4]' : 'border-gray-200'}`}>
+                  <div className={`w-3 h-3 rounded-full border-2 ${i === 0 ? 'border-[#199A8E] bg-[#199A8E]' : 'border-gray-300'}`} />
+                  <span className={`text-[8px] flex-1 ${i === 0 ? 'text-[#199A8E] font-bold' : 'text-gray-600'}`}>{m}</span>
                 </div>
               ))}
             </div>
@@ -527,7 +527,7 @@ export function BookingConfirmScreen() {
     <PhoneFrame label="تأكيد الحجز — التذكرة">
       <div className="h-full bg-gray-50 flex flex-col">
         <StatusBar />
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 py-2 flex items-center justify-between">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 py-2 flex items-center justify-between">
           <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">›</div>
           <h3 className="text-white text-[11px] font-bold">تم الحجز بنجاح</h3>
           <div className="w-6" />
@@ -541,7 +541,7 @@ export function BookingConfirmScreen() {
           <div className="bg-white rounded-2xl shadow-lg w-full p-3 border border-gray-100">
             <div className="text-center mb-2">
               <p className="text-[7px] text-gray-400">رقم الطابور</p>
-              <p className="text-3xl font-black text-[#2196F3]">5</p>
+              <p className="text-3xl font-black text-[#199A8E]">5</p>
             </div>
             <div className="border-t-2 border-dashed border-gray-200 my-2" />
             <div className="space-y-1">
@@ -565,7 +565,7 @@ export function BookingConfirmScreen() {
           </div>
           <div className="flex gap-2 mt-3 w-full">
             <div className="flex-1 py-2 rounded-xl border border-gray-200 text-center text-[8px] text-gray-500">مشاركة</div>
-            <div className="flex-1 py-2 rounded-xl bg-[#2196F3] text-white text-center text-[8px] font-bold">متابعة الطابور ←</div>
+            <div className="flex-1 py-2 rounded-xl bg-[#199A8E] text-white text-center text-[8px] font-bold">متابعة الطابور ←</div>
           </div>
         </div>
       </div>
@@ -581,7 +581,7 @@ export function QueueTrackingScreen() {
     <PhoneFrame label="متابعة حالة الطابور">
       <div className="h-full bg-gray-50 flex flex-col">
         <StatusBar />
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 py-2 flex items-center justify-between">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 py-2 flex items-center justify-between">
           <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">›</div>
           <h3 className="text-white text-[11px] font-bold">متابعة الطابور</h3>
           <div className="w-6" />
@@ -592,7 +592,7 @@ export function QueueTrackingScreen() {
             <p className="text-5xl font-black text-green-500 my-1">5</p>
             <p className="text-[8px] text-gray-400">الرقم الحالي قيد الكشف: <span className="font-bold text-gray-700">2</span></p>
             <div className="mt-3 h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full w-2/5 bg-gradient-to-r from-green-400 to-[#2196F3] rounded-full" />
+              <div className="h-full w-2/5 bg-gradient-to-r from-green-400 to-[#199A8E] rounded-full" />
             </div>
             <p className="text-[7px] text-gray-400 mt-1">2 من 5 مكتمل</p>
           </div>
@@ -603,7 +603,7 @@ export function QueueTrackingScreen() {
           <div className="grid grid-cols-2 gap-2 mb-3">
             <div className="bg-white rounded-xl p-2.5 text-center border border-gray-100">
               <p className="text-[7px] text-gray-400">الوقت المتبقي</p>
-              <p className="text-[12px] font-bold text-[#2196F3]">~75 دقيقة</p>
+              <p className="text-[12px] font-bold text-[#199A8E]">~75 دقيقة</p>
             </div>
             <div className="bg-white rounded-xl p-2.5 text-center border border-gray-100">
               <p className="text-[7px] text-gray-400">الوصول المتوقع</p>
@@ -612,15 +612,15 @@ export function QueueTrackingScreen() {
           </div>
           <div className="bg-white rounded-xl p-3 border border-gray-100 mb-3">
             <p className="text-[8px] font-bold text-gray-700 mb-2">موقع العيادة</p>
-            <div className="h-20 bg-blue-50 rounded-lg relative overflow-hidden">
+            <div className="h-20 bg-[#E8F5F4] rounded-lg relative overflow-hidden">
               <div className="absolute top-3 right-3 w-3 h-3 bg-red-500 rounded-full border-2 border-white" />
-              <div className="absolute bottom-3 left-3 w-3 h-3 bg-blue-500 rounded-full border-2 border-white" />
+              <div className="absolute bottom-3 left-3 w-3 h-3 bg-[#199A8E] rounded-full border-2 border-white" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-12 h-px bg-gray-300 rotate-12" />
               </div>
             </div>
             <div className="flex gap-1.5 mt-2">
-              <div className="flex-1 py-1.5 rounded-lg bg-[#2196F3] text-white text-center text-[7px] font-bold">📍 الاتجاهات</div>
+              <div className="flex-1 py-1.5 rounded-lg bg-[#199A8E] text-white text-center text-[7px] font-bold">📍 الاتجاهات</div>
               <div className="flex-1 py-1.5 rounded-lg border border-gray-200 text-center text-[7px] text-gray-500">📞 اتصال</div>
             </div>
           </div>
@@ -639,13 +639,13 @@ export function QueueTrackingScreen() {
 export function AppointmentsScreen() {
   const appts = [
     { doc: 'د. أحمد المقطري', spec: 'باطنية عامة', date: '21 أغسطس', time: '10:30 ص', queue: '5', status: 'مؤكد', statusColor: 'bg-green-100 text-green-700' },
-    { doc: 'د. فاطمة الشامي', spec: 'قلب وأوعية', date: '25 أغسطس', time: '02:00 م', queue: '3', status: 'قيد الكشف', statusColor: 'bg-blue-100 text-blue-700' },
+    { doc: 'د. فاطمة الشامي', spec: 'قلب وأوعية', date: '25 أغسطس', time: '02:00 م', queue: '3', status: 'قيد الكشف', statusColor: 'bg-[#E8F5F4] text-[#104C48]' },
     { doc: 'د. خالد الإرياني', spec: 'مخ وأعصاب', date: '15 أغسطس', time: '11:00 ص', queue: '1', status: 'مكتمل', statusColor: 'bg-gray-100 text-gray-600' },
   ];
   return (
     <PhoneFrame label="مواعيدي">
       <div className="h-full bg-gray-50 overflow-y-auto pb-14">
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 pt-2 pb-8">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 pt-2 pb-8">
           <StatusBar dark />
           <div className="flex items-center justify-between mt-1">
             <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">›</div>
@@ -655,7 +655,7 @@ export function AppointmentsScreen() {
         </div>
         <div className="px-3 -mt-4 relative z-10 mb-3">
           <div className="flex gap-2">
-            <div className="flex-1 bg-[#2196F3] text-white rounded-xl py-2 text-center text-[9px] font-bold shadow-lg">القادمة (2)</div>
+            <div className="flex-1 bg-[#199A8E] text-white rounded-xl py-2 text-center text-[9px] font-bold shadow-lg">القادمة (2)</div>
             <div className="flex-1 bg-white text-gray-500 rounded-xl py-2 text-center text-[9px] font-bold border border-gray-100">السابقة (1)</div>
           </div>
         </div>
@@ -678,9 +678,9 @@ export function AppointmentsScreen() {
                     <p className="text-[6px] text-gray-400">الوقت</p>
                     <p className="text-[7px] font-bold text-gray-700">{a.time}</p>
                   </div>
-                  <div className="text-center bg-blue-50 rounded-lg py-1">
-                    <p className="text-[6px] text-[#2196F3]">الطابور</p>
-                    <p className="text-[7px] font-bold text-[#2196F3]">#{a.queue}</p>
+                  <div className="text-center bg-[#E8F5F4] rounded-lg py-1">
+                    <p className="text-[6px] text-[#199A8E]">الطابور</p>
+                    <p className="text-[7px] font-bold text-[#199A8E]">#{a.queue}</p>
                   </div>
                 </div>
                 <div className="flex gap-1">
@@ -713,7 +713,7 @@ export function MessagesScreen() {
               <p className="text-[7px] text-gray-400">باطنية عامة • مفتوحة</p>
             </div>
             <div className="relative">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2196F3] to-[#1565C0] flex items-center justify-center text-white font-bold text-[10px]">أ</div>
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#199A8E] to-[#1565C0] flex items-center justify-center text-white font-bold text-[10px]">أ</div>
               <div className="absolute bottom-0 left-0 w-2 h-2 bg-green-500 rounded-full border border-white" />
             </div>
           </div>
@@ -727,7 +727,7 @@ export function MessagesScreen() {
             </div>
           </div>
           <div className="flex justify-start">
-            <div className="max-w-[75%] bg-[#2196F3] text-white rounded-xl px-2.5 py-2">
+            <div className="max-w-[75%] bg-[#199A8E] text-white rounded-xl px-2.5 py-2">
               <p className="text-[8px] text-right">وعليكم السلام، هل الألم حاد أم متوسط؟ هل يزيد مع المجهود؟</p>
               <p className="text-[6px] text-white/50 mt-0.5 text-left">10:32 ص</p>
             </div>
@@ -745,7 +745,7 @@ export function MessagesScreen() {
         <div className="bg-white border-t border-gray-100 p-2 flex items-center gap-1">
           <span className="text-gray-400 text-sm">📎</span>
           <div className="flex-1 bg-gray-50 rounded-lg px-2 py-2"><span className="text-[8px] text-gray-400">اكتب رسالة...</span></div>
-          <div className="w-8 h-8 bg-[#2196F3] rounded-lg flex items-center justify-center text-white text-xs">➤</div>
+          <div className="w-8 h-8 bg-[#199A8E] rounded-lg flex items-center justify-center text-white text-xs">➤</div>
         </div>
       </div>
     </PhoneFrame>
@@ -757,7 +757,7 @@ export function MessagesScreen() {
 // ═══════════════════════════════════════════════════════════════════════════
 export function HealthRecordScreen() {
   const records = [
-    { type: 'تحاليل', icon: '🧪', color: 'bg-blue-50 text-blue-600', title: 'CBC — صورة دم كاملة', date: '10 أغسطس', tags: ['طبيعي'] },
+    { type: 'تحاليل', icon: '🧪', color: 'bg-[#E8F5F4] text-[#199A8E]', title: 'CBC — صورة دم كاملة', date: '10 أغسطس', tags: ['طبيعي'] },
     { type: 'أشعة', icon: '📸', color: 'bg-teal-50 text-teal-600', title: 'أشعة صدر', date: '5 يوليو', tags: ['سليمة'] },
     { type: 'وصفة', icon: '📋', color: 'bg-green-50 text-green-600', title: 'وصفة دواء الضغط', date: '20 يونيو', tags: ['نشطة'] },
     { type: 'تقرير', icon: '📄', color: 'bg-amber-50 text-amber-600', title: 'تقرير زيارة القلب', date: '15 مايو', tags: ['متابعة'] },
@@ -766,7 +766,7 @@ export function HealthRecordScreen() {
     <PhoneFrame label="السجل الصحي">
       <div className="h-full bg-gray-50 overflow-y-auto">
         <StatusBar />
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 py-2 flex items-center justify-between">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 py-2 flex items-center justify-between">
           <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">›</div>
           <h3 className="text-white text-[11px] font-bold">السجل الصحي</h3>
           <div className="w-6" />
@@ -775,14 +775,14 @@ export function HealthRecordScreen() {
           <div className="grid grid-cols-3 gap-2 mb-3">
             {[['4', 'إجمالي'], ['2', 'تحاليل'], ['1', 'أشعة']].map(([n, l]) => (
               <div key={l} className="bg-white rounded-xl p-2 text-center border border-gray-100">
-                <p className="text-lg font-bold text-[#2196F3]">{n}</p>
+                <p className="text-lg font-bold text-[#199A8E]">{n}</p>
                 <p className="text-[7px] text-gray-400">{l}</p>
               </div>
             ))}
           </div>
           <div className="flex gap-1.5 mb-3">
             {['الكل', 'تحاليل', 'أشعة', 'وصفات', 'تقارير'].map((f, i) => (
-              <div key={f} className={`px-2 py-1 rounded-full text-[7px] font-bold ${i === 0 ? 'bg-[#2196F3] text-white' : 'bg-gray-100 text-gray-500'}`}>{f}</div>
+              <div key={f} className={`px-2 py-1 rounded-full text-[7px] font-bold ${i === 0 ? 'bg-[#199A8E] text-white' : 'bg-gray-100 text-gray-500'}`}>{f}</div>
             ))}
           </div>
           <div className="border-2 border-dashed border-gray-200 rounded-xl p-2.5 text-center mb-3">
@@ -804,7 +804,7 @@ export function HealthRecordScreen() {
                 </div>
                 <div className="flex gap-1 mt-2 pt-2 border-t border-gray-100">
                   <div className="flex-1 py-1 rounded-lg bg-gray-100 text-center text-[7px] text-gray-500">⬇ تحميل</div>
-                  <div className="flex-1 py-1 rounded-lg bg-blue-50 text-center text-[7px] text-[#2196F3]">↗ مشاركة</div>
+                  <div className="flex-1 py-1 rounded-lg bg-[#E8F5F4] text-center text-[7px] text-[#199A8E]">↗ مشاركة</div>
                 </div>
               </div>
             ))}
@@ -833,7 +833,7 @@ export function MoreScreen() {
     <PhoneFrame label="المزيد — الإعدادات">
       <div className="h-full bg-gray-50 overflow-y-auto pb-14">
         <StatusBar dark />
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 pt-2 pb-6">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 pt-2 pb-6">
           <div className="flex items-center gap-2">
             <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white font-bold">م</div>
             <div className="flex-1 text-right">
@@ -887,7 +887,7 @@ export function EmergencyScreen() {
     <PhoneFrame label="الطوارئ">
       <div className="h-full bg-gray-50 overflow-y-auto">
         <StatusBar />
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 py-2 flex items-center justify-between">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 py-2 flex items-center justify-between">
           <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">›</div>
           <h3 className="text-white text-[11px] font-bold">طوارئ المستشفيات</h3>
           <div className="w-6" />
@@ -912,14 +912,14 @@ export function EmergencyScreen() {
                     {h.nearest && <span className="text-[6px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-bold">الأقرب إليك</span>}
                     <p className="text-[9px] font-bold text-gray-800 mt-0.5">{h.name}</p>
                     <p className="text-[7px] text-gray-400">{h.services}</p>
-                    <p className="text-[7px] text-[#2196F3] mt-0.5">📍 {h.dist} كم</p>
+                    <p className="text-[7px] text-[#199A8E] mt-0.5">📍 {h.dist} كم</p>
                   </div>
                   <div className="w-8 h-8 bg-red-50 rounded-lg flex items-center justify-center text-sm">🏥</div>
                 </div>
                 <div className="flex gap-1 mt-2 pt-2 border-t border-gray-100">
                   <div className="flex-1 py-1 rounded-lg bg-gray-100 text-center text-[7px] text-gray-500">📞 اتصال</div>
                   <div className="flex-1 py-1 rounded-lg bg-red-50 text-center text-[7px] text-red-500">🚨 طوارئ</div>
-                  <div className="flex-1 py-1 rounded-lg bg-blue-50 text-center text-[7px] text-[#2196F3]">📍 اتجاهات</div>
+                  <div className="flex-1 py-1 rounded-lg bg-[#E8F5F4] text-center text-[7px] text-[#199A8E]">📍 اتجاهات</div>
                 </div>
               </div>
             ))}

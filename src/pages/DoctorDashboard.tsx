@@ -4,7 +4,7 @@ import {
   FileText, Activity, Download, LogOut, Mic, MicOff, Pill,
   FlaskConical, Send, Plus, X, Stethoscope, Heart, Clipboard,
   QrCode, CheckSquare, Trash2, User, AlertTriangle,
-  Save, Star, BarChart2, ChevronDown, ArrowUpCircle,
+  Save, Star, BarChart2, ChevronDown, ArrowUpCircle, ArrowRight,
   MessageSquare, Users2, Eye, ThumbsUp, Zap, BookOpen,
 } from 'lucide-react';
 import { MedicalLibrary } from './MedicalLibrary';
@@ -139,9 +139,9 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
     <button
       onMouseDown={() => startVoice(target)} onMouseUp={stopVoice}
       onTouchStart={() => startVoice(target)} onTouchEnd={stopVoice}
-      className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${active ? 'bg-red-500 shadow-lg' : 'bg-blue-100'}`}
+      className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${active ? 'bg-red-500 shadow-lg' : 'bg-[#E8F5F4]'}`}
     >
-      {active ? <MicOff size={15} className="text-white" /> : <Mic size={15} className="text-[#2196F3]" />}
+      {active ? <MicOff size={15} className="text-white" /> : <Mic size={15} className="text-[#199A8E]" />}
     </button>
   );
 
@@ -171,7 +171,7 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
             { id: 'consult', icon: MessageSquare, label: 'استشارة' },
           ] as const).map(({ id, icon: Icon, label }) => (
             <button key={id} onClick={() => setPanel(id)}
-              className={`flex-1 flex flex-col items-center gap-0.5 py-2.5 text-xs font-medium border-b-2 transition-colors ${panel === id ? 'border-[#2196F3] text-[#2196F3]' : 'border-transparent text-gray-400'}`}>
+              className={`flex-1 flex flex-col items-center gap-0.5 py-2.5 text-xs font-medium border-b-2 transition-colors ${panel === id ? 'border-[#199A8E] text-[#199A8E]' : 'border-transparent text-gray-400'}`}>
               <Icon size={17} />{label}
             </button>
           ))}
@@ -186,8 +186,8 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
             {patient && (
               <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-4">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <User size={24} className="text-[#2196F3]" />
+                  <div className="w-12 h-12 bg-[#E8F5F4] rounded-xl flex items-center justify-center">
+                    <User size={24} className="text-[#199A8E]" />
                   </div>
                   <div>
                     <p className="font-bold text-gray-800">{patient.full_name}</p>
@@ -208,8 +208,8 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
               </div>
             )}
             <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-4">
-              <p className="font-bold text-gray-700 text-sm mb-2 flex items-center gap-2"><Activity size={15} className="text-[#2196F3]" />الأعراض</p>
-              <p className="text-gray-600 bg-blue-50 rounded-xl px-3 py-2.5 text-sm">{appointment.symptoms || 'لم يُذكر'}</p>
+              <p className="font-bold text-gray-700 text-sm mb-2 flex items-center gap-2"><Activity size={15} className="text-[#199A8E]" />الأعراض</p>
+              <p className="text-gray-600 bg-[#E8F5F4] rounded-xl px-3 py-2.5 text-sm">{appointment.symptoms || 'لم يُذكر'}</p>
             </div>
             <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-4">
               <div className="flex items-center justify-between mb-2">
@@ -217,10 +217,10 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
                 <p className="font-bold text-gray-700 text-sm">التشخيص</p>
               </div>
               {isRecording && voiceTarget === 'diag' && <div className="flex items-center gap-2 bg-red-50 rounded-xl px-3 py-2 mb-2"><span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" /><span className="text-red-600 text-xs">تسجيل...</span></div>}
-              <textarea value={diagnosis} onChange={e => setDiagnosis(e.target.value)} placeholder="اكتب التشخيص أو استخدم الميكروفون..." rows={3} dir="rtl" className="w-full p-3 rounded-xl border border-gray-200 resize-none text-sm focus:border-[#2196F3] outline-none" />
+              <textarea value={diagnosis} onChange={e => setDiagnosis(e.target.value)} placeholder="اكتب التشخيص أو استخدم الميكروفون..." rows={3} dir="rtl" className="w-full p-3 rounded-xl border border-gray-200 resize-none text-sm focus:border-[#199A8E] outline-none" />
             </div>
             <div className="grid grid-cols-3 gap-3">
-              <button onClick={() => setPanel('prescription')} className="bg-[#2196F3] text-white rounded-2xl p-4 flex flex-col items-center gap-2">
+              <button onClick={() => setPanel('prescription')} className="bg-[#199A8E] text-white rounded-2xl p-4 flex flex-col items-center gap-2">
                 <FileText size={22} /><span className="text-xs font-bold">وصفة طبية</span>
               </button>
               <button onClick={() => setPanel('lab')} className="bg-emerald-600 text-white rounded-2xl p-4 flex flex-col items-center gap-2">
@@ -260,13 +260,13 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><CheckCircle size={40} className="text-green-600" /></div>
                 <h2 className="text-xl font-bold text-gray-800 mb-2">تم حفظ الوصفة</h2>
                 <p className="text-gray-500 text-sm mb-6">الوصفة الإلكترونية محفوظة في ملف المريض وجاهزة للصرف</p>
-                <div className="bg-[#E3F2FD] rounded-2xl p-5 flex flex-col items-center mb-6"><QrCode size={64} className="text-[#2196F3] mb-2" /><p className="text-xs text-gray-500">رمز QR — يعرضه المريض للصيدلاني</p></div>
-                <button onClick={() => { setPrescSaved(false); setMeds([]); setDiagnosis(''); }} className="w-full py-3 bg-[#2196F3] text-white rounded-2xl font-bold">إنشاء وصفة جديدة</button>
+                <div className="bg-[#E3F2FD] rounded-2xl p-5 flex flex-col items-center mb-6"><QrCode size={64} className="text-[#199A8E] mb-2" /><p className="text-xs text-gray-500">رمز QR — يعرضه المريض للصيدلاني</p></div>
+                <button onClick={() => { setPrescSaved(false); setMeds([]); setDiagnosis(''); }} className="w-full py-3 bg-[#199A8E] text-white rounded-2xl font-bold">إنشاء وصفة جديدة</button>
               </div>
             ) : (
               <>
                 {/* Doctor header (read-only) */}
-                <div className="bg-blue-50 rounded-2xl p-4 border border-blue-100">
+                <div className="bg-[#E8F5F4] rounded-2xl p-4 border border-[#199A8E]/20">
                   <p className="text-xs text-gray-400 text-right mb-1">بيانات الوصفة (تُعبأ تلقائياً — لا يمكن تعديلها)</p>
                   <div className="grid grid-cols-2 gap-2 text-right">
                     {[['الطبيب', 'د. محمد العمري'], ['التخصص', 'باطنية'], ['العيادة', 'مركز اليمن الطبي'], ['الترخيص', 'LIC-20345']].map(([k, v]) => (
@@ -291,16 +291,16 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
                     <VoiceBtn target="diag" active={isRecording && voiceTarget === 'diag'} />
                     <p className="font-bold text-gray-700 text-sm">التشخيص (ICD-10)</p>
                   </div>
-                  <input type="text" value={diagnosis} onChange={e => setDiagnosis(e.target.value)} placeholder="التشخيص + الكود مثال: J06.9" dir="rtl" className="w-full p-3 rounded-xl border border-gray-200 text-sm focus:border-[#2196F3] outline-none" />
+                  <input type="text" value={diagnosis} onChange={e => setDiagnosis(e.target.value)} placeholder="التشخيص + الكود مثال: J06.9" dir="rtl" className="w-full p-3 rounded-xl border border-gray-200 text-sm focus:border-[#199A8E] outline-none" />
                 </div>
                 {/* Medications */}
                 <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-4">
                   <div className="flex items-center justify-between mb-3">
-                    <button onClick={() => setShowMedForm(true)} className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center"><Plus size={16} className="text-[#2196F3]" /></button>
-                    <p className="font-bold text-gray-700 text-sm flex items-center gap-2"><Pill size={15} className="text-[#2196F3]" />الأدوية ({meds.length})</p>
+                    <button onClick={() => setShowMedForm(true)} className="w-8 h-8 bg-[#E8F5F4] rounded-xl flex items-center justify-center"><Plus size={16} className="text-[#199A8E]" /></button>
+                    <p className="font-bold text-gray-700 text-sm flex items-center gap-2"><Pill size={15} className="text-[#199A8E]" />الأدوية ({meds.length})</p>
                   </div>
                   {meds.length === 0 && !showMedForm && (
-                    <button onClick={() => setShowMedForm(true)} className="w-full border-2 border-dashed border-blue-200 rounded-xl py-5 flex flex-col items-center gap-2 text-blue-400"><Plus size={22} /><span className="text-sm">أضف دواءً</span></button>
+                    <button onClick={() => setShowMedForm(true)} className="w-full border-2 border-dashed border-[#199A8E]/30 rounded-xl py-5 flex flex-col items-center gap-2 text-[#199A8E]"><Plus size={22} /><span className="text-sm">أضف دواءً</span></button>
                   )}
                   {meds.map((m, idx) => {
                     const warn = getDrugWarning(m.name);
@@ -314,13 +314,13 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
                             <p className="text-xs text-gray-500">{m.dosage} • {m.frequency} • {m.duration}</p>
                             {m.instructions && <p className="text-xs text-amber-600 mt-0.5">{m.instructions}</p>}
                           </div>
-                          <span className="w-6 h-6 bg-blue-100 rounded-lg flex items-center justify-center text-xs text-[#2196F3] font-bold flex-shrink-0">{idx + 1}</span>
+                          <span className="w-6 h-6 bg-[#E8F5F4] rounded-lg flex items-center justify-center text-xs text-[#199A8E] font-bold flex-shrink-0">{idx + 1}</span>
                         </div>
                       </div>
                     );
                   })}
                   {showMedForm && (
-                    <div className="bg-blue-50 rounded-2xl p-4 mt-3 space-y-3 border border-blue-100">
+                    <div className="bg-[#E8F5F4] rounded-2xl p-4 mt-3 space-y-3 border border-[#199A8E]/20">
                       <div className="flex items-center justify-between"><button onClick={() => setShowMedForm(false)}><X size={16} className="text-gray-400" /></button><p className="font-bold text-sm text-gray-700">إضافة دواء</p></div>
                       <div>
                         <div className="flex gap-2 mb-1.5">
@@ -328,7 +328,7 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
                           <input type="text" value={newMed.name} onChange={e => setNewMed(p => ({ ...p, name: e.target.value }))} placeholder="اسم الدواء..." dir="rtl" className="flex-1 p-2.5 rounded-xl border border-gray-200 text-sm bg-white outline-none" />
                         </div>
                         <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-1">
-                          {commonMeds.map(m => <button key={m} onClick={() => setNewMed(p => ({ ...p, name: m }))} className={`flex-shrink-0 text-xs px-2 py-1.5 rounded-lg border transition-colors whitespace-nowrap ${newMed.name === m ? 'bg-blue-100 border-blue-300 text-blue-700' : 'bg-white border-gray-200 text-gray-600'}`}>{m}</button>)}
+                          {commonMeds.map(m => <button key={m} onClick={() => setNewMed(p => ({ ...p, name: m }))} className={`flex-shrink-0 text-xs px-2 py-1.5 rounded-lg border transition-colors whitespace-nowrap ${newMed.name === m ? 'bg-[#E8F5F4] border-[#199A8E]/50 text-[#104C48]' : 'bg-white border-gray-200 text-gray-600'}`}>{m}</button>)}
                         </div>
                       </div>
                       <input type="text" value={newMed.dosage} onChange={e => setNewMed(p => ({ ...p, dosage: e.target.value }))} placeholder="الجرعة (مثال: 500 مجم)" dir="rtl" className="w-full p-2.5 rounded-xl border border-gray-200 text-sm bg-white outline-none" />
@@ -340,7 +340,7 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
                         <VoiceBtn target="instruct" active={isRecording && voiceTarget === 'instruct'} />
                         <input type="text" value={newMed.instructions} onChange={e => setNewMed(p => ({ ...p, instructions: e.target.value }))} placeholder="تعليمات (مثال: بعد الأكل)" dir="rtl" className="flex-1 p-2.5 rounded-xl border border-gray-200 text-sm bg-white outline-none" />
                       </div>
-                      <button onClick={addMed} disabled={!newMed.name.trim() || !newMed.dosage.trim()} className={`w-full py-3 rounded-xl font-bold text-sm ${newMed.name.trim() && newMed.dosage.trim() ? 'bg-[#2196F3] text-white' : 'bg-gray-200 text-gray-400'}`}>إضافة الدواء</button>
+                      <button onClick={addMed} disabled={!newMed.name.trim() || !newMed.dosage.trim()} className={`w-full py-3 rounded-xl font-bold text-sm ${newMed.name.trim() && newMed.dosage.trim() ? 'bg-[#199A8E] text-white' : 'bg-gray-200 text-gray-400'}`}>إضافة الدواء</button>
                     </div>
                   )}
                 </div>
@@ -352,7 +352,7 @@ function ExaminationPanel({ appointment, onClose }: { appointment: Appointment; 
                   </div>
                   <textarea value={prescNotes} onChange={e => setPrescNotes(e.target.value)} placeholder="تعليمات خاصة..." rows={2} dir="rtl" className="w-full p-3 rounded-xl border border-gray-200 resize-none text-sm outline-none" />
                 </div>
-                <button onClick={savePresc} disabled={meds.length === 0} className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 ${meds.length > 0 ? 'bg-[#2196F3] text-white' : 'bg-gray-200 text-gray-400'}`}><Save size={18} />حفظ وإصدار الوصفة</button>
+                <button onClick={savePresc} disabled={meds.length === 0} className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 ${meds.length > 0 ? 'bg-[#199A8E] text-white' : 'bg-gray-200 text-gray-400'}`}><Save size={18} />حفظ وإصدار الوصفة</button>
               </>
             )}
           </div>
@@ -481,8 +481,8 @@ function ConsultationForm({ appointment, patient, diagnosis, onSent }: {
         </div>
         <h3 className="font-black text-gray-800 text-lg mb-2">تم رفع الحالة لغرفة الاستشارة</h3>
         <p className="text-gray-500 text-sm mb-4">تم إرسال إشعار لجميع أطباء نفس التخصص</p>
-        <div className="bg-blue-50 rounded-2xl p-4 mx-4">
-          <div className="flex items-center gap-2 justify-center text-blue-700">
+        <div className="bg-[#E8F5F4] rounded-2xl p-4 mx-4">
+          <div className="flex items-center gap-2 justify-center text-[#104C48]">
             <Users2 size={18} />
             <span className="font-bold text-sm">سيصلك رد من الأطباء الآخرين قريباً</span>
           </div>
@@ -493,7 +493,7 @@ function ConsultationForm({ appointment, patient, diagnosis, onSent }: {
 
   const urgencyOptions = [
     { v: 'low', l: 'منخفض', cls: 'bg-gray-100 text-gray-700' },
-    { v: 'normal', l: 'عادي', cls: 'bg-blue-100 text-blue-700' },
+    { v: 'normal', l: 'عادي', cls: 'bg-[#E8F5F4] text-[#104C48]' },
     { v: 'high', l: 'مستعصية', cls: 'bg-amber-100 text-amber-700' },
     { v: 'critical', l: 'حرجة', cls: 'bg-red-100 text-red-700' },
   ] as const;
@@ -514,14 +514,14 @@ function ConsultationForm({ appointment, patient, diagnosis, onSent }: {
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">الشكوى الرئيسية *</label>
           <textarea value={chiefComplaint} onChange={e => setChiefComplaint(e.target.value)} rows={2} dir="rtl" placeholder="اكتب الشكوى الرئيسية للمريض..."
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
         </div>
 
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">مدة الأعراض</label>
             <input value={duration} onChange={e => setDuration(e.target.value)} dir="rtl" placeholder="مثال: 3 أيام"
-              className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3]" />
+              className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E]" />
           </div>
           <div>
             <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">العمر</label>
@@ -533,31 +533,31 @@ function ConsultationForm({ appointment, patient, diagnosis, onSent }: {
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">الأعراض التفصيلية</label>
           <textarea value={symptoms} onChange={e => setSymptoms(e.target.value)} rows={3} dir="rtl" placeholder="صف الأعراض بالتفصيل..."
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
         </div>
 
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">التشخيص الحالي *</label>
           <textarea value={currentDiagnosis} onChange={e => setCurrentDiagnosis(e.target.value)} rows={2} dir="rtl" placeholder="التشخيص المبدئي..."
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
         </div>
 
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">العلاجات التي تم تجربتها</label>
           <textarea value={treatmentsTried} onChange={e => setTreatmentsTried(e.target.value)} rows={2} dir="rtl" placeholder="الأدوية والعلاجات السابقة..."
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
         </div>
 
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">نتائج الفحوصات</label>
           <textarea value={labResults} onChange={e => setLabResults(e.target.value)} rows={2} dir="rtl" placeholder="نتائج المختبر والأشعة..."
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
         </div>
 
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">ملاحظات إضافية</label>
           <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={2} dir="rtl" placeholder="أي ملاحظات إضافية..."
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
         </div>
 
         <div>
@@ -571,7 +571,7 @@ function ConsultationForm({ appointment, patient, diagnosis, onSent }: {
         </div>
 
         <button onClick={handleSubmit} disabled={!chiefComplaint.trim() || !currentDiagnosis.trim() || sending}
-          className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 ${chiefComplaint.trim() && currentDiagnosis.trim() ? 'bg-[#2196F3] text-white' : 'bg-gray-200 text-gray-400'}`}>
+          className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 ${chiefComplaint.trim() && currentDiagnosis.trim() ? 'bg-[#199A8E] text-white' : 'bg-gray-200 text-gray-400'}`}>
           {sending ? <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" /> : <><Send size={18} />رفع الحالة للاستشارة</>}
         </button>
       </div>
@@ -699,18 +699,18 @@ function ConsultationRoom() {
 
   const urgencyConfig: Record<string, { label: string; cls: string }> = {
     low: { label: 'منخفض', cls: 'bg-gray-100 text-gray-600' },
-    normal: { label: 'عادي', cls: 'bg-blue-100 text-blue-700' },
+    normal: { label: 'عادي', cls: 'bg-[#E8F5F4] text-[#104C48]' },
     high: { label: 'مستعصية', cls: 'bg-amber-100 text-amber-700' },
     critical: { label: 'حرجة', cls: 'bg-red-100 text-red-700' },
   };
   const statusConfig: Record<string, { label: string; cls: string }> = {
-    open: { label: 'مفتوحة', cls: 'bg-blue-100 text-blue-700' },
+    open: { label: 'مفتوحة', cls: 'bg-[#E8F5F4] text-[#104C48]' },
     discussing: { label: 'قيد المناقشة', cls: 'bg-amber-100 text-amber-700' },
     resolved: { label: 'تم حلها', cls: 'bg-green-100 text-green-700' },
     closed: { label: 'مغلقة', cls: 'bg-gray-100 text-gray-600' },
   };
   const replyTypeConfig: Record<string, { label: string; cls: string }> = {
-    diagnosis: { label: 'تشخيص', cls: 'bg-blue-50 text-blue-700 border-blue-200' },
+    diagnosis: { label: 'تشخيص', cls: 'bg-[#E8F5F4] text-[#104C48] border-[#199A8E]/30' },
     question: { label: 'سؤال', cls: 'bg-amber-50 text-amber-700 border-amber-200' },
     suggestion: { label: 'اقتراح', cls: 'bg-green-50 text-green-700 border-green-200' },
     differential: { label: 'تشخيص تفريقي', cls: 'bg-purple-50 text-purple-700 border-purple-200' },
@@ -733,7 +733,7 @@ function ConsultationRoom() {
         <div className="px-4 pt-4 space-y-4">
           {/* Case header */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className={`px-4 py-3 ${selectedCase.urgency === 'critical' ? 'bg-red-50' : selectedCase.urgency === 'high' ? 'bg-amber-50' : 'bg-blue-50'}`}>
+            <div className={`px-4 py-3 ${selectedCase.urgency === 'critical' ? 'bg-red-50' : selectedCase.urgency === 'high' ? 'bg-amber-50' : 'bg-[#E8F5F4]'}`}>
               <div className="flex items-center justify-between">
                 <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${sc.cls}`}>{sc.label}</span>
                 <div className="flex items-center gap-2">
@@ -767,8 +767,8 @@ function ConsultationRoom() {
                 </div>
               )}
               {selectedCase.current_diagnosis && (
-                <div className="bg-blue-50 rounded-xl p-3">
-                  <p className="text-xs text-blue-600 mb-1 text-right font-medium">التشخيص الحالي</p>
+                <div className="bg-[#E8F5F4] rounded-xl p-3">
+                  <p className="text-xs text-[#199A8E] mb-1 text-right font-medium">التشخيص الحالي</p>
                   <p className="text-sm text-gray-800 text-right font-bold">{selectedCase.current_diagnosis}</p>
                 </div>
               )}
@@ -815,13 +815,13 @@ function ConsultationRoom() {
                         <div className="flex items-center gap-2">
                           <span className="text-xs text-gray-400">{r.doctor_specialization}</span>
                           <span className="text-sm font-bold text-gray-800">{r.doctor_name}</span>
-                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2196F3] to-[#1565C0] flex items-center justify-center text-white text-xs font-bold">{r.doctor_name.charAt(2)}</div>
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#199A8E] to-[#104C48] flex items-center justify-center text-white text-xs font-bold">{r.doctor_name ? r.doctor_name.charAt(0) : 'ط'}</div>
                         </div>
                       </div>
                       <p className="text-sm text-gray-700 text-right leading-relaxed mb-2">{r.body}</p>
                       {r.suggested_diagnosis && (
-                        <div className="bg-blue-50 rounded-xl p-2.5 mb-2">
-                          <p className="text-xs text-blue-600 text-right">التشخيص المقترح: <span className="font-bold text-gray-800">{r.suggested_diagnosis}</span></p>
+                        <div className="bg-[#E8F5F4] rounded-xl p-2.5 mb-2">
+                          <p className="text-xs text-[#199A8E] text-right">التشخيص المقترح: <span className="font-bold text-gray-800">{r.suggested_diagnosis}</span></p>
                         </div>
                       )}
                       <div className="flex items-center justify-between">
@@ -853,9 +853,9 @@ function ConsultationRoom() {
                 ))}
               </div>
               <textarea value={replyBody} onChange={e => setReplyBody(e.target.value)} rows={3} dir="rtl" placeholder="اكتب رأيك التشخيصي..."
-                className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+                className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
               <input value={suggestedDiagnosis} onChange={e => setSuggestedDiagnosis(e.target.value)} dir="rtl" placeholder="التشخيص المقترح (اختياري)"
-                className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3]" />
+                className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E]" />
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-500">مستوى الثقة:</span>
                 {(['low', 'medium', 'high'] as const).map(c => (
@@ -868,7 +868,7 @@ function ConsultationRoom() {
               <div className="flex gap-2">
                 <button onClick={resolveCase} className="flex-1 py-3 bg-green-50 text-green-700 rounded-xl font-bold text-sm flex items-center justify-center gap-1.5"><CheckCircle size={16} />حل الحالة</button>
                 <button onClick={sendReply} disabled={!replyBody.trim() || sendingReply}
-                  className={`flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-1.5 ${replyBody.trim() ? 'bg-[#2196F3] text-white' : 'bg-gray-200 text-gray-400'}`}>
+                  className={`flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-1.5 ${replyBody.trim() ? 'bg-[#199A8E] text-white' : 'bg-gray-200 text-gray-400'}`}>
                   {sendingReply ? <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" /> : <><Send size={16} />إرسال</>}
                 </button>
               </div>
@@ -888,7 +888,7 @@ function ConsultationRoom() {
 
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-l from-[#2196F3] to-[#1565C0] rounded-2xl p-4 text-white">
+      <div className="bg-gradient-to-l from-[#199A8E] to-[#1565C0] rounded-2xl p-4 text-white">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
             <Users2 size={24} className="text-white" />
@@ -901,7 +901,7 @@ function ConsultationRoom() {
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]" /></div>
+        <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#199A8E]" /></div>
       ) : cases.length === 0 ? (
         <div className="text-center py-12 bg-white rounded-2xl border border-gray-100">
           <MessageSquare size={40} className="mx-auto text-gray-200 mb-2" />
@@ -987,31 +987,41 @@ export function DoctorDashboard() {
 
   const statusMap: Record<string, { label: string; cls: string; dotCls: string }> = {
     completed: { label: 'مكتمل', cls: 'bg-green-100 text-green-700', dotCls: 'bg-green-500' },
-    in_progress: { label: 'جاري الكشف', cls: 'bg-blue-100 text-[#2196F3]', dotCls: 'bg-[#2196F3] animate-pulse' },
+    in_progress: { label: 'جاري الكشف', cls: 'bg-[#E8F5F4] text-[#199A8E] font-bold', dotCls: 'bg-[#199A8E] animate-pulse' },
     confirmed: { label: 'في الانتظار', cls: 'bg-amber-100 text-amber-700', dotCls: 'bg-amber-500' },
-    pending: { label: 'لم يصل', cls: 'bg-gray-100 text-gray-600', dotCls: 'bg-gray-400' },
-    cancelled: { label: 'ملغي', cls: 'bg-red-100 text-red-600', dotCls: 'bg-red-500' },
+    pending: { label: 'لم يصل', cls: 'bg-slate-100 text-slate-600', dotCls: 'bg-slate-400' },
+    cancelled: { label: 'ملغي', cls: 'bg-rose-100 text-rose-600', dotCls: 'bg-rose-500' },
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-8">
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
+    <div className="min-h-screen bg-[#F8FAFB] pb-8">
+      <header className="bg-white/95 backdrop-blur-md border-b border-[#E2E8F0] sticky top-0 z-40">
         <div className="flex items-center justify-between px-4 h-16">
-          <button onClick={logout} className="flex items-center gap-2 text-red-500 bg-red-50 px-3 py-2 rounded-xl">
-            <LogOut size={18} /><span className="text-sm font-medium">خروج</span>
-          </button>
-          <div className="text-center">
-            <h1 className="text-base font-bold text-gray-800">لوحة الطبيب</h1>
-            <p className="text-xs text-gray-400">{new Date().toLocaleDateString('ar-YE', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => { logout(); window.dispatchEvent(new CustomEvent('nav-to-main')); }}
+              className="flex items-center gap-1.5 bg-gradient-to-r from-[#104C48] to-[#199A8E] hover:opacity-90 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-sm active:scale-95"
+              title="العودة لشاشة الواجهات الخمس شاشة البداية"
+            >
+              <ArrowRight size={16} />
+              <span>الواجهات الخمس</span>
+            </button>
+            <button onClick={logout} className="flex items-center gap-1 text-[#E53935] bg-rose-50 hover:bg-rose-100 p-2 rounded-xl text-xs font-bold transition active:scale-95 border border-rose-200" title="تسجيل الخروج">
+              <LogOut size={16} />
+            </button>
           </div>
-          <div className="w-20" />
+          <div className="text-center">
+            <h1 className="text-base font-bold text-[#104C48]">لوحة الطبيب والاستشارات</h1>
+            <p className="text-xs text-slate-400">{new Date().toLocaleDateString('ar-YE', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
+          </div>
+          <div className="w-16" />
         </div>
       </header>
 
-      <div className="px-4 pt-4">
-        <div className="flex bg-gray-100 rounded-xl p-1 mb-5">
-          {[{ id: 'today', label: 'اليوم' }, { id: 'monthly', label: 'الشهري' }, { id: 'consult', label: 'استشارة' }, { id: 'library', label: 'مكتبة' }, { id: 'messages', label: 'رسائل' }, { id: 'report', label: 'تقرير' }].map(t => (
-            <button key={t.id} onClick={() => setActiveView(t.id as any)} className={`flex-1 py-2.5 rounded-lg font-medium text-sm transition-colors ${activeView === t.id ? 'bg-white text-gray-800 shadow-sm' : 'text-gray-500'}`}>{t.label}</button>
+      <div className="px-4 pt-4 max-w-4xl mx-auto">
+        <div className="flex bg-[#E8F5F4]/60 border border-[#199A8E]/15 rounded-2xl p-1 mb-5 overflow-x-auto scrollbar-hide">
+          {[{ id: 'today', label: 'حالات اليوم' }, { id: 'monthly', label: 'الشهري' }, { id: 'consult', label: 'استشارة' }, { id: 'library', label: 'مكتبة' }, { id: 'messages', label: 'رسائل' }, { id: 'report', label: 'تقرير' }].map(t => (
+            <button key={t.id} onClick={() => setActiveView(t.id as any)} className={`flex-1 py-2 px-3 rounded-xl font-bold text-xs whitespace-nowrap transition-all ${activeView === t.id ? 'bg-[#199A8E] text-white shadow-sm' : 'text-slate-600 hover:text-[#104C48]'}`}>{t.label}</button>
           ))}
         </div>
 
@@ -1031,7 +1041,7 @@ export function DoctorDashboard() {
             <h3 className="font-bold text-gray-800 mb-3 text-sm">حجوزات اليوم</h3>
 
             {isLoading ? (
-              <div className="flex items-center justify-center py-12"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]" /></div>
+              <div className="flex items-center justify-center py-12"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#199A8E]" /></div>
             ) : (
               <div className="space-y-2">
                 {todayAppts.map(appt => {
@@ -1041,9 +1051,9 @@ export function DoctorDashboard() {
                   const canExamine = appt.status === 'in_progress' || appt.status === 'confirmed';
 
                   return (
-                    <div key={appt.id} className={`bg-white rounded-2xl border shadow-sm ${isActive ? 'border-[#2196F3] ring-1 ring-[#2196F3]/20' : appt.is_emergency ? 'border-red-300' : 'border-gray-100'} ${appt.status === 'completed' ? 'opacity-60' : ''}`}>
+                    <div key={appt.id} className={`bg-white rounded-2xl border shadow-sm ${isActive ? 'border-[#199A8E] ring-1 ring-[#199A8E]/20' : appt.is_emergency ? 'border-red-300' : 'border-gray-100'} ${appt.status === 'completed' ? 'opacity-60' : ''}`}>
                       <div className="flex items-center gap-3 p-3.5">
-                        <div className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold text-white flex-shrink-0 ${isActive ? 'bg-[#2196F3]' : appt.status === 'completed' ? 'bg-green-500' : 'bg-gray-300'}`}>
+                        <div className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold text-white flex-shrink-0 ${isActive ? 'bg-[#199A8E]' : appt.status === 'completed' ? 'bg-green-500' : 'bg-gray-300'}`}>
                           #{appt.queue_number}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -1059,7 +1069,7 @@ export function DoctorDashboard() {
                         <div className="flex flex-col items-end gap-2">
                           <span className="text-xs text-gray-400">{appt.estimated_time}</span>
                           {canExamine && (
-                            <button onClick={() => openExam(appt)} className={`text-xs px-3 py-1.5 rounded-lg font-bold ${isActive ? 'bg-[#2196F3] text-white' : 'bg-gray-100 text-gray-700'}`}>
+                            <button onClick={() => openExam(appt)} className={`text-xs px-3 py-1.5 rounded-lg font-bold ${isActive ? 'bg-[#199A8E] text-white' : 'bg-gray-100 text-gray-700'}`}>
                               {isActive ? 'معاينة الآن' : 'فحص'}
                             </button>
                           )}
@@ -1071,7 +1081,7 @@ export function DoctorDashboard() {
                       {/* Active patient — 3 action buttons */}
                       {isActive && (
                         <div className="border-t border-gray-100 px-3 pb-3 pt-2 grid grid-cols-3 gap-2">
-                          <button onClick={() => { setExaminingAppt(appt); setTimeout(() => {}, 0); }} className="bg-[#2196F3] text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1"><FileText size={13} />وصفة</button>
+                          <button onClick={() => { setExaminingAppt(appt); setTimeout(() => {}, 0); }} className="bg-[#199A8E] text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1"><FileText size={13} />وصفة</button>
                           <button onClick={() => { setExaminingAppt(appt); }} className="bg-emerald-600 text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1"><FlaskConical size={13} />فحوصات</button>
                           <button onClick={() => { setExaminingAppt(appt); }} className="bg-amber-500 text-white py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1"><Clipboard size={13} />الملف</button>
                         </div>
@@ -1088,7 +1098,7 @@ export function DoctorDashboard() {
         {activeView === 'monthly' && (
           <>
             <div className="grid grid-cols-2 gap-3 mb-5">
-              <div className="bg-gradient-to-br from-[#2196F3] to-[#1565C0] rounded-2xl p-5 text-white">
+              <div className="bg-gradient-to-br from-[#199A8E] to-[#1565C0] rounded-2xl p-5 text-white">
                 <p className="text-white/80 text-sm">إجمالي الشهر</p>
                 <p className="text-3xl font-bold mt-1">145</p>
                 <div className="flex items-center gap-1 mt-2 text-white/80"><TrendingUp size={14} /><span className="text-sm">+15%</span></div>
@@ -1103,10 +1113,10 @@ export function DoctorDashboard() {
               <h3 className="font-bold text-gray-800 mb-4 text-sm text-right">أكثر الأعراض شيوعاً</h3>
               {[{ s: 'ألم بطن', n: 25 }, { s: 'صداع', n: 20 }, { s: 'ضيق تنفس', n: 15 }, { s: 'حرارة', n: 12 }].map((item, i) => (
                 <div key={i} className="flex items-center gap-3 mb-3">
-                  <span className="w-6 h-6 bg-blue-100 rounded-lg flex items-center justify-center text-[#2196F3] font-bold text-xs">{i + 1}</span>
+                  <span className="w-6 h-6 bg-[#E8F5F4] rounded-lg flex items-center justify-center text-[#199A8E] font-bold text-xs">{i + 1}</span>
                   <div className="flex-1">
                     <p className="font-medium text-gray-800 text-sm text-right">{item.s}</p>
-                    <div className="w-full bg-gray-100 rounded-full h-1.5 mt-1"><div className="bg-[#2196F3] rounded-full h-1.5" style={{ width: `${(item.n / 25) * 100}%` }} /></div>
+                    <div className="w-full bg-gray-100 rounded-full h-1.5 mt-1"><div className="bg-[#199A8E] rounded-full h-1.5" style={{ width: `${(item.n / 25) * 100}%` }} /></div>
                   </div>
                   <span className="text-gray-500 text-sm">{item.n}</span>
                 </div>
@@ -1138,7 +1148,7 @@ export function DoctorDashboard() {
                 ))}
               </div>
             </div>
-            <button className="w-full bg-[#2196F3] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2"><Download size={18} />تحميل تقرير PDF</button>
+            <button className="w-full bg-[#199A8E] text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2"><Download size={18} />تحميل تقرير PDF</button>
           </div>
         )}
       </div>

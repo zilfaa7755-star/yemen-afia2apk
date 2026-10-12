@@ -56,7 +56,7 @@ export function WMuted({ children, className = '' }: { children: React.ReactNode
 }
 
 // Blue gradient header block
-export function WHeader({ title, sub, icon, color = 'from-[#2196F3] to-[#1976D2]' }: { title: string; sub?: string; icon?: string; color?: string }) {
+export function WHeader({ title, sub, icon, color = 'from-[#199A8E] to-[#1976D2]' }: { title: string; sub?: string; icon?: string; color?: string }) {
   return (
     <div className={`bg-gradient-to-b ${color} px-3 py-3 rounded-t-2xl`}>
       <div className="flex items-center justify-between">
@@ -83,13 +83,13 @@ export function WBottomNav({ active = 'home' }: { active?: string }) {
       {items.map((item) => (
         <div key={item.id} className="flex flex-col items-center gap-0.5">
           {item.center ? (
-            <div className="w-8 h-8 bg-[#2196F3] rounded-full flex items-center justify-center -mt-3 shadow-lg">
+            <div className="w-8 h-8 bg-[#199A8E] rounded-full flex items-center justify-center -mt-3 shadow-lg">
               <span className="text-white text-xs">{item.icon}</span>
             </div>
           ) : (
-            <span className={`text-xs ${active === item.id ? 'text-[#2196F3]' : 'text-gray-400'}`}>{item.icon}</span>
+            <span className={`text-xs ${active === item.id ? 'text-[#199A8E]' : 'text-gray-400'}`}>{item.icon}</span>
           )}
-          <span className={`text-[7px] ${active === item.id ? 'text-[#2196F3] font-bold' : 'text-gray-400'}`}>{item.label}</span>
+          <span className={`text-[7px] ${active === item.id ? 'text-[#199A8E] font-bold' : 'text-gray-400'}`}>{item.label}</span>
         </div>
       ))}
     </div>
@@ -104,7 +104,7 @@ export function WTabBar({ tabs, active = 0 }: { tabs: string[]; active?: number 
         <div
           key={i}
           className={`px-3 py-1 rounded-full text-[9px] font-bold ${
-            i === active ? 'bg-[#2196F3] text-white' : 'bg-gray-100 text-gray-500'
+            i === active ? 'bg-[#199A8E] text-white' : 'bg-gray-100 text-gray-500'
           }`}
         >
           {tab}
@@ -117,7 +117,7 @@ export function WTabBar({ tabs, active = 0 }: { tabs: string[]; active?: number 
 // Pill / chip
 export function WPill({ children, active = false, color = 'blue' }: { children: React.ReactNode; active?: boolean; color?: string }) {
   const colors: Record<string, string> = {
-    blue: active ? 'bg-[#2196F3]/10 border-[#2196F3] text-[#2196F3]' : 'bg-gray-50 border-gray-200 text-gray-500',
+    blue: active ? 'bg-[#199A8E]/10 border-[#199A8E] text-[#199A8E]' : 'bg-gray-50 border-gray-200 text-gray-500',
     red: 'bg-red-50 border-red-200 text-red-500',
     green: 'bg-green-50 border-green-200 text-green-600',
     amber: 'bg-amber-50 border-amber-200 text-amber-600',
@@ -131,7 +131,7 @@ export function WPill({ children, active = false, color = 'blue' }: { children: 
 }
 
 // Icon circle
-export function WIconCircle({ color = 'bg-blue-100', icon = '●', size = 'w-8 h-8' }: { color?: string; icon?: string; size?: string }) {
+export function WIconCircle({ color = 'bg-[#E8F5F4]', icon = '●', size = 'w-8 h-8' }: { color?: string; icon?: string; size?: string }) {
   return (
     <div className={`${size} ${color} rounded-full flex items-center justify-center text-[10px]`}>
       {icon}
@@ -140,7 +140,7 @@ export function WIconCircle({ color = 'bg-blue-100', icon = '●', size = 'w-8 h
 }
 
 // Button mock
-export function WButton({ label, color = 'bg-[#2196F3]', full = true }: { label: string; color?: string; full?: boolean }) {
+export function WButton({ label, color = 'bg-[#199A8E]', full = true }: { label: string; color?: string; full?: boolean }) {
   return (
     <div className={`${color} ${full ? 'w-full' : ''} text-white text-[10px] font-bold rounded-xl px-3 py-2 text-center`}>
       {label}

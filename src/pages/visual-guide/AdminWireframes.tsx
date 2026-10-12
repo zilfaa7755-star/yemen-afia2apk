@@ -44,7 +44,7 @@ export function AdminOverviewScreen() {
             <p className="text-[8px] font-bold text-gray-700 mb-2">توزيع الخدمات</p>
             <div className="space-y-1.5">
               {[
-                ['التمريض', 80, 'bg-blue-500'],
+                ['التمريض', 80, 'bg-[#199A8E]'],
                 ['الصيدلية', 65, 'bg-teal-500'],
                 ['المختبر', 50, 'bg-purple-500'],
                 ['تبرع الدم', 35, 'bg-red-500'],

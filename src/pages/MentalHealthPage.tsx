@@ -42,24 +42,24 @@ interface Therapist {
 
 const therapists: Therapist[] = [
   { id: '1', name: 'د. منى الجابري', specialization: 'علم نفس إكلينيكي', sessions_done: 412, rating: 4.9, review_count: 185, price: 3500, available_today: true, languages: ['عربي'], approach: ['علاج معرفي سلوكي', 'تقليل التوتر'], avatar_color: 'from-purple-400 to-purple-600' },
-  { id: '2', name: 'د. أحمد الربيعي', specialization: 'طب نفسي وعلاج إدمان', sessions_done: 638, rating: 4.7, review_count: 241, price: 4500, available_today: true, languages: ['عربي', 'إنجليزي'], approach: ['علاج دوائي', 'جلسات فردية'], avatar_color: 'from-blue-400 to-blue-600' },
+  { id: '2', name: 'د. أحمد الربيعي', specialization: 'طب نفسي وعلاج إدمان', sessions_done: 638, rating: 4.7, review_count: 241, price: 4500, available_today: true, languages: ['عربي', 'إنجليزي'], approach: ['علاج دوائي', 'جلسات فردية'], avatar_color: 'from-[#104C48] to-[#199A8E]' },
   { id: '3', name: 'د. سارة الوهيبي', specialization: 'إرشاد أسري وزوجي', sessions_done: 289, rating: 4.8, review_count: 128, price: 3000, available_today: false, languages: ['عربي'], approach: ['علاج أسري', 'تواصل فعال'], avatar_color: 'from-rose-400 to-rose-600' },
   { id: '4', name: 'أ. خالد المقطري', specialization: 'إرشاد نفسي وتنمية ذات', sessions_done: 175, rating: 4.6, review_count: 67, price: 2000, available_today: true, languages: ['عربي'], approach: ['قبول وتعهد', 'يقظة ذهنية'], avatar_color: 'from-teal-400 to-teal-600' },
 ];
 
 const selfHelpTopics = [
-  { id: 'anxiety', title: 'التعامل مع القلق', icon: Brain, color: 'text-purple-500 bg-purple-50', articles: 8 },
-  { id: 'stress', title: 'إدارة الضغط اليومي', icon: Sparkles, color: 'text-blue-500 bg-blue-50', articles: 6 },
-  { id: 'sleep', title: 'تحسين النوم', icon: Clock, color: 'text-indigo-500 bg-indigo-50', articles: 5 },
+  { id: 'anxiety', title: 'التعامل مع القلق', icon: Brain, color: 'text-purple-500 bg-[#E8F5F4]', articles: 8 },
+  { id: 'stress', title: 'إدارة الضغط اليومي', icon: Sparkles, color: 'text-[#199A8E] bg-[#E8F5F4]', articles: 6 },
+  { id: 'sleep', title: 'تحسين النوم', icon: Clock, color: 'text-[#104C48] bg-[#E8F5F4]', articles: 5 },
   { id: 'grief', title: 'الحزن وخسارة العزيز', icon: Heart, color: 'text-rose-500 bg-rose-50', articles: 7 },
   { id: 'relations', title: 'العلاقات الصحية', icon: User, color: 'text-green-500 bg-green-50', articles: 9 },
   { id: 'selfesteem', title: 'تقدير الذات', icon: Shield, color: 'text-amber-500 bg-amber-50', articles: 6 },
 ];
 
 const sessionTypes = [
-  { id: 'video', icon: Video, label: 'كشف فيديو', desc: '45-60 دقيقة مرئية', color: 'bg-blue-100 text-blue-600' },
+  { id: 'video', icon: Video, label: 'كشف فيديو', desc: '45-60 دقيقة مرئية', color: 'bg-[#E8F5F4] text-[#199A8E]' },
   { id: 'voice', icon: Phone, label: 'مكالمة صوتية', desc: '45 دقيقة هاتفية', color: 'bg-green-100 text-green-600' },
-  { id: 'chat', icon: MessageSquare, label: 'محادثة نصية', desc: 'تواصل كتابي مرن', color: 'bg-purple-100 text-purple-600' },
+  { id: 'chat', icon: MessageSquare, label: 'محادثة نصية', desc: 'تواصل كتابي مرن', color: 'bg-purple-100 text-[#199A8E]' },
 ];
 
 export function MentalHealthPage({ onBack }: MentalHealthPageProps) {
@@ -142,7 +142,7 @@ export function MentalHealthPage({ onBack }: MentalHealthPageProps) {
               </div>
               <div className="flex gap-3">
                 <button onClick={() => setBookingStep('type')} className="flex-1 py-3.5 rounded-2xl border border-gray-200 text-gray-600 font-medium">رجوع</button>
-                <button onClick={handleBook} className="flex-1 py-3.5 rounded-2xl bg-purple-600 text-white font-bold">تأكيد الحجز</button>
+                <button onClick={handleBook} className="flex-1 py-3.5 rounded-2xl bg-[#199A8E] text-white font-bold">تأكيد الحجز</button>
               </div>
             </div>
           ) : (
@@ -170,7 +170,7 @@ export function MentalHealthPage({ onBack }: MentalHealthPageProps) {
                 </div>
                 <div className="flex flex-wrap gap-1.5 justify-end">
                   {t.approach.map(a => (
-                    <span key={a} className="bg-purple-50 text-purple-700 text-xs px-2.5 py-1 rounded-xl">{a}</span>
+                    <span key={a} className="bg-[#E8F5F4] text-[#104C48] text-xs px-2.5 py-1 rounded-xl">{a}</span>
                   ))}
                 </div>
               </div>
@@ -183,7 +183,7 @@ export function MentalHealthPage({ onBack }: MentalHealthPageProps) {
                     <button
                       key={st.id}
                       onClick={() => setSessionType(st.id)}
-                      className={`w-full flex items-center gap-3 p-3.5 rounded-2xl border-2 transition-all ${sessionType === st.id ? 'border-purple-500 bg-purple-50' : 'border-gray-100 bg-gray-50'}`}
+                      className={`w-full flex items-center gap-3 p-3.5 rounded-2xl border-2 transition-all ${sessionType === st.id ? 'border-purple-500 bg-[#E8F5F4]' : 'border-gray-100 bg-gray-50'}`}
                     >
                       <div className={`w-10 h-10 ${st.color} rounded-xl flex items-center justify-center flex-shrink-0`}>
                         <st.icon size={18} />
@@ -204,7 +204,7 @@ export function MentalHealthPage({ onBack }: MentalHealthPageProps) {
                   <span className="text-xl font-black text-gray-900">{t.price.toLocaleString('ar')} ر.ي</span>
                   <span className="text-gray-500 text-sm">سعر الجلسة</span>
                 </div>
-                <button onClick={() => setBookingStep('confirm')} className="w-full py-4 bg-purple-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2">
+                <button onClick={() => setBookingStep('confirm')} className="w-full py-4 bg-[#199A8E] text-white rounded-2xl font-bold flex items-center justify-center gap-2">
                   <Calendar size={18} />
                   احجز الجلسة
                 </button>
@@ -249,7 +249,7 @@ export function MentalHealthPage({ onBack }: MentalHealthPageProps) {
             <button
               key={id}
               onClick={() => setActiveTab(id as any)}
-              className={`py-2.5 rounded-xl font-medium text-sm transition-all ${activeTab === id ? 'bg-purple-600 text-white shadow-sm' : 'text-gray-500'}`}
+              className={`py-2.5 rounded-xl font-medium text-sm transition-all ${activeTab === id ? 'bg-[#199A8E] text-white shadow-sm' : 'text-gray-500'}`}
             >
               {label}
             </button>
@@ -285,11 +285,11 @@ export function MentalHealthPage({ onBack }: MentalHealthPageProps) {
                         <span className="text-xs font-bold text-gray-700">{t.rating}</span>
                         <Star size={10} className="text-yellow-400 fill-yellow-400" />
                       </div>
-                      <span className="font-bold text-purple-600 text-sm">{t.price.toLocaleString('ar')} ر.ي</span>
+                      <span className="font-bold text-[#199A8E] text-sm">{t.price.toLocaleString('ar')} ر.ي</span>
                     </div>
                     <div className="flex flex-wrap gap-1 mt-1.5 justify-end">
                       {t.approach.slice(0, 2).map(a => (
-                        <span key={a} className="text-[10px] bg-purple-50 text-purple-600 px-2 py-0.5 rounded-lg">{a}</span>
+                        <span key={a} className="text-[10px] bg-[#E8F5F4] text-[#199A8E] px-2 py-0.5 rounded-lg">{a}</span>
                       ))}
                     </div>
                   </div>
@@ -340,7 +340,7 @@ export function MentalHealthPage({ onBack }: MentalHealthPageProps) {
             </div>
             <p className="font-bold text-gray-700 text-lg mb-2">لا توجد جلسات بعد</p>
             <p className="text-gray-400 text-sm mb-6">احجز جلستك الأولى مع أحد معالجينا المتخصصين</p>
-            <button onClick={() => setActiveTab('therapists')} className="bg-purple-600 text-white px-8 py-3.5 rounded-2xl font-bold">
+            <button onClick={() => setActiveTab('therapists')} className="bg-[#199A8E] text-white px-8 py-3.5 rounded-2xl font-bold">
               احجز جلسة الآن
             </button>
           </div>

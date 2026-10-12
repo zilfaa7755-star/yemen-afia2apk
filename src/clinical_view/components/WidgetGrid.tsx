@@ -291,7 +291,7 @@ function RadiologyCard({ radiologyStudies, facilityFilter, onOpenRadiology, onOp
             e.stopPropagation();
             onOpenDICOM();
           }}
-          className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition-colors shadow-sm"
+          className="w-full flex items-center justify-center gap-2 py-2 rounded-lg bg-[#104C48] text-white text-xs font-bold hover:bg-[#0d3f3c] transition-colors shadow-sm"
         >
           <Eye className="w-4 h-4" />
           فتح عارض الأشعة DICOM المباشر

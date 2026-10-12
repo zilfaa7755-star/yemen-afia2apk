@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import {
   X, Star, MapPin, Clock, Users, Stethoscope, Zap, Video,
   Check, Navigation, Calendar, Award, GraduationCap, Briefcase,
-  TrendingUp, Shield, Phone, FileText, Languages, BookOpen,
-  Wallet, CreditCard, Banknote,
+  TrendingUp, ShieldCheck, Phone, FileText, Languages, BookOpen,
+  Wallet, CreditCard, Banknote, Shield, CheckCircle2, MessageSquare
 } from 'lucide-react';
 import type { Doctor } from '../../types';
 import { FacilityInteractiveMap } from './FacilityInteractiveMap';
@@ -18,12 +18,6 @@ interface DoctorDetailSheetProps {
   onBook: (consultationType: ConsultationType) => void;
 }
 
-const DAY_LABELS: Record<string, string> = {
-  sunday: 'الأحد', monday: 'الإثنين', tuesday: 'الثلاثاء',
-  wednesday: 'الأربعاء', thursday: 'الخميس', friday: 'الجمعة', saturday: 'السبت',
-};
-const ALL_DAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-
 const doctorExtras: Record<string, {
   qualifications: string[];
   certificates: { title: string; issuer: string; year: string }[];
@@ -35,55 +29,54 @@ const doctorExtras: Record<string, {
   successRate: number;
   phone: string;
   licenseNumber: string;
+  hospital: string;
+  testimonials: { id: string; author: string; text: string; rating: number; date: string }[];
 }> = {
   '1': {
     qualifications: ['بكالوريوس طب وجراحة - جامعة صنعاء (2008)', 'دبلوم الباطنة العامة - المجلس العربي للطب (2013)', 'زمالة الكلية الملكية البريطانية MRCP (2017)'],
-    certificates: [{ title: 'دبلوم الأمراض الباطنة', issuer: 'المجلس العربي', year: '2013' }, { title: 'دورة علاج السكري', issuer: 'منظمة الصحة العالمية', year: '2016' }],
+    certificates: [{ title: 'دبلوم الأمراض الباطنة', issuer: 'المجلس العربي', year: '2013' }],
     languages: ['العربية', 'الإنجليزية'],
     experienceYears: 16, education: 'جامعة صنعاء - كلية الطب',
-    services: ['كشف باطني عام', 'متابعة السكري', 'متابعة ضغط الدم', 'أمراض الغدد'],
-    totalPatients: 3200, successRate: 94, phone: '777001001', licenseNumber: 'LIC-20345',
+    services: ['كشف باطني عام', 'متابعة السكري', 'متابعة ضغط الدم', 'أمراض الغدد والقسطرة'],
+    totalPatients: 3420, successRate: 98, phone: '777001001', licenseNumber: 'LIC-20345',
+    hospital: 'مستشفى الثورة التعليمي — صنعاء',
+    testimonials: [
+      { id: 't1', author: 'أحمد صالح', text: 'طبيب متميز وصبور جداً في الاستماع للأعراض وتشخيص دقيق ساعد والدي كثيراً.', rating: 5, date: 'قبل يومين' },
+      { id: 't2', author: 'منى الأهدل', text: 'المتابعة ممتازة عبر التطبيق والعيادة منظمة وملتزمين بالمواعيد.', rating: 5, date: 'قبل أسبوع' },
+    ],
   },
   '2': {
     qualifications: ['بكالوريوس طب وجراحة - جامعة عدن (2010)', 'دبلوم أمراض القلب - المجلس العربي (2015)', 'زمالة القسطرة القلبية - جامعة برلين (2019)'],
-    certificates: [{ title: 'دبلوم أمراض القلب', issuer: 'المجلس العربي', year: '2015' }, { title: 'القسطرة التداخلية', issuer: 'جامعة شاريتيه - برلين', year: '2018' }],
+    certificates: [{ title: 'دبلوم أمراض القلب', issuer: 'المجلس العربي', year: '2015' }],
     languages: ['العربية', 'الإنجليزية', 'الألمانية'],
     experienceYears: 14, education: 'جامعة عدن - كلية الطب',
     services: ['قسطرة قلبية', 'علاج الجلطات', 'متابعة أمراض القلب', 'تخطيط القلب'],
-    totalPatients: 1800, successRate: 91, phone: '777002002', licenseNumber: 'LIC-20412',
+    totalPatients: 2180, successRate: 96, phone: '777002002', licenseNumber: 'LIC-20412',
+    hospital: 'المستشفى الكويتي التخصصي — صنعاء',
+    testimonials: [
+      { id: 't1', author: 'فؤاد الحميري', text: 'أفضل دكتورة قلب في أمانة العاصمة، فحص دقيق وشرح وافٍ للحالة.', rating: 5, date: 'قبل 3 أيام' },
+    ],
   },
-  '3': {
-    qualifications: ['بكالوريوس طب وجراحة - جامعة صنعاء (2006)', 'دبلوم الأعصاب الطرفية - جامعة الأردن (2012)', 'البورد العربي في طب الأعصاب (2015)'],
-    certificates: [{ title: 'دبلوم الأعصاب الطرفية', issuer: 'جامعة الأردن', year: '2012' }, { title: 'البورد العربي في طب الأعصاب', issuer: 'المجلس العربي', year: '2015' }],
-    languages: ['العربية', 'الإنجليزية'],
-    experienceYears: 18, education: 'جامعة صنعاء - كلية الطب',
-    services: ['كشف أعصاب', 'علاج الصداع النصبي', 'متابعة الصرع', 'تخطيط الدماغ EEG'],
-    totalPatients: 2400, successRate: 93, phone: '777003003', licenseNumber: 'LIC-19876',
-  },
-  '4': {
-    qualifications: ['بكالوريوس طب وجراحة - جامعة صنعاء (2009)', 'دبلوم طب الأطفال - جامعة القاهرة (2014)', 'البورد العربي في طب الأطفال (2017)'],
-    certificates: [{ title: 'دبلوم طب الأطفال', issuer: 'جامعة القاهرة', year: '2014' }, { title: 'البورد العربي في طب الأطفال', issuer: 'المجلس العربي', year: '2017' }],
-    languages: ['العربية', 'الإنجليزية'],
-    experienceYears: 15, education: 'جامعة صنعاء - كلية الطب',
-    services: ['كشف أطفال عام', 'متابعة النمو', 'التطعيمات', 'علاج الربو'],
-    totalPatients: 4100, successRate: 96, phone: '777004004', licenseNumber: 'LIC-20578',
-  },
-  '5': {
-    qualifications: ['بكالوريوس طب وجراحة - جامعة صنعاء (2007)', 'دبلوم العيون - المجلس العربي (2013)'],
-    certificates: [{ title: 'دبلوم العيون', issuer: 'المجلس العربي', year: '2013' }],
-    languages: ['العربية', 'الإنجليزية'],
-    experienceYears: 17, education: 'جامعة صنعاء - كلية الطب',
-    services: ['كشف عيون', 'علاج المياه البيضاء', 'فحص النظر', 'عمليات الليزر'],
-    totalPatients: 2800, successRate: 92, phone: '777005005', licenseNumber: 'LIC-20789',
-  },
-  '6': {
-    qualifications: ['بكالوريوس طب وجراحة - جامعة صنعاء (2006)', 'دبلوم العظام - المجلس العربي (2012)'],
-    certificates: [{ title: 'دبلوم العظام', issuer: 'المجلس العربي', year: '2012' }],
-    languages: ['العربية', 'الإنجليزية'],
-    experienceYears: 18, education: 'جامعة صنعاء - كلية الطب',
-    services: ['كشف عظام', 'علاج الكسور', 'متابعة المفاصل', 'جبائر وكسور'],
-    totalPatients: 2200, successRate: 95, phone: '777006006', licenseNumber: 'LIC-20301',
-  },
+};
+
+// Next 7 Days Generator for Horizontal Booking Calendar
+const getNext7Days = () => {
+  const days = [];
+  const dayNames = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  const today = new Date();
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    days.push({
+      dateStr: d.toISOString().split('T')[0],
+      dayName: i === 0 ? 'اليوم' : i === 1 ? 'غداً' : dayNames[d.getDay()],
+      dayNum: d.getDate(),
+      monthName: d.toLocaleDateString('ar-YE', { month: 'short' }),
+      isAvailable: d.getDay() !== 5, // Friday off
+    });
+  }
+  return days;
 };
 
 export function DoctorDetailSheet({ doctor, queueInfo, distance, onClose, onBook }: DoctorDetailSheetProps) {
@@ -94,355 +87,388 @@ export function DoctorDetailSheet({ doctor, queueInfo, distance, onClose, onBook
   const [bookingDetails, setBookingDetails] = useState('');
   const [showMapModal, setShowMapModal] = useState(false);
 
-  const extras = doctorExtras[doctor.id] || {
-    qualifications: ['بكالوريوس طب وجراحة'], certificates: [], languages: ['العربية'],
-    experienceYears: 5, education: 'كلية الطب', services: [], totalPatients: 0, successRate: 0,
-    phone: '—', licenseNumber: '—',
-  };
+  // 7-day selector state
+  const calendarDays = getNext7Days();
+  const [selectedDate, setSelectedDate] = useState(calendarDays[0].dateStr);
 
+  // Time slot state
+  const morningSlots = [
+    { time: '09:00 ص', available: true },
+    { time: '09:30 ص', available: true },
+    { time: '10:00 ص', available: false },
+    { time: '10:30 ص', available: true },
+    { time: '11:00 ص', available: true },
+  ];
+
+  const eveningSlots = [
+    { time: '04:00 م', available: true },
+    { time: '04:30 م', available: true },
+    { time: '05:00 م', available: true },
+    { time: '05:30 م', available: false },
+    { time: '06:00 م', available: true },
+    { time: '06:30 م', available: true },
+  ];
+
+  const [selectedSlot, setSelectedSlot] = useState('04:30 م');
+
+  const extras = doctorExtras[doctor.id] || doctorExtras['1'];
   const waitingAhead = queueInfo.queueNumber - 1;
+
   const fee = consultationType === 'emergency'
-    ? Math.round((doctor.consultation_fee || 3000) * 1.5)
+    ? Math.round((doctor.consultation_fee || 3500) * 1.5)
     : consultationType === 'remote'
-    ? Math.round((doctor.consultation_fee || 3000) * 0.6)
-    : (doctor.consultation_fee || 3000);
+    ? Math.round((doctor.consultation_fee || 3500) * 0.7)
+    : (doctor.consultation_fee || 3500);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 flex items-end justify-center" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="bg-white rounded-t-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto animate-slide-up">
-        {/* Header */}
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-5 pt-6 pb-8 rounded-t-3xl relative">
-          <button onClick={onClose} className="absolute top-4 left-4 w-9 h-9 bg-white/20 rounded-full flex items-center justify-center">
+    <div
+      className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end justify-center"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div className="bg-white rounded-t-[28px] w-full max-w-lg max-h-[92vh] overflow-y-auto animate-slide-up shadow-2xl border-t border-[#E2E8F0]">
+        {/* Top Header Card (Clinical Teal & Deep Pine) */}
+        <div className="bg-gradient-to-br from-[#104C48] via-[#125853] to-[#199A8E] px-5 pt-6 pb-8 rounded-t-[28px] relative text-white">
+          <button
+            onClick={onClose}
+            className="absolute top-4 left-4 w-9 h-9 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition active:scale-95"
+          >
             <X size={18} className="text-white" />
           </button>
+
           <div className="flex items-center gap-4 mt-2">
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#2196F3] to-[#1565C0] flex items-center justify-center text-white font-bold text-3xl flex-shrink-0 border-2 border-white/30">
-              {doctor.full_name.charAt(2)}
+            <div className="relative">
+              <div className="w-20 h-20 rounded-2xl bg-[#E8F5F4] text-[#104C48] flex items-center justify-center font-black text-2xl shrink-0 border-2 border-white/40 shadow-md">
+                {doctor.full_name?.split(' ')?.[1]?.[0] || 'ط'}
+              </div>
+              <span className="absolute -bottom-1 -left-1 w-6 h-6 rounded-full bg-[#199A8E] text-white flex items-center justify-center text-xs ring-2 ring-white font-bold" title="طبيب موثق ومعتمد">
+                ✓
+              </span>
             </div>
-            <div className="flex-1">
-              <h2 className="text-xl font-bold text-white">{doctor.full_name}</h2>
-              <p className="text-white/80 text-sm mt-0.5">{doctor.specialization?.name_ar}</p>
-              <div className="flex items-center gap-2 mt-2 flex-wrap">
-                <div className="flex items-center gap-1 bg-white/20 rounded-lg px-2 py-1">
-                  <Star size={13} className="text-yellow-300" fill="currentColor" />
-                  <span className="text-white text-xs font-bold">{doctor.rating}</span>
+
+            <div className="flex-1 min-w-0 text-right">
+              <div className="flex items-center gap-1.5">
+                <h2 className="text-lg font-bold text-white truncate">{doctor.full_name}</h2>
+                <ShieldCheck size={18} className="text-[#38B2AC] shrink-0" />
+              </div>
+              <p className="text-teal-100 text-xs mt-0.5 truncate">{doctor.specialization?.name_ar || 'استشاري تخصصي'}</p>
+              <p className="text-white/80 text-[11px] mt-0.5 truncate flex items-center gap-1">
+                <MapPin size={11} className="text-[#38B2AC] shrink-0" />
+                <span>{extras.hospital}</span>
+              </p>
+
+              {/* Stats & Rating Row */}
+              <div className="flex items-center gap-2 mt-2 flex-wrap text-xs">
+                <div className="flex items-center gap-1 bg-white/20 backdrop-blur-md rounded-lg px-2 py-0.5 text-white font-bold">
+                  <Star size={12} className="text-[#FFB800]" fill="#FFB800" strokeWidth={0} />
+                  <span>{doctor.rating}</span>
                 </div>
-                <span className="text-white/70 text-xs">({doctor.total_reviews} تقييم)</span>
-                <button
-                  type="button"
-                  onClick={() => setShowMapModal(true)}
-                  className="flex items-center gap-1 bg-white/25 hover:bg-white/35 active:scale-95 text-white text-[11px] font-bold px-2 py-1 rounded-lg transition"
-                  title="عرض موقع العيادة على الخريطة التفاعلية"
-                >
-                  <MapPin size={12} className="text-white" />
-                  <span>{distance} كم (الخريطة)</span>
-                </button>
+                <span className="text-white/80 text-[11px]">({doctor.total_reviews} تقييم)</span>
+                <span className="text-white/40">·</span>
+                <span className="text-teal-100 text-[11px] font-semibold">{extras.experienceYears} سنة خبرة</span>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Content body */}
         <div className="px-5 pb-8">
-          {/* Tabs */}
-          <div className="bg-white rounded-2xl -mt-4 relative z-10 p-1.5 shadow-sm flex gap-1" dir="rtl">
+          {/* Segmented Tab Controls */}
+          <div className="bg-white rounded-2xl -mt-4 relative z-10 p-1.5 shadow-md border border-[#E2E8F0] flex gap-1" dir="rtl">
             {[
-              { id: 'booking', label: 'الحجز' },
-              { id: 'bio', label: 'السيرة الذاتية' },
-              { id: 'schedule', label: 'المواعيد والتقييمات' },
+              { id: 'booking', label: 'حجز الموعد' },
+              { id: 'bio', label: 'الملف والخبرات' },
+              { id: 'schedule', label: 'التقييمات والدوام' },
             ].map((t) => (
-              <button key={t.id} onClick={() => setTab(t.id as 'booking' | 'bio' | 'schedule')}
-                className={`flex-1 rounded-xl px-2 py-3 text-[11px] font-bold transition-all ${tab === t.id ? 'bg-[#2196F3] text-white shadow-sm' : 'text-gray-500 hover:bg-gray-50'}`}>
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id as any)}
+                className={`flex-1 rounded-xl px-2 py-2.5 text-xs font-bold transition-all ${
+                  tab === t.id
+                    ? 'bg-[#199A8E] text-white shadow-sm'
+                    : 'text-slate-500 hover:text-[#104C48] hover:bg-slate-50'
+                }`}
+              >
                 {t.label}
               </button>
             ))}
           </div>
 
-          {/* Booking Tab */}
+          {/* ── Booking Tab ── */}
           {tab === 'booking' && (
             <div className="pt-5 space-y-4" dir="rtl">
-              {/* Consultation type */}
-              <section className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="font-bold text-gray-800 text-sm mb-3">نوع الاستشارة *</h3>
+              {/* Consultation Type Selector */}
+              <section className="bg-white rounded-2xl border border-[#E2E8F0] p-4">
+                <h3 className="font-bold text-[#104C48] text-xs mb-3">اختر نوع الاستشارة الطبية</h3>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { id: 'clinic' as const, label: 'استشارة عيادة', icon: Stethoscope, desc: 'حضور للعيادة', fee },
-                    { id: 'emergency' as const, label: 'استشارة طارئة', icon: Zap, desc: 'أولوية قصوى', fee: Math.round((doctor.consultation_fee || 3000) * 1.5) },
-                    { id: 'remote' as const, label: 'استشارة عن بعد', icon: Video, desc: 'مكالمة فيديو', fee: Math.round((doctor.consultation_fee || 3000) * 0.6) },
-                  ].map(({ id, label, icon: Icon, desc, fee: f }) => (
-                    <button key={id} onClick={() => setConsultationType(id)}
-                      className={`rounded-xl border-2 p-3 text-center transition-all ${consultationType === id ? 'border-[#2196F3] bg-blue-50' : 'border-gray-100 bg-white'}`}>
-                      <Icon size={20} className={`mx-auto mb-1.5 ${consultationType === id ? 'text-[#2196F3]' : 'text-gray-400'}`} />
-                      <span className={`block text-xs font-bold ${consultationType === id ? 'text-[#2196F3]' : 'text-gray-600'}`}>{label}</span>
-                      <span className="block text-[10px] text-gray-400 mt-0.5">{desc}</span>
-                      <span className="block text-[10px] font-bold text-gray-500 mt-1">{f.toLocaleString()} ر.ي</span>
+                    { id: 'clinic' as const, label: 'عيادة حضورية', icon: Stethoscope, desc: 'حضور مباشر', f: fee },
+                    { id: 'emergency' as const, label: 'أولوية عاجلة', icon: Zap, desc: 'طوارئ أسرع', f: Math.round((doctor.consultation_fee || 3500) * 1.5) },
+                    { id: 'remote' as const, label: 'استشارة مرئية', icon: Video, desc: 'مكالمة فيديو', f: Math.round((doctor.consultation_fee || 3500) * 0.7) },
+                  ].map(({ id, label, icon: Icon, desc, f }) => (
+                    <button
+                      key={id}
+                      onClick={() => setConsultationType(id)}
+                      className={`rounded-2xl border-2 p-2.5 text-center transition-all ${
+                        consultationType === id
+                          ? 'border-[#199A8E] bg-[#E8F5F4]'
+                          : 'border-[#E2E8F0] bg-white hover:border-slate-300'
+                      }`}
+                    >
+                      <Icon
+                        size={18}
+                        className={`mx-auto mb-1 ${consultationType === id ? 'text-[#199A8E]' : 'text-slate-400'}`}
+                      />
+                      <span className={`block text-xs font-bold ${consultationType === id ? 'text-[#104C48]' : 'text-slate-700'}`}>
+                        {label}
+                      </span>
+                      <span className="block text-[10px] text-slate-400 mt-0.5">{desc}</span>
+                      <span className="block text-[11px] font-bold text-[#199A8E] mt-1">{f.toLocaleString()} ر.ي</span>
                     </button>
                   ))}
                 </div>
               </section>
 
-              {/* Queue info */}
-              <section className="bg-[#EBF5FB] rounded-2xl p-4 border border-[#BEE3F8]">
+              {/* ── Interactive Booking Calendar (Horizontal 7-day scrollable) ── */}
+              <section className="bg-white rounded-2xl border border-[#E2E8F0] p-4">
                 <div className="flex items-center justify-between mb-3">
-                  <Clock size={18} className="text-[#2196F3]" />
-                  <p className="font-bold text-gray-800 text-sm">حالة الطابور الآن</p>
+                  <h3 className="font-bold text-[#104C48] text-xs flex items-center gap-1.5">
+                    <Calendar size={15} className="text-[#199A8E]" />
+                    <span>حدد يوم الموعد</span>
+                  </h3>
+                  <span className="text-[11px] text-slate-400 font-mono">{selectedDate}</span>
                 </div>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-gray-500 text-xs">احضر تقريباً الساعة</p>
-                    <p className="text-2xl font-bold text-gray-900 mt-1">{queueInfo.estimatedArrivalTime}</p>
-                    <p className="text-gray-400 text-xs mt-1">~ {queueInfo.estimatedWaitMinutes} دقيقة</p>
+
+                <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                  {calendarDays.map((cd) => {
+                    const isSelected = selectedDate === cd.dateStr;
+                    return (
+                      <button
+                        key={cd.dateStr}
+                        onClick={() => {
+                          if (cd.isAvailable) setSelectedDate(cd.dateStr);
+                        }}
+                        disabled={!cd.isAvailable}
+                        className={`min-w-[62px] py-2.5 px-1.5 rounded-2xl flex flex-col items-center justify-center text-center transition-all active:scale-95 ${
+                          isSelected
+                            ? 'bg-[#199A8E] text-white shadow-md shadow-[#199A8E]/30 font-bold'
+                            : cd.isAvailable
+                            ? 'bg-[#F8FAFB] text-slate-700 border border-[#E2E8F0] hover:border-[#199A8E]/50'
+                            : 'bg-slate-100 text-slate-300 cursor-not-allowed border border-transparent'
+                        }`}
+                      >
+                        <span className={`text-[10px] mb-0.5 ${isSelected ? 'text-teal-100' : 'text-slate-400'}`}>
+                          {cd.dayName}
+                        </span>
+                        <span className="text-base font-black font-mono leading-none my-0.5">
+                          {cd.dayNum}
+                        </span>
+                        <span className={`text-[9px] ${isSelected ? 'text-teal-100' : 'text-slate-400'}`}>
+                          {cd.isAvailable ? cd.monthName : 'إجازة'}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* ── Time Slot Matrix (Morning / Evening Session Pills) ── */}
+              <section className="bg-white rounded-2xl border border-[#E2E8F0] p-4 space-y-3">
+                <h3 className="font-bold text-[#104C48] text-xs flex items-center gap-1.5">
+                  <Clock size={15} className="text-[#199A8E]" />
+                  <span>الفترات المتاحة للحجز</span>
+                </h3>
+
+                {/* Morning Slots */}
+                <div>
+                  <span className="text-[11px] font-bold text-slate-500 block mb-2">الفترة الصباحية</span>
+                  <div className="grid grid-cols-3 gap-2">
+                    {morningSlots.map((slot) => {
+                      const isSelected = selectedSlot === slot.time;
+                      return (
+                        <button
+                          key={slot.time}
+                          onClick={() => slot.available && setSelectedSlot(slot.time)}
+                          disabled={!slot.available}
+                          className={`py-2 px-2 rounded-xl text-xs font-mono font-bold transition-all text-center ${
+                            isSelected
+                              ? 'bg-[#199A8E] text-white shadow-sm'
+                              : slot.available
+                              ? 'bg-[#F8FAFB] text-slate-700 border border-[#E2E8F0] hover:border-[#199A8E]'
+                              : 'bg-slate-100 text-slate-300 cursor-not-allowed line-through'
+                          }`}
+                        >
+                          {slot.time}
+                        </button>
+                      );
+                    })}
                   </div>
-                  <div className="text-left">
-                    <p className="text-gray-500 text-xs">رقمك المتوقع</p>
-                    <p className="text-2xl font-bold text-[#2196F3] mt-1">#{queueInfo.queueNumber}</p>
-                    <p className="text-gray-400 text-xs mt-1">{waitingAhead} قبلك</p>
+                </div>
+
+                {/* Evening Slots */}
+                <div>
+                  <span className="text-[11px] font-bold text-slate-500 block mb-2">الفترة المسائية</span>
+                  <div className="grid grid-cols-3 gap-2">
+                    {eveningSlots.map((slot) => {
+                      const isSelected = selectedSlot === slot.time;
+                      return (
+                        <button
+                          key={slot.time}
+                          onClick={() => slot.available && setSelectedSlot(slot.time)}
+                          disabled={!slot.available}
+                          className={`py-2 px-2 rounded-xl text-xs font-mono font-bold transition-all text-center ${
+                            isSelected
+                              ? 'bg-[#199A8E] text-white shadow-sm'
+                              : slot.available
+                              ? 'bg-[#F8FAFB] text-slate-700 border border-[#E2E8F0] hover:border-[#199A8E]'
+                              : 'bg-slate-100 text-slate-300 cursor-not-allowed line-through'
+                          }`}
+                        >
+                          {slot.time}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </section>
 
-              {/* Reason */}
-              <section className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="font-bold text-gray-800 text-sm mb-3">سبب الزيارة والأعراض</h3>
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {['فحص روتيني ومتابعة', 'ألم أو أعراض مستمرة', 'صداع ودوخة', 'ضغط وسكر', 'استشارة وتعديل أدوية'].map((reason) => (
-                    <button key={reason} onClick={() => setBookingReason(reason)}
-                      className={`rounded-full px-3 py-2 text-xs font-medium transition-colors ${bookingReason === reason ? 'bg-[#2196F3] text-white' : 'bg-blue-50 text-[#1565C0]'}`}>
-                      {reason}
-                    </button>
-                  ))}
-                </div>
-                <textarea value={bookingDetails} onChange={(e) => setBookingDetails(e.target.value)} rows={3}
-                  placeholder="اكتب وصفاً مختصراً للأعراض..."
-                  className="w-full rounded-xl border border-gray-200 bg-gray-50 p-3 text-sm text-gray-700 outline-none focus:border-[#2196F3] focus:ring-2 focus:ring-blue-100 resize-none" />
-              </section>
-
-              {/* Clinic location */}
-              <section className="bg-white rounded-2xl border border-gray-100 p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-gray-500">{distance} كم</span>
-                  <h3 className="font-bold text-gray-800 text-sm flex items-center gap-2">مكان العيادة <MapPin size={15} className="text-[#2196F3]" /></h3>
-                </div>
-                <p className="text-sm font-bold text-gray-800 text-right">{doctor.clinic?.name}</p>
-                <p className="text-xs text-gray-500 mt-1 text-right">{doctor.clinic?.address}</p>
-                <button onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${doctor.clinic?.latitude || 15.3694},${doctor.clinic?.longitude || 44.1910}`, '_blank')}
-                  className="mt-3 w-full rounded-xl bg-gray-900 py-2.5 text-sm font-bold text-white flex items-center justify-center gap-2">
-                  <Navigation size={15} /> توجيه بالخريطة
-                </button>
-              </section>
-
-              {/* Payment */}
-              <section className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="font-bold text-gray-800 text-sm mb-3">اختر وسيلة الدفع:</h3>
+              {/* Payment Method Selector */}
+              <section className="bg-white rounded-2xl border border-[#E2E8F0] p-4">
+                <h3 className="font-bold text-[#104C48] text-xs mb-3">اختر وسيلة الدفع</h3>
                 <div className="grid grid-cols-3 gap-2">
-                  {[{ id: 'wallet', label: 'محفظة إلكترونية', Icon: Wallet }, { id: 'card', label: 'بطاقة مصرفية', Icon: CreditCard }, { id: 'cash', label: 'نقداً عند الوصول', Icon: Banknote }].map(({ id, label, Icon }) => (
-                    <button key={id} onClick={() => setPaymentChoice(id)}
-                      className={`rounded-xl border-2 p-3 text-center transition-all ${paymentChoice === id ? 'border-[#2196F3] bg-blue-50' : 'border-gray-100 bg-white'}`}>
-                      <Icon size={19} className={`mx-auto mb-2 ${paymentChoice === id ? 'text-[#2196F3]' : 'text-gray-400'}`} />
-                      <span className="block text-[10px] leading-4 text-gray-600">{label}</span>
+                  {[
+                    { id: 'wallet', label: 'محفظة يمن عافية', Icon: Wallet },
+                    { id: 'card', label: 'كريمي / بطاقة', Icon: CreditCard },
+                    { id: 'cash', label: 'نقداً في العيادة', Icon: Banknote },
+                  ].map(({ id, label, Icon }) => (
+                    <button
+                      key={id}
+                      onClick={() => setPaymentChoice(id)}
+                      className={`rounded-2xl border-2 p-2.5 text-center transition-all ${
+                        paymentChoice === id
+                          ? 'border-[#199A8E] bg-[#E8F5F4]'
+                          : 'border-[#E2E8F0] bg-white'
+                      }`}
+                    >
+                      <Icon
+                        size={18}
+                        className={`mx-auto mb-1.5 ${paymentChoice === id ? 'text-[#199A8E]' : 'text-slate-400'}`}
+                      />
+                      <span className="block text-[11px] font-bold text-slate-700">{label}</span>
                     </button>
                   ))}
                 </div>
-                <div className="mt-4 space-y-2 text-sm">
-                  <div className="flex justify-between text-gray-500"><span>{fee.toLocaleString()} ر.ي</span><span>رسوم المعاينة</span></div>
-                  <div className="flex justify-between text-gray-500"><span>0 ر.ي</span><span>رسوم الحجز</span></div>
-                  <div className="border-t pt-3 flex justify-between font-black text-gray-900"><span>{fee.toLocaleString()} ر.ي</span><span>المبلغ المستحق</span></div>
+
+                <div className="mt-4 pt-3 border-t border-[#E2E8F0] flex items-center justify-between text-xs">
+                  <span className="text-slate-500">المبلغ الإجمالي المستحق:</span>
+                  <span className="text-base font-black text-[#104C48] font-mono">
+                    {fee.toLocaleString()} ريال يمني
+                  </span>
                 </div>
               </section>
 
-              <button onClick={() => onBook(consultationType)}
-                className="w-full rounded-2xl bg-gradient-to-l from-[#2196F3] to-[#18A98C] py-4 text-white font-black text-base shadow-lg flex items-center justify-center gap-2">
-                تأكيد الحجز والحصول على التذكرة ({fee.toLocaleString()} ر.ي) <Check size={19} />
+              {/* Submit CTA Button */}
+              <button
+                onClick={() => onBook(consultationType)}
+                className="w-full rounded-2xl bg-[#199A8E] hover:bg-[#104C48] py-4 text-white font-bold text-sm shadow-lg shadow-[#199A8E]/30 flex items-center justify-center gap-2 transition active:scale-95"
+              >
+                <span>تأكيد الحجز المباشر ({fee.toLocaleString()} ر.ي)</span>
+                <Check size={18} />
               </button>
             </div>
           )}
 
-          {/* Bio Tab */}
+          {/* ── Bio & Experience Tab ── */}
           {tab === 'bio' && (
-            <div className="pt-5 space-y-4">
-              <div className="grid grid-cols-4 gap-2">
-                <div className="bg-gray-50 rounded-xl p-3 text-center">
-                  <Briefcase size={18} className="mx-auto text-[#2196F3] mb-1" />
-                  <p className="font-bold text-gray-800 text-base">{extras.experienceYears}س</p>
-                  <p className="text-xs text-gray-500">خبرة</p>
+            <div className="pt-5 space-y-4" dir="rtl">
+              {/* KPI Strip */}
+              <div className="grid grid-cols-4 gap-2 text-center">
+                <div className="bg-[#F8FAFB] rounded-2xl p-3 border border-[#E2E8F0]">
+                  <Briefcase size={16} className="mx-auto text-[#199A8E] mb-1" />
+                  <p className="font-bold text-slate-800 text-sm">{extras.experienceYears}س</p>
+                  <p className="text-[10px] text-slate-400">سنوات الخبرة</p>
                 </div>
-                <div className="bg-gray-50 rounded-xl p-3 text-center">
-                  <Clock size={18} className="mx-auto text-[#2196F3] mb-1" />
-                  <p className="font-bold text-gray-800 text-base">{doctor.average_consultation_time}د</p>
-                  <p className="text-xs text-gray-500">معاينة</p>
+                <div className="bg-[#F8FAFB] rounded-2xl p-3 border border-[#E2E8F0]">
+                  <Users size={16} className="mx-auto text-[#199A8E] mb-1" />
+                  <p className="font-bold text-slate-800 text-sm">+{extras.totalPatients}</p>
+                  <p className="text-[10px] text-slate-400">مريض تمت معالجتهم</p>
                 </div>
-                <div className="bg-gray-50 rounded-xl p-3 text-center">
-                  <Users size={18} className="mx-auto text-[#2196F3] mb-1" />
-                  <p className="font-bold text-gray-800 text-base">{waitingAhead}</p>
-                  <p className="text-xs text-gray-500">في الطابور</p>
+                <div className="bg-[#F8FAFB] rounded-2xl p-3 border border-[#E2E8F0]">
+                  <TrendingUp size={16} className="mx-auto text-[#2E7D32] mb-1" />
+                  <p className="font-bold text-slate-800 text-sm">{extras.successRate}%</p>
+                  <p className="text-[10px] text-slate-400">نسبة الشفاء</p>
                 </div>
-                <div className="bg-gray-50 rounded-xl p-3 text-center">
-                  <TrendingUp size={18} className="mx-auto text-green-500 mb-1" />
-                  <p className="font-bold text-gray-800 text-base">{extras.successRate}%</p>
-                  <p className="text-xs text-gray-500">نجاح</p>
+                <div className="bg-[#F8FAFB] rounded-2xl p-3 border border-[#E2E8F0]">
+                  <Clock size={16} className="mx-auto text-[#38B2AC] mb-1" />
+                  <p className="font-bold text-slate-800 text-sm">{doctor.average_consultation_time}د</p>
+                  <p className="text-[10px] text-slate-400">وقت المعاينة</p>
                 </div>
               </div>
 
-              {doctor.bio && (
-                <div className="bg-white rounded-2xl border border-gray-100 p-4">
-                  <h3 className="font-bold text-gray-800 text-sm mb-2 text-right flex items-center gap-2 justify-end">
-                    نبذة عن الطبيب<FileText size={15} className="text-[#2196F3]" />
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed text-right">{doctor.bio || 'طبيب متخصص بتقديم رعاية صحية متميزة'}</p>
-                </div>
-              )}
-
-              <div className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                  المؤهلات العلمية<GraduationCap size={15} className="text-[#2196F3]" />
+              {/* Education & Certificates */}
+              <div className="bg-white rounded-2xl border border-[#E2E8F0] p-4 space-y-2">
+                <h3 className="font-bold text-[#104C48] text-xs flex items-center gap-1.5">
+                  <GraduationCap size={15} className="text-[#199A8E]" />
+                  <span>المؤهلات العلمية والشهادات</span>
                 </h3>
-                <div className="space-y-2">
+                <ul className="space-y-1.5 text-xs text-slate-600">
                   {extras.qualifications.map((q, i) => (
-                    <div key={i} className="flex items-start gap-2 bg-gray-50 rounded-xl px-3 py-2.5">
-                      <Check size={14} className="text-green-500 flex-shrink-0 mt-0.5" />
-                      <p className="text-sm text-gray-700 text-right flex-1">{q}</p>
-                    </div>
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="text-[#199A8E] mt-0.5">•</span>
+                      <span>{q}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
 
-              <div className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                  الشهادات<Award size={15} className="text-[#2196F3]" />
+              {/* Hospital Affiliation & Clinic */}
+              <div className="bg-white rounded-2xl border border-[#E2E8F0] p-4">
+                <h3 className="font-bold text-[#104C48] text-xs flex items-center gap-1.5 mb-2">
+                  <MapPin size={15} className="text-[#199A8E]" />
+                  <span>المقر والارتباط الطبي</span>
                 </h3>
-                <div className="space-y-2">
-                  {extras.certificates.map((c, i) => (
-                    <div key={i} className="bg-blue-50 rounded-xl px-3 py-2.5 border border-blue-100">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-blue-600 font-bold bg-white px-2 py-0.5 rounded-full">{c.year}</span>
-                        <p className="font-bold text-gray-800 text-sm text-right flex-1 ml-2">{c.title}</p>
-                      </div>
-                      <p className="text-xs text-gray-500 text-right">{c.issuer}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                  الخدمات المقدمة<Stethoscope size={15} className="text-[#2196F3]" />
-                </h3>
-                <div className="flex flex-wrap gap-2 justify-end">
-                  {extras.services.map((s, i) => (
-                    <span key={i} className="bg-blue-50 text-[#2196F3] text-xs px-3 py-1.5 rounded-xl font-medium">{s}</span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                  اللغات<Languages size={15} className="text-[#2196F3]" />
-                </h3>
-                <div className="flex flex-wrap gap-2 justify-end">
-                  {extras.languages.map((lang, i) => (
-                    <span key={i} className="bg-teal-50 text-teal-700 text-xs px-3 py-1.5 rounded-full font-medium">{lang}</span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                  التعليم والترخيص<BookOpen size={15} className="text-[#2196F3]" />
-                </h3>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between bg-blue-50 rounded-xl px-3 py-2.5">
-                    <span className="text-sm font-mono font-bold text-gray-700">{extras.licenseNumber}</span>
-                    <div className="flex items-center gap-2">
-                      <Shield size={14} className="text-green-500" />
-                      <span className="text-sm text-gray-600">رقم الترخيص</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between bg-gray-50 rounded-xl px-3 py-2.5">
-                    <span className="text-sm text-gray-700 text-right flex-1">{extras.education}</span>
-                    <BookOpen size={14} className="text-[#2196F3] flex-shrink-0" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-4 text-center">
-                  <Users size={20} className="mx-auto text-[#2196F3] mb-1" />
-                  <p className="text-xl font-black text-gray-800">{extras.totalPatients.toLocaleString('ar')}</p>
-                  <p className="text-xs text-gray-500">إجمالي المرضى</p>
-                </div>
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-4 text-center">
-                  <TrendingUp size={20} className="mx-auto text-green-500 mb-1" />
-                  <p className="text-xl font-black text-gray-800">{extras.successRate}%</p>
-                  <p className="text-xs text-gray-500">نسبة الشفاء</p>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="font-bold text-gray-800 text-sm mb-3 text-right flex items-center gap-2 justify-end">
-                  معلومات التواصل<Phone size={15} className="text-[#2196F3]" />
-                </h3>
-                <div className="flex items-center justify-between bg-gray-50 rounded-xl px-3 py-2.5">
-                  <span className="text-sm font-mono text-gray-700" dir="ltr">{extras.phone}</span>
-                  <div className="flex items-center gap-2"><Phone size={14} className="text-[#2196F3]" /><span className="text-sm text-gray-600">الهاتف</span></div>
-                </div>
+                <p className="text-xs font-bold text-slate-800">{doctor.clinic?.name || extras.hospital}</p>
+                <p className="text-[11px] text-slate-500 mt-0.5">{doctor.clinic?.address || 'صنعاء، اليمن'}</p>
               </div>
             </div>
           )}
 
-          {/* Schedule Tab */}
+          {/* ── Schedule & Testimonials Tab ── */}
           {tab === 'schedule' && (
             <div className="pt-5 space-y-4" dir="rtl">
-              <div className="bg-white rounded-2xl border border-gray-100 p-5 text-center">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <Star size={20} className="text-amber-400" fill="currentColor" />
-                  <span className="text-3xl font-black text-gray-900">{doctor.rating}</span>
+              {/* Rating Summary */}
+              <div className="bg-white rounded-2xl border border-[#E2E8F0] p-5 text-center">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <Star size={24} className="text-[#FFB800]" fill="#FFB800" strokeWidth={0} />
+                  <span className="text-3xl font-black text-[#104C48] font-mono">{doctor.rating}</span>
                 </div>
-                <p className="text-sm text-gray-500">تقييم ممتاز من {doctor.total_reviews} مراجع</p>
-                <div className="mt-4 h-2 rounded-full bg-gray-100 overflow-hidden">
-                  <div className="h-full w-[92%] rounded-full bg-amber-400" />
-                </div>
+                <p className="text-xs text-slate-500">تقييم موثق من {doctor.total_reviews} مريض</p>
               </div>
 
-              <div className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="font-bold text-gray-800 text-sm mb-3">أيام وساعات الدوام</h3>
-                <div className="flex flex-wrap gap-1.5 mb-3 justify-end">
-                  {ALL_DAYS.map((day) => (
-                    <span key={day} className={`text-xs px-2.5 py-1.5 rounded-lg font-medium ${doctor.working_days?.includes(day) ? 'bg-green-100 text-green-700' : 'bg-gray-50 text-gray-300 line-through'}`}>
-                      {DAY_LABELS[day]}
-                    </span>
+              {/* Testimonials List */}
+              <div className="bg-white rounded-2xl border border-[#E2E8F0] p-4 space-y-3">
+                <h3 className="font-bold text-[#104C48] text-xs flex items-center gap-1.5">
+                  <MessageSquare size={15} className="text-[#199A8E]" />
+                  <span>آراء وتجارب المرضى</span>
+                </h3>
+
+                <div className="space-y-2.5">
+                  {extras.testimonials.map((t) => (
+                    <div key={t.id} className="p-3 rounded-xl bg-[#F8FAFB] border border-[#E2E8F0] text-xs">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-bold text-slate-800">{t.author}</span>
+                        <span className="text-[10px] text-slate-400">{t.date}</span>
+                      </div>
+                      <p className="text-slate-600 leading-relaxed">{t.text}</p>
+                    </div>
                   ))}
                 </div>
-                <div className="space-y-2">
-                  {doctor.working_hours?.morning && (
-                    <div className="flex justify-between rounded-xl bg-amber-50 px-3 py-2.5 text-sm">
-                      <span className="font-bold text-gray-700">{doctor.working_hours.morning.start} - {doctor.working_hours.morning.end}</span>
-                      <span className="text-amber-600">الفترة الصباحية</span>
-                    </div>
-                  )}
-                  {doctor.working_hours?.evening && (
-                    <div className="flex justify-between rounded-xl bg-blue-50 px-3 py-2.5 text-sm">
-                      <span className="font-bold text-gray-700">{doctor.working_hours.evening.start} - {doctor.working_hours.evening.end}</span>
-                      <span className="text-[#1565C0]">الفترة المسائية</span>
-                    </div>
-                  )}
-                </div>
               </div>
 
-              <div className="bg-[#EBF8F4] rounded-2xl border border-teal-100 p-4">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p className="text-xs text-gray-500">المتوقع قبلك</p>
-                    <p className="text-2xl font-black text-gray-900">{waitingAhead} مرضى</p>
-                  </div>
-                  <div className="text-left">
-                    <p className="text-xs text-gray-500">الانتظار التقريبي</p>
-                    <p className="text-2xl font-black text-teal-700">{queueInfo.estimatedWaitMinutes} دقيقة</p>
-                  </div>
-                </div>
-              </div>
-
-              <button onClick={() => { setTab('booking'); }}
-                className="w-full rounded-2xl bg-[#2196F3] py-4 text-white font-bold flex items-center justify-center gap-2">
-                <Calendar size={18} /> اختيار هذا الطبيب والحجز
+              <button
+                onClick={() => setTab('booking')}
+                className="w-full py-3.5 rounded-2xl bg-[#199A8E] text-white font-bold text-xs shadow-md"
+              >
+                الانتقال لحجز الموعد
               </button>
             </div>
           )}

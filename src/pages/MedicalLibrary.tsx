@@ -44,7 +44,7 @@ interface SharedCase {
 }
 
 const CATEGORY_CONFIG: Record<string, { label: string; cls: string; icon: any }> = {
-  reference: { label: 'مرجع طبي', cls: 'bg-blue-50 text-blue-700', icon: BookOpen },
+  reference: { label: 'مرجع طبي', cls: 'bg-[#E8F5F4] text-[#104C48]', icon: BookOpen },
   guideline: { label: 'دليل إرشادي', cls: 'bg-teal-50 text-teal-700', icon: Shield },
   update: { label: 'تحديث طبي', cls: 'bg-amber-50 text-amber-700', icon: TrendingUp },
   research: { label: 'بحث علمي', cls: 'bg-purple-50 text-purple-700', icon: FlaskConical },
@@ -226,7 +226,7 @@ export function MedicalLibrary() {
               <h2 className="font-black text-gray-800 text-lg text-right flex-1">{selectedItem.title}</h2>
             </div>
             {selectedItem.author && <p className="text-sm text-gray-500 text-right mb-3">بقلم: {selectedItem.author}</p>}
-            {selectedItem.specialization && <p className="text-xs text-[#2196F3] font-medium text-right mb-3">{selectedItem.specialization}</p>}
+            {selectedItem.specialization && <p className="text-xs text-[#199A8E] font-medium text-right mb-3">{selectedItem.specialization}</p>}
             <p className="text-sm text-gray-700 leading-relaxed text-right">{selectedItem.summary}</p>
             {selectedItem.content && <p className="text-sm text-gray-600 leading-relaxed text-right mt-3">{selectedItem.content}</p>}
             {selectedItem.tags && selectedItem.tags.length > 0 && (
@@ -245,7 +245,7 @@ export function MedicalLibrary() {
             </div>
             {selectedItem.source_url && (
               <a href={selectedItem.source_url} target="_blank" rel="noopener noreferrer"
-                className="mt-4 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#2196F3] text-white font-bold text-sm">
+                className="mt-4 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#199A8E] text-white font-bold text-sm">
                 <ExternalLink size={16} />زيارة المصدر
               </a>
             )}
@@ -280,8 +280,8 @@ export function MedicalLibrary() {
               <p className="text-sm text-gray-700 text-right leading-relaxed">{selectedCase.case_summary}</p>
             </div>
             {selectedCase.diagnosis && (
-              <div className="bg-blue-50 rounded-xl p-3">
-                <p className="text-xs text-blue-600 mb-1 text-right font-medium">التشخيص</p>
+              <div className="bg-[#E8F5F4] rounded-xl p-3">
+                <p className="text-xs text-[#199A8E] mb-1 text-right font-medium">التشخيص</p>
                 <p className="text-sm text-gray-800 text-right font-bold">{selectedCase.diagnosis}</p>
               </div>
             )}
@@ -370,10 +370,10 @@ export function MedicalLibrary() {
       {activeTab === 'library' && (
         <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4">
           <button onClick={() => setSelectedCategory('all')}
-            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium ${selectedCategory === 'all' ? 'bg-[#2196F3] text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>الكل</button>
+            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium ${selectedCategory === 'all' ? 'bg-[#199A8E] text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>الكل</button>
           {Object.entries(CATEGORY_CONFIG).map(([key, cfg]) => (
             <button key={key} onClick={() => setSelectedCategory(key)}
-              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium ${selectedCategory === key ? 'bg-[#2196F3] text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>{cfg.label}</button>
+              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium ${selectedCategory === key ? 'bg-[#199A8E] text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>{cfg.label}</button>
           ))}
         </div>
       )}
@@ -382,14 +382,14 @@ export function MedicalLibrary() {
         <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4">
           {SPECIALIZATIONS.map(s => (
             <button key={s.id} onClick={() => setSelectedSpec(s.id)}
-              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium ${selectedSpec === s.id ? 'bg-[#2196F3] text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>{s.label}</button>
+              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium ${selectedSpec === s.id ? 'bg-[#199A8E] text-white' : 'bg-white text-gray-600 border border-gray-200'}`}>{s.label}</button>
           ))}
         </div>
       )}
 
       {/* Content */}
       {isLoading ? (
-        <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]" /></div>
+        <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#199A8E]" /></div>
       ) : activeTab === 'library' ? (
         <div className="space-y-3">
           {filteredLibrary.map(item => {
@@ -413,7 +413,7 @@ export function MedicalLibrary() {
                     <div className="flex items-center gap-3 mt-2 justify-end">
                       <span className="text-xs text-gray-400 flex items-center gap-1"><Eye size={11} />{item.views}</span>
                       <span className="text-xs text-gray-400 flex items-center gap-1"><Heart size={11} />{item.likes}</span>
-                      {item.specialization && <span className="text-xs text-[#2196F3] font-medium">{item.specialization}</span>}
+                      {item.specialization && <span className="text-xs text-[#199A8E] font-medium">{item.specialization}</span>}
                     </div>
                   </div>
                 </div>
@@ -434,7 +434,7 @@ export function MedicalLibrary() {
                 </div>
                 <h3 className="font-bold text-gray-800 text-sm text-right">{item.title}</h3>
                 <p className="text-xs text-gray-400 text-right mt-1 line-clamp-2">{item.summary}</p>
-                {item.specialization && <p className="text-xs text-[#2196F3] font-medium text-right mt-2">{item.specialization}</p>}
+                {item.specialization && <p className="text-xs text-[#199A8E] font-medium text-right mt-2">{item.specialization}</p>}
               </button>
             );
           })}
@@ -442,7 +442,7 @@ export function MedicalLibrary() {
       ) : activeTab === 'cases' ? (
         <>
           <button onClick={() => setShowAddCase(true)}
-            className="w-full bg-[#2196F3] text-white rounded-2xl py-3.5 font-bold flex items-center justify-center gap-2 shadow-lg">
+            className="w-full bg-[#199A8E] text-white rounded-2xl py-3.5 font-bold flex items-center justify-center gap-2 shadow-lg">
             <Plus size={18} />مشاركة حالة تعليمية
           </button>
           <div className="space-y-3">
@@ -455,7 +455,7 @@ export function MedicalLibrary() {
                   <span className="text-xs text-gray-400 flex items-center gap-1"><Eye size={11} />{c.views}</span>
                   <span className="text-xs text-gray-400 flex items-center gap-1"><Heart size={11} />{c.likes}</span>
                   <span className="text-xs text-gray-500">• {c.doctor_name}</span>
-                  {c.doctor_specialization && <span className="text-xs text-[#2196F3] font-medium">{c.doctor_specialization}</span>}
+                  {c.doctor_specialization && <span className="text-xs text-[#199A8E] font-medium">{c.doctor_specialization}</span>}
                 </div>
                 {c.tags && c.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 mt-2 justify-end">
@@ -488,7 +488,7 @@ export function MedicalLibrary() {
               <div className="flex items-center gap-2 mt-2 justify-end">
                 <span className="text-xs text-gray-400">{new Date(c.created_at).toLocaleDateString('ar-YE', { day: 'numeric', month: 'short' })}</span>
                 <span className="text-xs text-gray-500">• {c.doctor_name}</span>
-                {c.specialization_name && <span className="text-xs text-[#2196F3] font-medium">{c.specialization_name}</span>}
+                {c.specialization_name && <span className="text-xs text-[#199A8E] font-medium">{c.specialization_name}</span>}
               </div>
             </div>
           ))}
@@ -548,46 +548,46 @@ function AddCaseForm({ onClose, onSaved, doctorName }: { onClose: () => void; on
         </div>
       </div>
       <div className="px-4 pt-4 space-y-3">
-        <div className="bg-blue-50 rounded-2xl p-3 mb-2">
-          <p className="text-xs text-blue-700 text-right">شارك حالة تعليمية قد يستفيد منها زملاؤك الأطباء. سيتم عرضها في قسم الحالات التعليمية بالمكتبة الطبية.</p>
+        <div className="bg-[#E8F5F4] rounded-2xl p-3 mb-2">
+          <p className="text-xs text-[#104C48] text-right">شارك حالة تعليمية قد يستفيد منها زملاؤك الأطباء. سيتم عرضها في قسم الحالات التعليمية بالمكتبة الطبية.</p>
         </div>
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">عنوان الحالة *</label>
           <input value={title} onChange={e => setTitle(e.target.value)} dir="rtl" placeholder="مثال: حالة صرع مقاوم استجابت للكيتباباتين"
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3]" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E]" />
         </div>
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">ملخص الحالة *</label>
           <textarea value={caseSummary} onChange={e => setCaseSummary(e.target.value)} rows={3} dir="rtl" placeholder="صف الحالة بإيجاز..."
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
         </div>
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">التشخيص</label>
           <input value={diagnosis} onChange={e => setDiagnosis(e.target.value)} dir="rtl" placeholder="التشخيص النهائي..."
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3]" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E]" />
         </div>
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">العلاج</label>
           <textarea value={treatment} onChange={e => setTreatment(e.target.value)} rows={2} dir="rtl" placeholder="العلاج المتبع..."
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
         </div>
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">النتيجة</label>
           <textarea value={outcome} onChange={e => setOutcome(e.target.value)} rows={2} dir="rtl" placeholder="ماذا كانت النتيجة؟"
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
         </div>
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">الدروس المستفادة</label>
           <textarea value={lessons} onChange={e => setLessons(e.target.value)} rows={2} dir="rtl" placeholder="ما الذي يمكن أن يتعلمه الآخرون من هذه الحالة؟"
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3] resize-none" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E] resize-none" />
         </div>
         <div>
           <label className="text-xs text-gray-500 block mb-1.5 text-right font-medium">الوسوم (مفصولة بفاصلة)</label>
           <input value={tags} onChange={e => setTags(e.target.value)} dir="rtl" placeholder="مثال: صرع, كيتباباتين, حالة مقاومة"
-            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3]" />
+            className="w-full p-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E]" />
         </div>
         <button onClick={handleSave} disabled={!title.trim() || !caseSummary.trim() || saving}
-          className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 ${title.trim() && caseSummary.trim() ? 'bg-[#2196F3] text-white' : 'bg-gray-200 text-gray-400'}`}>
+          className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 ${title.trim() && caseSummary.trim() ? 'bg-[#199A8E] text-white' : 'bg-gray-200 text-gray-400'}`}>
           {saving ? <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" /> : <><CheckCircle size={18} />نشر الحالة</>}
         </button>
       </div>

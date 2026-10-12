@@ -98,7 +98,7 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
   // Confirmation Screen
   if (step === 'confirmation' && selectedPharmacy) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-[#F8FAFB] flex flex-col">
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
             <CheckCircle size={40} className="text-green-600" />
@@ -124,11 +124,11 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
           </div>
 
           {selectedPharmacy.delivery_available && (
-            <div className="w-full bg-blue-50 rounded-2xl p-4 mb-6 flex items-center gap-3">
-              <Truck size={24} className="text-[#2196F3]" />
+            <div className="w-full bg-[#E8F5F4] rounded-2xl p-4 mb-6 flex items-center gap-3">
+              <Truck size={24} className="text-[#199A8E]" />
               <div className="flex-1 text-right">
-                <p className="font-medium text-[#2196F3]">التوصيل متاح</p>
-                <p className="text-xs text-blue-600">سيتم التوصيل خلال 30-60 دقيقة</p>
+                <p className="font-medium text-[#199A8E]">التوصيل متاح</p>
+                <p className="text-xs text-[#104C48]">سيتم التوصيل خلال 30-60 دقيقة</p>
               </div>
             </div>
           )}
@@ -138,7 +138,7 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
               setStep('list');
               setSelectedPharmacy(null);
             }}
-            className="w-full py-4 rounded-2xl bg-[#2196F3] text-white font-bold"
+            className="w-full py-4 rounded-2xl bg-[#199A8E] text-white font-bold"
           >
             حسناً
           </button>
@@ -150,8 +150,8 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
   // Order Form Screen
   if (step === 'order' && selectedPharmacy) {
     return (
-      <div className="min-h-screen bg-gray-50 pb-6">
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] pt-3 pb-16 px-4 sticky top-0 z-40">
+      <div className="min-h-screen bg-[#F8FAFB] pb-6">
+        <div className="bg-gradient-to-b from-[#104C48] via-[#125853] to-[#199A8E] pt-3 pb-16 px-4 sticky top-0 z-40">
           <div className="flex items-center justify-between">
             <button
               onClick={() => {
@@ -174,8 +174,8 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
         <div className="px-4 -mt-10 relative z-30">
           <div className="bg-white rounded-2xl shadow-lg p-4 mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <Pill size={24} className="text-[#2196F3]" />
+              <div className="w-12 h-12 bg-[#E8F5F4] rounded-xl flex items-center justify-center">
+                <Pill size={24} className="text-[#199A8E]" />
               </div>
               <div className="flex-1 text-right">
                 <p className="font-bold text-gray-800">{selectedPharmacy.name}</p>
@@ -187,11 +187,11 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
           {/* Upload Prescription */}
           <div className="bg-white rounded-2xl shadow-sm p-4 mb-4 border border-gray-100">
             <p className="font-bold text-gray-800 text-sm mb-3">رفع الوصفة الطبية</p>
-            <button className="w-full border-2 border-dashed border-blue-300 rounded-xl p-5 flex flex-col items-center gap-2 hover:bg-blue-50 transition-colors">
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <Camera size={24} className="text-[#2196F3]" />
+            <button className="w-full border-2 border-dashed border-[#199A8E]/40 rounded-xl p-5 flex flex-col items-center gap-2 hover:bg-[#E8F5F4] transition-colors">
+              <div className="w-12 h-12 bg-[#E8F5F4] rounded-xl flex items-center justify-center">
+                <Camera size={24} className="text-[#199A8E]" />
               </div>
-              <span className="text-[#2196F3] font-medium text-sm">التقط صورة للوصفة</span>
+              <span className="text-[#199A8E] font-medium text-sm">التقط صورة للوصفة</span>
             </button>
           </div>
 
@@ -232,11 +232,11 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
           </div>
 
           {selectedPharmacy.delivery_available && (
-            <div className="bg-blue-50 rounded-2xl p-4 mb-6 flex items-center gap-3">
-              <Truck size={22} className="text-[#2196F3]" />
+            <div className="bg-[#E8F5F4] rounded-2xl p-4 mb-6 flex items-center gap-3">
+              <Truck size={22} className="text-[#199A8E]" />
               <div className="flex-1 text-right">
-                <p className="font-medium text-[#2196F3]">التوصيل متاح</p>
-                <p className="text-xs text-blue-600">خلال 30-60 دقيقة</p>
+                <p className="font-medium text-[#199A8E]">التوصيل متاح</p>
+                <p className="text-xs text-[#104C48]">خلال 30-60 دقيقة</p>
               </div>
             </div>
           )}
@@ -245,7 +245,7 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
             onClick={handleSubmitOrder}
             disabled={!medicationName.trim() || !address.trim() || isSubmitting}
             className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 ${
-              medicationName.trim() && address.trim() ? 'bg-[#2196F3] text-white' : 'bg-gray-200 text-gray-400'
+              medicationName.trim() && address.trim() ? 'bg-[#199A8E] text-white' : 'bg-gray-200 text-gray-400'
             }`}
           >
             <Send size={18} />
@@ -258,8 +258,8 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
 
   // List Screen
   return (
-    <div className="min-h-screen bg-gray-50 pb-6">
-      <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] pt-3 pb-20 px-4 sticky top-0 z-40">
+    <div className="min-h-screen bg-[#F8FAFB] pb-6">
+      <div className="bg-gradient-to-b from-[#104C48] via-[#125853] to-[#199A8E] pt-3 pb-20 px-4 sticky top-0 z-40">
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => {
@@ -297,7 +297,7 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
 
         {isLoading ? (
           <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]" />
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#199A8E]" />
           </div>
         ) : (
           <div className="space-y-3">
@@ -310,8 +310,8 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
                   className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 text-right"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Pill size={22} className="text-[#2196F3]" />
+                    <div className="w-12 h-12 bg-[#E8F5F4] rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Pill size={22} className="text-[#199A8E]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
@@ -327,7 +327,7 @@ export function PharmacyPage({ onBack }: PharmacyPageProps) {
                       <div className="flex items-center gap-1 text-xs text-gray-500 mt-0.5">
                         <Clock size={12} />
                         {typeof pharmacy.working_hours === 'object' && pharmacy.working_hours ? `${pharmacy.working_hours.start} - ${pharmacy.working_hours.end}` : (pharmacy.working_hours || '8:00 - 22:00')}
-                        {distance > 0 && <span className="mr-2 text-[#2196F3]">{distance} كم</span>}
+                        {distance > 0 && <span className="mr-2 text-[#199A8E]">{distance} كم</span>}
                       </div>
                     </div>
                     <ChevronLeft size={18} className="text-gray-400 flex-shrink-0" />

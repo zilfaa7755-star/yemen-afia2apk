@@ -104,7 +104,7 @@ const demoPrescriptions: Prescription[] = [
 
 const statusConfig = {
   active: { label: 'سارية', color: 'bg-green-100 text-green-700', dot: 'bg-green-500' },
-  dispensed: { label: 'تم الصرف', color: 'bg-blue-100 text-blue-700', dot: 'bg-blue-500' },
+  dispensed: { label: 'تم الصرف', color: 'bg-[#E8F5F4] text-[#104C48]', dot: 'bg-[#199A8E]' },
   expired: { label: 'منتهية', color: 'bg-gray-100 text-gray-500', dot: 'bg-gray-400' },
   cancelled: { label: 'ملغاة', color: 'bg-red-100 text-red-600', dot: 'bg-red-500' },
 };
@@ -157,9 +157,9 @@ export function ElectronicPrescriptionPage({ onBack }: ElectronicPrescriptionPag
     const st = statusConfig[selectedPrescription.status];
     const days = daysRemaining(selectedPrescription.expiry_date);
     return (
-      <div className="min-h-screen bg-gray-50 pb-8">
+      <div className="min-h-screen bg-[#F8FAFB] pb-8">
         {/* Header */}
-        <div className="bg-gradient-to-br from-[#0B337A] via-[#08285F] to-[#00B39F] pt-3 pb-16 px-4 sticky top-0 z-40">
+        <div className="bg-gradient-to-br from-[#104C48] via-[#125853] to-[#199A8E] pt-3 pb-16 px-4 sticky top-0 z-40">
           <div className="flex items-center justify-between">
             <div className="flex gap-2">
               <button onClick={() => setShowQR(!showQR)} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
@@ -193,13 +193,13 @@ export function ElectronicPrescriptionPage({ onBack }: ElectronicPrescriptionPag
 
           {/* Prescription Header Card */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div className="bg-gradient-to-l from-[#E3F2FD] to-[#BBDEFB] px-5 py-4">
+            <div className="bg-gradient-to-l from-[#E8F5F4] to-[#d4ede9] px-5 py-4">
               <div className="flex items-center justify-between mb-2">
                 <span className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 ${st.color}`}>
                   <span className={`w-2 h-2 rounded-full ${st.dot}`} />
                   {st.label}
                 </span>
-                <span className="font-mono text-sm font-bold text-[#1565C0]">{selectedPrescription.code}</span>
+                <span className="font-mono text-sm font-bold text-[#104C48]">{selectedPrescription.code}</span>
               </div>
               {selectedPrescription.status === 'active' && (
                 <div className={`text-sm font-medium ${days <= 7 ? 'text-orange-600' : 'text-gray-600'}`}>
@@ -210,8 +210,8 @@ export function ElectronicPrescriptionPage({ onBack }: ElectronicPrescriptionPag
 
             <div className="px-5 py-4 space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-                  <Stethoscope size={20} className="text-[#2196F3]" />
+                <div className="w-10 h-10 bg-[#E8F5F4] rounded-xl flex items-center justify-center">
+                  <Stethoscope size={20} className="text-[#199A8E]" />
                 </div>
                 <div>
                   <p className="font-bold text-gray-800">{selectedPrescription.doctor_name}</p>
@@ -220,19 +220,19 @@ export function ElectronicPrescriptionPage({ onBack }: ElectronicPrescriptionPag
               </div>
 
               {selectedPrescription.diagnosis && (
-                <div className="bg-blue-50 rounded-xl p-3">
+                <div className="bg-[#E8F5F4] rounded-xl p-3">
                   <p className="text-xs text-gray-500 mb-1">التشخيص</p>
                   <p className="font-medium text-gray-800">{selectedPrescription.diagnosis}</p>
                 </div>
               )}
 
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-gray-50 rounded-xl p-3 text-center">
+                <div className="bg-[#F8FAFB] rounded-xl p-3 text-center">
                   <Calendar size={16} className="mx-auto text-gray-400 mb-1" />
                   <p className="text-xs text-gray-500">تاريخ الإصدار</p>
                   <p className="text-sm font-bold text-gray-700">{formatDate(selectedPrescription.issue_date)}</p>
                 </div>
-                <div className="bg-gray-50 rounded-xl p-3 text-center">
+                <div className="bg-[#F8FAFB] rounded-xl p-3 text-center">
                   <Clock size={16} className="mx-auto text-gray-400 mb-1" />
                   <p className="text-xs text-gray-500">تاريخ الانتهاء</p>
                   <p className="text-sm font-bold text-gray-700">{formatDate(selectedPrescription.expiry_date)}</p>
@@ -244,22 +244,22 @@ export function ElectronicPrescriptionPage({ onBack }: ElectronicPrescriptionPag
           {/* Medications */}
           <div className="bg-white rounded-2xl shadow-lg p-5">
             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <Pill size={18} className="text-[#2196F3]" />
+              <Pill size={18} className="text-[#199A8E]" />
               الأدوية المقررة ({selectedPrescription.medications.length})
             </h3>
             <div className="space-y-3">
               {selectedPrescription.medications.map((med, idx) => (
                 <div key={idx} className="border border-gray-100 rounded-xl p-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-[#2196F3] font-bold text-sm">{idx + 1}</span>
+                    <div className="w-9 h-9 bg-[#E8F5F4] rounded-lg flex items-center justify-center flex-shrink-0">
+                      <span className="text-[#199A8E] font-bold text-sm">{idx + 1}</span>
                     </div>
                     <div className="flex-1">
                       <p className="font-bold text-gray-800">{med.name}</p>
                       <div className="grid grid-cols-2 gap-2 mt-2 text-xs text-gray-600">
-                        <span className="bg-gray-50 rounded-lg px-2 py-1">الجرعة: {med.dosage}</span>
-                        <span className="bg-gray-50 rounded-lg px-2 py-1">التكرار: {med.frequency}</span>
-                        <span className="bg-gray-50 rounded-lg px-2 py-1">المدة: {med.duration}</span>
+                        <span className="bg-[#F8FAFB] rounded-lg px-2 py-1">الجرعة: {med.dosage}</span>
+                        <span className="bg-[#F8FAFB] rounded-lg px-2 py-1">التكرار: {med.frequency}</span>
+                        <span className="bg-[#F8FAFB] rounded-lg px-2 py-1">المدة: {med.duration}</span>
                         {med.instructions && (
                           <span className="bg-amber-50 text-amber-700 rounded-lg px-2 py-1 col-span-2">{med.instructions}</span>
                         )}
@@ -285,7 +285,7 @@ export function ElectronicPrescriptionPage({ onBack }: ElectronicPrescriptionPag
           {/* Actions */}
           {selectedPrescription.status === 'active' && (
             <div className="grid grid-cols-2 gap-3">
-              <button className="bg-[#2196F3] text-white py-3.5 rounded-2xl font-bold flex items-center justify-center gap-2">
+              <button className="bg-[#199A8E] text-white py-3.5 rounded-2xl font-bold flex items-center justify-center gap-2">
                 <Printer size={18} />
                 طباعة
               </button>
@@ -301,9 +301,9 @@ export function ElectronicPrescriptionPage({ onBack }: ElectronicPrescriptionPag
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-8">
+    <div className="min-h-screen bg-[#F8FAFB] pb-8">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#0B337A] via-[#08285F] to-[#00B39F] pt-3 pb-20 px-4 sticky top-0 z-40">
+      <div className="bg-gradient-to-br from-[#104C48] via-[#125853] to-[#199A8E] pt-3 pb-20 px-4 sticky top-0 z-40">
         <div className="flex items-center justify-between mb-4">
           <button onClick={onBack} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
             <ChevronLeft size={22} className="text-white rotate-180" />
@@ -321,7 +321,7 @@ export function ElectronicPrescriptionPage({ onBack }: ElectronicPrescriptionPag
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`rounded-xl py-2.5 text-center transition-all ${activeTab === tab ? 'bg-white text-[#2196F3]' : 'bg-white/20 text-white'}`}
+              className={`rounded-xl py-2.5 text-center transition-all ${activeTab === tab ? 'bg-white text-[#199A8E]' : 'bg-white/20 text-white'}`}
             >
               <p className="font-black text-xl">{val}</p>
               <p className="text-xs">{label}</p>
@@ -352,7 +352,7 @@ export function ElectronicPrescriptionPage({ onBack }: ElectronicPrescriptionPag
         {/* List */}
         {isLoading ? (
           <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]" />
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#199A8E]" />
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-16">
@@ -371,8 +371,8 @@ export function ElectronicPrescriptionPage({ onBack }: ElectronicPrescriptionPag
                   className="w-full bg-white rounded-2xl shadow-sm border border-gray-100 p-4 text-right"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <FileText size={22} className="text-[#2196F3]" />
+                    <div className="w-12 h-12 bg-[#E8F5F4] rounded-xl flex items-center justify-center flex-shrink-0">
+                      <FileText size={22} className="text-[#199A8E]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 justify-end mb-1">

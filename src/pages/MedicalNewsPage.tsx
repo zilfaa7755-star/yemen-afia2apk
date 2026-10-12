@@ -24,7 +24,7 @@ interface MedicalArticle {
 
 const categoryConfig: Record<string, { label: string; icon: React.ElementType; bg: string; color: string; cardBg: string }> = {
   achievement: { label: 'إنجاز طبي', icon: Trophy, bg: 'bg-green-100', color: 'text-green-700', cardBg: 'bg-gradient-to-br from-green-50 to-emerald-50' },
-  conference: { label: 'مؤتمر طبي', icon: Calendar, bg: 'bg-blue-100', color: 'text-blue-700', cardBg: 'bg-gradient-to-br from-blue-50 to-sky-50' },
+  conference: { label: 'مؤتمر طبي', icon: Calendar, bg: 'bg-[#E8F5F4]', color: 'text-[#104C48]', cardBg: 'bg-gradient-to-br from-[#E8F5F4] to-teal-50' },
   news: { label: 'أخبار', icon: Megaphone, bg: 'bg-gray-100', color: 'text-gray-700', cardBg: 'bg-gradient-to-br from-gray-50 to-slate-50' },
   research: { label: 'بحث علمي', icon: FlaskConical, bg: 'bg-violet-100', color: 'text-violet-700', cardBg: 'bg-gradient-to-br from-violet-50 to-purple-50' },
 };
@@ -82,7 +82,7 @@ export function MedicalNewsPage({ onBack }: { onBack?: () => void }) {
   return (
     <div className="min-h-screen bg-gray-50 pb-6">
       {/* Header */}
-      <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] pt-3 pb-16 px-4 sticky top-0 z-40">
+      <div className="bg-gradient-to-b from-[#104C48] via-[#125853] to-[#199A8E] pt-3 pb-16 px-4 sticky top-0 z-40">
         <div className="flex items-center justify-between">
           <button onClick={onBack} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
             <ChevronLeft size={22} className="text-white rotate-180" />
@@ -102,7 +102,7 @@ export function MedicalNewsPage({ onBack }: { onBack?: () => void }) {
           <button
             onClick={() => setSelectedCategory(null)}
             className={`flex-shrink-0 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-              !selectedCategory ? 'bg-[#2196F3] text-white' : 'bg-gray-100 text-gray-600'
+              !selectedCategory ? 'bg-[#199A8E] text-white' : 'bg-gray-100 text-gray-600'
             }`}
           >
             الكل
@@ -128,7 +128,7 @@ export function MedicalNewsPage({ onBack }: { onBack?: () => void }) {
 
       {isLoading ? (
         <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]" />
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#199A8E]" />
         </div>
       ) : (
         <div className="px-4">

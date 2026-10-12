@@ -4,7 +4,7 @@ import {
   Shield, Award, FileText, BarChart2, AlertCircle,
   Navigation, Send, ArrowUpCircle, Stethoscope, Building2,
   Clipboard, Camera, Star, TrendingUp, Bell, Activity,
-  UserCheck, ChevronRight, Edit3,
+  UserCheck, ChevronRight, Edit3, ArrowRight,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -62,7 +62,7 @@ function RequestCard({ req, onAccept, onComplete, onRefer }: {
 }) {
   const stMap: Record<string, { label: string; cls: string; dot: string }> = {
     pending:   { label: 'طلب جديد', cls: 'bg-amber-100 text-amber-700', dot: 'bg-amber-500 animate-pulse' },
-    accepted:  { label: 'مقبول', cls: 'bg-blue-100 text-blue-700', dot: 'bg-blue-500' },
+    accepted:  { label: 'مقبول', cls: 'bg-[#E8F5F4] text-[#104C48]', dot: 'bg-[#E8F5F4]0' },
     en_route:  { label: 'في الطريق', cls: 'bg-cyan-100 text-cyan-700', dot: 'bg-cyan-500' },
     completed: { label: 'مكتمل', cls: 'bg-green-100 text-green-700', dot: 'bg-green-500' },
     referred:  { label: 'محوَّل', cls: 'bg-purple-100 text-purple-700', dot: 'bg-purple-500' },
@@ -74,8 +74,8 @@ function RequestCard({ req, onAccept, onComplete, onRefer }: {
     <div className={`bg-white rounded-2xl border shadow-sm overflow-hidden ${req.status === 'pending' ? 'border-amber-200' : 'border-gray-100'}`}>
       <div className="p-4">
         <div className="flex items-start gap-3">
-          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-            <User size={22} className="text-[#2196F3]" />
+          <div className="w-12 h-12 bg-[#E8F5F4] rounded-xl flex items-center justify-center flex-shrink-0">
+            <User size={22} className="text-[#199A8E]" />
           </div>
           <div className="flex-1 text-right">
             <div className="flex items-center gap-2 justify-end mb-1">
@@ -87,7 +87,7 @@ function RequestCard({ req, onAccept, onComplete, onRefer }: {
               </span>
             </div>
             <p className="font-bold text-gray-800">{req.patient_name}</p>
-            <a href={`tel:${req.patient_phone}`} className="text-xs text-blue-600 flex items-center gap-1 justify-end mt-0.5">
+            <a href={`tel:${req.patient_phone}`} className="text-xs text-[#199A8E] flex items-center gap-1 justify-end mt-0.5">
               <Phone size={11} />{req.patient_phone}
             </a>
             <p className="text-xs text-gray-500 mt-1 flex items-center gap-1 justify-end">
@@ -103,8 +103,8 @@ function RequestCard({ req, onAccept, onComplete, onRefer }: {
             <span className="text-xs text-gray-400">{req.payment_method === 'mtn' ? 'MTN' : 'كاش'}</span>
             <a href={`https://www.google.com/maps/search/${encodeURIComponent(req.address)}`}
               target="_blank" rel="noreferrer"
-              className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center">
-              <Navigation size={15} className="text-[#2196F3]" />
+              className="w-8 h-8 bg-[#E8F5F4] rounded-xl flex items-center justify-center">
+              <Navigation size={15} className="text-[#199A8E]" />
             </a>
           </div>
         </div>
@@ -117,7 +117,7 @@ function RequestCard({ req, onAccept, onComplete, onRefer }: {
           </button>
           {req.status === 'pending' ? (
             <button onClick={() => onAccept(req.id)}
-              className="flex-1 py-2.5 rounded-xl bg-[#2196F3] text-white text-sm font-bold flex items-center justify-center gap-1.5">
+              className="flex-1 py-2.5 rounded-xl bg-[#199A8E] text-white text-sm font-bold flex items-center justify-center gap-1.5">
               <CheckCircle size={15} />قبول
             </button>
           ) : (
@@ -166,11 +166,11 @@ function ProfileSection({ role }: { role: NurseRole }) {
 
   return (
     <div className="px-4 pt-4 pb-12 space-y-4">
-      <div className={`bg-gradient-to-b ${role === 'gp' ? 'from-green-600 to-green-800' : 'from-[#2196F3] to-[#1565C0]'} rounded-2xl p-6 text-center text-white`}>
+      <div className={`bg-gradient-to-b ${role === 'gp' ? 'from-green-600 to-green-800' : 'from-[#199A8E] to-[#1565C0]'} rounded-2xl p-6 text-center text-white`}>
         <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 relative">
           {role === 'gp' ? <Stethoscope size={38} className="text-white" /> : <User size={38} className="text-white" />}
           <button className="absolute -bottom-1 -left-1 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow">
-            <Camera size={13} className={role === 'gp' ? 'text-green-600' : 'text-[#2196F3]'} />
+            <Camera size={13} className={role === 'gp' ? 'text-green-600' : 'text-[#199A8E]'} />
           </button>
         </div>
         <p className="font-bold text-lg">{name}</p>
@@ -194,11 +194,11 @@ function ProfileSection({ role }: { role: NurseRole }) {
           <div key={label}>
             <label className="text-xs text-gray-500 block mb-1 text-right">{label}</label>
             <input type={type || 'text'} value={val} onChange={e => set(e.target.value)} dir="rtl"
-              className="w-full p-3 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#2196F3]" />
+              className="w-full p-3 rounded-xl border border-gray-200 text-sm outline-none focus:border-[#199A8E]" />
           </div>
         ))}
         <button onClick={save} disabled={saving}
-          className={`w-full py-3.5 rounded-2xl font-bold transition-all ${saved ? 'bg-green-600 text-white' : 'bg-[#2196F3] text-white'}`}>
+          className={`w-full py-3.5 rounded-2xl font-bold transition-all ${saved ? 'bg-green-600 text-white' : 'bg-[#199A8E] text-white'}`}>
           {saved ? '✓ تم الحفظ' : saving ? 'جاري الحفظ...' : 'حفظ البيانات'}
         </button>
       </div>
@@ -253,15 +253,15 @@ export function NurseDashboard() {
   // Role selector
   if (!nurseRole) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#2196F3] to-[#1565C0] flex flex-col items-center justify-center px-6">
+      <div className="min-h-screen bg-gradient-to-b from-[#199A8E] to-[#1565C0] flex flex-col items-center justify-center px-6">
         <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mb-6 shadow-lg">
-          <Activity size={36} className="text-[#2196F3]" />
+          <Activity size={36} className="text-[#199A8E]" />
         </div>
         <h1 className="text-2xl font-black text-white mb-2">لوحة مقدم الخدمة</h1>
         <p className="text-white/70 text-sm mb-8 text-center">اختر دورك لمتابعة</p>
         <div className="w-full max-w-sm space-y-3">
           {([
-            { role: 'nurse' as NurseRole, label: 'ممرض / ممرضة', desc: 'تقديم الرعاية التمريضية المنزلية', icon: Activity, color: 'from-[#2196F3] to-[#1565C0]' },
+            { role: 'nurse' as NurseRole, label: 'ممرض / ممرضة', desc: 'تقديم الرعاية التمريضية المنزلية', icon: Activity, color: 'from-[#199A8E] to-[#1565C0]' },
             { role: 'gp' as NurseRole, label: 'طبيب عام', desc: 'الزيارات المنزلية والاستشارات', icon: Stethoscope, color: 'from-green-600 to-green-800' },
           ]).map(({ role, label, desc, icon: Icon, color }) => (
             <button key={role} onClick={() => { setNurseRole(role); setRequests(role === 'gp' ? demoGPRequests : demoNurseRequests); }}
@@ -277,8 +277,12 @@ export function NurseDashboard() {
             </button>
           ))}
         </div>
-        <button onClick={logout} className="mt-8 flex items-center gap-2 text-white/60 text-sm">
-          <LogOut size={16} />تسجيل خروج
+        <button
+          onClick={() => { logout(); window.dispatchEvent(new CustomEvent('nav-to-main')); }}
+          className="mt-8 flex items-center gap-2 text-white bg-white/20 hover:bg-white/30 px-5 py-2.5 rounded-2xl text-xs font-bold transition shadow-sm active:scale-95 border border-white/20"
+        >
+          <ArrowRight size={16} />
+          <span>العودة لشاشة الواجهات الخمس</span>
         </button>
       </div>
     );
@@ -334,7 +338,7 @@ export function NurseDashboard() {
     emergency: { label: 'طارئ', cls: 'bg-red-100 text-red-700' },
   };
   const statusRefMap: Record<string, { label: string; cls: string }> = {
-    pending: { label: 'في الانتظار', cls: 'bg-blue-100 text-blue-700' },
+    pending: { label: 'في الانتظار', cls: 'bg-[#E8F5F4] text-[#104C48]' },
     accepted: { label: 'مقبول', cls: 'bg-green-100 text-green-700' },
     rejected: { label: 'مرفوض', cls: 'bg-red-100 text-red-600' },
     completed: { label: 'مكتمل', cls: 'bg-gray-100 text-gray-600' },
@@ -352,11 +356,25 @@ export function NurseDashboard() {
       )}
 
       {/* Header */}
-      <header className={`bg-gradient-to-l ${isGP ? 'from-green-700 to-green-900' : 'from-[#2196F3] to-[#1565C0]'} px-4 pt-10 pb-16`}>
+      <header className={`bg-gradient-to-l ${isGP ? 'from-green-700 to-green-900' : 'from-[#199A8E] to-[#1565C0]'} px-4 pt-10 pb-16`}>
         <div className="flex items-center justify-between">
-          <button onClick={() => setNurseRole(null)} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-            <LogOut size={18} className="text-white" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => { logout(); window.dispatchEvent(new CustomEvent('nav-to-main')); }}
+              className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-xl text-xs font-bold transition shadow-sm active:scale-95 border border-white/20"
+              title="العودة لشاشة الواجهات الخمس شاشة البداية"
+            >
+              <ArrowRight size={15} />
+              <span>الواجهات الخمس</span>
+            </button>
+            <button
+              onClick={() => setNurseRole(null)}
+              className="w-9 h-9 bg-white/15 hover:bg-white/25 rounded-xl flex items-center justify-center text-white text-xs font-bold transition active:scale-95"
+              title="تبديل التخصص"
+            >
+              <LogOut size={15} />
+            </button>
+          </div>
           <div className="text-center">
             <h1 className="text-white font-bold text-lg">{isGP ? 'لوحة الطبيب العام' : 'لوحة الممرض'}</h1>
             <p className="text-white/80 text-xs mt-0.5">{new Date().toLocaleDateString('ar-YE', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
@@ -387,7 +405,7 @@ export function NurseDashboard() {
         <div className="flex">
           {tabs.map(({ id, icon: Icon, label }) => (
             <button key={id} onClick={() => setActiveTab(id)}
-              className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium border-b-2 transition-colors ${activeTab === id ? `${isGP ? 'border-green-700 text-green-700' : 'border-[#2196F3] text-[#2196F3]'}` : 'border-transparent text-gray-400'}`}>
+              className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium border-b-2 transition-colors ${activeTab === id ? `${isGP ? 'border-green-700 text-green-700' : 'border-[#199A8E] text-[#199A8E]'}` : 'border-transparent text-gray-400'}`}>
               <Icon size={17} />{label}
             </button>
           ))}
@@ -400,7 +418,7 @@ export function NurseDashboard() {
           <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
             {(['all', 'pending', 'accepted', 'completed'] as const).map(s => (
               <button key={s} onClick={() => setFilterStatus(s)}
-                className={`flex-shrink-0 px-4 py-2 rounded-xl font-medium text-sm transition-all ${filterStatus === s ? `${isGP ? 'bg-green-700' : 'bg-[#2196F3]'} text-white` : 'bg-white text-gray-600 border border-gray-200'}`}>
+                className={`flex-shrink-0 px-4 py-2 rounded-xl font-medium text-sm transition-all ${filterStatus === s ? `${isGP ? 'bg-green-700' : 'bg-[#199A8E]'} text-white` : 'bg-white text-gray-600 border border-gray-200'}`}>
                 {s === 'all' ? 'الكل' : s === 'pending' ? 'جديد' : s === 'accepted' ? 'مقبول' : 'مكتمل'}
               </button>
             ))}
@@ -423,7 +441,7 @@ export function NurseDashboard() {
       {activeTab === 'referrals' && (
         <div className="px-4 pt-4 pb-12 space-y-3">
           <button onClick={() => setShowReferralModal(true)}
-            className={`w-full ${isGP ? 'bg-gradient-to-l from-green-700 to-green-900' : 'bg-gradient-to-l from-[#2196F3] to-[#1565C0]'} text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg`}>
+            className={`w-full ${isGP ? 'bg-gradient-to-l from-green-700 to-green-900' : 'bg-gradient-to-l from-[#199A8E] to-[#1565C0]'} text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg`}>
             <ArrowUpCircle size={20} />إرسال تحويل جديد
           </button>
 
@@ -452,7 +470,7 @@ export function NurseDashboard() {
                   <div className="px-4 py-3">
                     {(r.procedure_name || r.referral_type) && (
                       <div className="flex justify-end mb-2">
-                        <span className="bg-blue-100 text-blue-700 text-xs px-2.5 py-1 rounded-full font-medium">
+                        <span className="bg-[#E8F5F4] text-[#104C48] text-xs px-2.5 py-1 rounded-full font-medium">
                           {r.referral_type === 'operation' ? 'عملية: ' : r.referral_type === 'procedure' ? 'إجراء: ' : 'استشارة'}
                           {r.procedure_name}
                         </span>
@@ -471,13 +489,13 @@ export function NurseDashboard() {
       {/* ── REPORT ── */}
       {activeTab === 'report' && (
         <div className="px-4 pt-4 pb-12 space-y-4">
-          <div className={`bg-gradient-to-br ${isGP ? 'from-green-700 to-green-900' : 'from-[#2196F3] to-[#1565C0]'} rounded-2xl p-5 text-white`}>
+          <div className={`bg-gradient-to-br ${isGP ? 'from-green-700 to-green-900' : 'from-[#199A8E] to-[#1565C0]'} rounded-2xl p-5 text-white`}>
             <p className="text-white/80 text-sm text-right">التقرير الشهري</p>
             <p className="text-3xl font-black mt-1">{new Date().toLocaleDateString('ar-YE', { month: 'long', year: 'numeric' })}</p>
           </div>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { label: 'إجمالي الإجراءات', val: 67, icon: Clipboard, color: 'text-blue-600 bg-blue-50' },
+              { label: 'إجمالي الإجراءات', val: 67, icon: Clipboard, color: 'text-[#199A8E] bg-[#E8F5F4]' },
               { label: 'إجراءات مكتملة', val: 61, icon: CheckCircle, color: 'text-green-600 bg-green-50' },
               { label: 'تحويلات أرسلتها', val: referrals.length, icon: ArrowUpCircle, color: 'text-purple-600 bg-purple-50' },
               { label: 'إيرادات الشهر', val: '183,500 ر.ي', icon: TrendingUp, color: 'text-amber-600 bg-amber-50' },
@@ -499,21 +517,21 @@ export function NurseDashboard() {
               : [{ name: 'حقن / إبر', count: 28 }, { name: 'محاليل وريدية', count: 17 }, { name: 'تنظيف مجارح', count: 12 }, { name: 'سحب دم', count: 10 }]
             ).map((item, i) => (
               <div key={i} className="flex items-center gap-3 mb-3 last:mb-0">
-                <span className="w-6 h-6 bg-blue-100 rounded-lg flex items-center justify-center text-[#2196F3] font-bold text-xs">{i + 1}</span>
+                <span className="w-6 h-6 bg-[#E8F5F4] rounded-lg flex items-center justify-center text-[#199A8E] font-bold text-xs">{i + 1}</span>
                 <div className="flex-1">
                   <div className="flex justify-between mb-1">
                     <span className="text-sm font-medium text-gray-700">{item.name}</span>
                     <span className="text-sm text-gray-500">{item.count}</span>
                   </div>
                   <div className="w-full bg-gray-100 rounded-full h-1.5">
-                    <div className={`${isGP ? 'bg-green-600' : 'bg-[#2196F3]'} rounded-full h-1.5`} style={{ width: `${(item.count / 30) * 100}%` }} />
+                    <div className={`${isGP ? 'bg-green-600' : 'bg-[#199A8E]'} rounded-full h-1.5`} style={{ width: `${(item.count / 30) * 100}%` }} />
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          <button className={`w-full ${isGP ? 'bg-green-700' : 'bg-[#2196F3]'} text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2`}>
+          <button className={`w-full ${isGP ? 'bg-green-700' : 'bg-[#199A8E]'} text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2`}>
             <FileText size={18} />تحميل تقرير PDF
           </button>
         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Calendar, Sparkles, Building2, User } from 'lucide-react';
+import { Home, Calendar, Video, FileText, User } from 'lucide-react';
 
 interface NavItem {
   id: string;
@@ -8,11 +8,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { id: 'more', icon: User, label: 'حسابي' },
-  { id: 'medical-facilities', icon: Building2, label: 'المنشآت' },
-  { id: 'appointments', icon: Calendar, label: 'حجوزاتي' },
-  { id: 'ai-assistant', icon: Sparkles, label: 'المساعد' },
   { id: 'home', icon: Home, label: 'الرئيسية' },
+  { id: 'appointments', icon: Calendar, label: 'مواعيدي' },
+  { id: 'telemedicine', icon: Video, label: 'الاستشارات' },
+  { id: 'health-record', icon: FileText, label: 'سجلاتي' },
+  { id: 'more', icon: User, label: 'حسابي' },
 ];
 
 interface BottomNavProps {
@@ -22,54 +22,44 @@ interface BottomNavProps {
 
 export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50">
-      <div className="bg-white/90 backdrop-blur-xl border-t border-slate-100 shadow-[0_-4px_20px_-8px_rgba(0,0,0,0.08)]">
-        <div className="flex justify-around items-center h-16 max-w-lg mx-auto px-2">
+    <nav className="fixed bottom-3 left-0 right-0 z-40 px-3 pointer-events-none">
+      <div className="max-w-md mx-auto pointer-events-auto bg-white/95 backdrop-blur-xl rounded-[24px] border border-[#E2E8F0] shadow-[0_8px_30px_-4px_rgba(25,154,142,0.14)] p-1.5 transition-all">
+        <div className="grid grid-cols-5 items-center gap-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
-            const isCenter = item.id === 'appointments';
-
-            if (isCenter) {
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => onTabChange(item.id)}
-                  className="flex flex-col items-center justify-center -mt-6"
-                >
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg transition-all duration-300 ${
-                    isActive
-                      ? 'bg-gradient-to-br from-[#0B337A] to-[#00B39F] shadow-[#00B39F]/30 scale-105'
-                      : 'bg-gradient-to-br from-[#0B337A] to-[#08285F] shadow-[#0B337A]/20'
-                  }`}>
-                    <Icon size={26} className="text-white" />
-                  </div>
-                  <span className={`text-xs mt-1.5 font-bold transition-colors ${
-                    isActive ? 'text-[#0B337A]' : 'text-slate-400'
-                  }`}>
-                    {item.label}
-                  </span>
-                </button>
-              );
-            }
 
             return (
               <button
                 key={item.id}
                 onClick={() => onTabChange(item.id)}
-                className="flex flex-col items-center justify-center w-full h-full transition-all duration-200"
+                className={`relative flex flex-col items-center justify-center py-2 px-1 rounded-2xl min-h-[48px] transition-all duration-200 active:scale-95 ${
+                  isActive
+                    ? 'bg-[#E8F5F4] text-[#199A8E]'
+                    : 'text-slate-500 hover:text-[#104C48] hover:bg-slate-50'
+                }`}
+                title={item.label}
               >
-                <div className={`p-1 rounded-xl transition-all duration-300 ${isActive ? 'bg-[#EDF3FC]' : ''}`}>
+                <div className="relative">
                   <Icon
-                    size={22}
-                    className={`transition-all duration-300 ${isActive ? 'text-[#0B337A] scale-110' : 'text-slate-400'}`}
+                    size={20}
+                    strokeWidth={isActive ? 2.5 : 2}
+                    className={`transition-transform duration-200 ${isActive ? 'scale-110 text-[#199A8E]' : 'text-slate-500'}`}
                   />
+                  {item.id === 'telemedicine' && (
+                    <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#38B2AC] ring-2 ring-white" />
+                  )}
                 </div>
-                <span className={`text-[11px] mt-1 font-bold transition-colors ${
-                  isActive ? 'text-[#0B337A]' : 'text-slate-400'
-                }`}>
+                <span
+                  className={`text-[11px] mt-1 font-semibold tracking-tight transition-colors whitespace-nowrap ${
+                    isActive ? 'text-[#104C48] font-bold' : 'text-slate-500'
+                  }`}
+                >
                   {item.label}
                 </span>
+                {isActive && (
+                  <span className="absolute bottom-1 w-4 h-0.5 rounded-full bg-[#199A8E]" />
+                )}
               </button>
             );
           })}

@@ -114,7 +114,7 @@ export function MorePage({ onNavigate }: MorePageProps) {
       <div className="px-4 -mt-10 space-y-3">
         {/* Patient ID Card */}
         {patientCode && (
-          <div className="bg-gradient-to-l from-[#1565C0] to-[#2196F3] rounded-2xl p-4 shadow-lg">
+          <div className="bg-gradient-to-l from-[#104C48] to-[#199A8E] border border-white/20 rounded-2xl p-4 shadow-lg">
             <div className="flex items-center justify-between">
               <button onClick={copyCode}
                 className="flex items-center gap-1.5 bg-white/20 px-3 py-1.5 rounded-xl text-white text-xs font-medium transition-all active:scale-95">

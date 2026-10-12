@@ -6,7 +6,7 @@ import { PhoneFrame, StatusBar, WBox, WLine, WTitle, WMuted, WHeader, WBottomNav
 // ═══════════════════════════════════════════════════════════════════════════
 export function SecretaryDashboardScreen() {
   const queue = [
-    { name: 'محمد أحمد', num: '1', status: 'قيد الكشف', color: 'bg-blue-100 text-blue-700' },
+    { name: 'محمد أحمد', num: '1', status: 'قيد الكشف', color: 'bg-[#E8F5F4] text-[#104C48]' },
     { name: 'فاطمة علي', num: '2', status: 'منتظر', color: 'bg-gray-100 text-gray-600' },
     { name: 'عبدالله سالم', num: '3', status: 'منتظر', color: 'bg-gray-100 text-gray-600' },
     { name: 'سارة محمد', num: '4', status: 'طوارئ', color: 'bg-red-100 text-red-700' },
@@ -82,7 +82,7 @@ export function SecretaryDashboardScreen() {
 // ═══════════════════════════════════════════════════════════════════════════
 export function DoctorDashboardScreen() {
   const patients = [
-    { name: 'محمد أحمد', num: '1', status: 'قيد الكشف', symptoms: 'ألم صدر، ضيق تنفس', color: 'bg-blue-100 text-blue-700' },
+    { name: 'محمد أحمد', num: '1', status: 'قيد الكشف', symptoms: 'ألم صدر، ضيق تنفس', color: 'bg-[#E8F5F4] text-[#104C48]' },
     { name: 'فاطمة علي', num: '2', status: 'منتظر', symptoms: 'صداع مستمر', color: 'bg-gray-100 text-gray-600' },
     { name: 'عبدالله سالم', num: '3', status: 'منتظر', symptoms: 'ارتفاع ضغط', color: 'bg-gray-100 text-gray-600' },
   ];
@@ -191,7 +191,7 @@ export function DoctorExaminationScreen() {
             <p className="text-[8px] font-bold text-gray-700 mb-1">طلب تحاليل</p>
             <div className="flex flex-wrap gap-1">
               {['CBC', 'سكر', 'دهون', 'كبد', 'كلى'].map((t) => (
-                <span key={t} className="text-[7px] bg-blue-50 text-[#2196F3] px-2 py-0.5 rounded-full">{t}</span>
+                <span key={t} className="text-[7px] bg-[#E8F5F4] text-[#199A8E] px-2 py-0.5 rounded-full">{t}</span>
               ))}
             </div>
           </div>
@@ -222,7 +222,7 @@ export function DoctorConsultationScreen() {
           <div className="bg-white rounded-xl p-3 border border-gray-100">
             <div className="flex items-center gap-1.5 justify-end mb-1.5">
               <span className="text-[6px] bg-red-100 text-red-700 px-1.5 py-0.5 rounded-full font-bold">عاجل</span>
-              <span className="text-[6px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full">مفتوحة</span>
+              <span className="text-[6px] bg-[#E8F5F4] text-[#104C48] px-1.5 py-0.5 rounded-full">مفتوحة</span>
               <p className="text-[9px] font-bold text-gray-800">حالة: ألم صدر حاد</p>
             </div>
             <p className="text-[7px] text-gray-500 text-right">د. أحمد المقطري • باطنية</p>
@@ -243,7 +243,7 @@ export function DoctorConsultationScreen() {
             </div>
             <p className="text-[7px] text-gray-600 text-right">موافقة على التشخيص، أنصح بالقسطرة الطارئة خلال أول 90 دقيقة</p>
             <div className="flex items-center gap-2 mt-1.5">
-              <span className="text-[6px] text-[#2196F3]">👍 مفيد (5)</span>
+              <span className="text-[6px] text-[#199A8E]">👍 مفيد (5)</span>
             </div>
           </div>
           <div className="bg-white rounded-xl p-2.5 border border-gray-100">
@@ -269,7 +269,7 @@ export function DoctorConsultationScreen() {
 // ═══════════════════════════════════════════════════════════════════════════
 export function NurseDashboardScreen() {
   const requests = [
-    { name: 'محمد أحمد', service: 'حقن عضلي', addr: 'حدة — شارع 30', status: 'جديد', color: 'bg-blue-100 text-blue-700' },
+    { name: 'محمد أحمد', service: 'حقن عضلي', addr: 'حدة — شارع 30', status: 'جديد', color: 'bg-[#E8F5F4] text-[#104C48]' },
     { name: 'سارة علي', service: 'تغيير جروح', addr: 'الستين — حي السلام', status: 'مقبول', color: 'bg-green-100 text-green-700' },
     { name: 'عبدالله س.', service: 'محاليل وريدية', addr: 'تونس — شارع الستين', status: 'مكتمل', color: 'bg-gray-100 text-gray-600' },
   ];
@@ -277,7 +277,7 @@ export function NurseDashboardScreen() {
     <PhoneFrame label="لوحة الممرض">
       <div className="h-full bg-gray-50 overflow-y-auto">
         <StatusBar dark />
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-3 pt-2 pb-4">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1976D2] px-3 pt-2 pb-4">
           <div className="flex items-center justify-between mb-2">
             <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">⚙</div>
             <div className="text-center">
@@ -289,7 +289,7 @@ export function NurseDashboardScreen() {
         </div>
         <div className="flex gap-1 px-3 py-2 bg-white border-b border-gray-100">
           {['الطلبات', 'التحويلات', 'التقرير', 'الملف'].map((t, i) => (
-            <div key={t} className={`flex-1 py-1.5 rounded-lg text-center text-[7px] font-bold ${i === 0 ? 'bg-[#2196F3] text-white' : 'bg-gray-100 text-gray-500'}`}>{t}</div>
+            <div key={t} className={`flex-1 py-1.5 rounded-lg text-center text-[7px] font-bold ${i === 0 ? 'bg-[#199A8E] text-white' : 'bg-gray-100 text-gray-500'}`}>{t}</div>
           ))}
         </div>
         <div className="p-3 space-y-2">
@@ -304,11 +304,11 @@ export function NurseDashboardScreen() {
                   <p className="text-[7px] text-gray-500">{r.service}</p>
                   <p className="text-[7px] text-gray-400 mt-0.5">📍 {r.addr}</p>
                 </div>
-                <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-sm">💉</div>
+                <div className="w-8 h-8 bg-[#E8F5F4] rounded-lg flex items-center justify-center text-sm">💉</div>
               </div>
               {r.status === 'جديد' && (
                 <div className="flex gap-1 mt-2 pt-2 border-t border-gray-100">
-                  <div className="flex-1 py-1 rounded-lg bg-[#2196F3] text-white text-center text-[7px] font-bold">✓ قبول</div>
+                  <div className="flex-1 py-1 rounded-lg bg-[#199A8E] text-white text-center text-[7px] font-bold">✓ قبول</div>
                   <div className="flex-1 py-1 rounded-lg bg-gray-100 text-center text-[7px] text-gray-500">↗ تحويل</div>
                 </div>
               )}
@@ -333,7 +333,7 @@ export function FacilityHospitalScreen() {
     <PhoneFrame label="لوحة المنشأة — مستشفى">
       <div className="h-full bg-gray-50 overflow-y-auto">
         <StatusBar dark />
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1565C0] px-3 pt-2 pb-4">
+        <div className="bg-gradient-to-b from-[#199A8E] to-[#1565C0] px-3 pt-2 pb-4">
           <div className="flex items-center justify-between mb-2">
             <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center text-white text-xs">⚙</div>
             <div className="text-center">
@@ -365,7 +365,7 @@ export function FacilityHospitalScreen() {
                     <p className="text-[7px] text-gray-500">{r.type}</p>
                     <p className="text-[7px] text-gray-400">من: {r.from}</p>
                   </div>
-                  <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-sm">📋</div>
+                  <div className="w-8 h-8 bg-[#E8F5F4] rounded-lg flex items-center justify-center text-sm">📋</div>
                 </div>
                 <div className="flex gap-1 mt-2 pt-2 border-t border-gray-100">
                   <div className="flex-1 py-1 rounded-lg bg-green-50 text-center text-[7px] text-green-600 font-bold">✓ قبول</div>
@@ -458,7 +458,7 @@ export function FacilityPharmacyScreen() {
 // ═══════════════════════════════════════════════════════════════════════════
 export function FacilityLabScreen() {
   const queue = [
-    { code: 'YP-001', name: 'محمد أحمد', tests: 'CBC، سكر', eta: '15د', status: 'قيد المعالجة', color: 'bg-blue-100 text-blue-700' },
+    { code: 'YP-001', name: 'محمد أحمد', tests: 'CBC، سكر', eta: '15د', status: 'قيد المعالجة', color: 'bg-[#E8F5F4] text-[#104C48]' },
     { code: 'YP-002', name: 'سارة علي', tests: 'دهون', eta: '20د', status: 'في الطابور', color: 'bg-gray-100 text-gray-600' },
   ];
   return (

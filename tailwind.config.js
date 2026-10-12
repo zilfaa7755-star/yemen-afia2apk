@@ -4,15 +4,34 @@ export default {
   theme: {
     extend: {
       colors: {
+        clinical: {
+          teal: '#199A8E',
+          deep: '#104C48',
+          mint: '#E8F5F4',
+          surface: '#FFFFFF',
+          canvas: '#F8FAFB',
+          cyan: '#38B2AC',
+          amber: '#FFB800',
+          green: '#2E7D32',
+          crimson: '#E53935',
+          border: '#E2E8F0',
+        },
         brand: {
-          DEFAULT: '#0B337A',
+          DEFAULT: '#199A8E',
+          teal: '#199A8E',
+          pine: '#104C48',
+          mint: '#E8F5F4',
+          canvas: '#F8FAFB',
+          cyan: '#38B2AC',
+          amber: '#FFB800',
+          green: '#2E7D32',
+          crimson: '#E53935',
           navy: '#0B337A',
-          teal: '#00B39F',
           darkNavy: '#072456',
           lightNavy: '#1248A8',
-          darkTeal: '#008C7D',
-          lightTeal: '#24D3C0',
-          iceTeal: '#E6F8F6',
+          darkTeal: '#104C48',
+          lightTeal: '#38B2AC',
+          iceTeal: '#E8F5F4',
           iceNavy: '#EDF3FC',
         },
         primary: {
@@ -118,8 +137,9 @@ export default {
         },
       },
       fontFamily: {
-        arabic: ['Noto Sans Arabic', 'Tajawal', 'system-ui', 'sans-serif'],
-        display: ['Tajawal', 'system-ui', 'sans-serif'],
+        arabic: ['"IBM Plex Sans Arabic"', 'Cairo', 'Tajawal', 'system-ui', 'sans-serif'],
+        display: ['"IBM Plex Sans Arabic"', 'Cairo', 'Tajawal', 'system-ui', 'sans-serif'],
+        sans: ['"IBM Plex Sans Arabic"', 'Cairo', 'Tajawal', 'system-ui', 'sans-serif'],
       },
       spacing: {
         '18': '4.5rem',
@@ -130,12 +150,17 @@ export default {
       borderRadius: {
         '4xl': '2rem',
         '5xl': '2.5rem',
+        'card': '20px',
+        'btn': '14px',
+        'sheet': '28px',
       },
       boxShadow: {
-        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
-        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
-        'elevated': '0 10px 40px -10px rgba(0, 0, 0, 0.15)',
-        'medical': '0 4px 20px -2px rgba(34, 197, 94, 0.15)',
+        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.05), 0 10px 20px -2px rgba(0, 0, 0, 0.03)',
+        'card': '0 4px 20px -2px rgba(25, 154, 142, 0.07)',
+        'elevated': '0 10px 40px -10px rgba(16, 76, 72, 0.12)',
+        'medical': '0 4px 20px -2px rgba(25, 154, 142, 0.12)',
+        'clinical': '0 4px 20px -2px rgba(25, 154, 142, 0.07)',
+        'tealGlow': '0 8px 24px -4px rgba(25, 154, 142, 0.25)',
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out',

@@ -78,7 +78,7 @@ const sections: Section[] = [
     id: 'patient-core',
     label: 'المريض — الواجهات الأساسية',
     icon: User,
-    color: 'text-[#2196F3]',
+    color: 'text-[#199A8E]',
     screens: [
       { id: 'login-role', label: 'تسجيل الدخول — اختيار الدور', description: 'نقطة الدخول للتطبيق. ستة أنواع حسابات: مريض، طبيب، سكرتاري، ممرض، منشأة طبية، مدير نظام. كل دور بأيقونة ووصف.', component: LoginRoleScreen },
       { id: 'login-phone', label: 'تسجيل الدخول — رقم الهاتف', description: 'إدخال رقم هاتف يمني (+967) مع علم اليمن. 9 أرقام كحد أقصى. المرضى ينتقلون لملف صحي، بقية الأدوار يسجلون مباشرة.', component: LoginPhoneScreen },
@@ -163,7 +163,7 @@ export function VisualGuidePage({ onExit }: { onExit: () => void }) {
     const ScreenComponent = selectedScreen.component;
     return (
       <div className="min-h-screen bg-gray-50">
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-4 py-3 sticky top-0 z-50">
+        <div className="bg-gradient-to-b from-[#104C48] via-[#125853] to-[#199A8E] px-4 py-3 sticky top-0 z-50">
           <div className="flex items-center justify-between max-w-4xl mx-auto">
             <button
               onClick={() => setSelectedScreen(null)}
@@ -187,7 +187,7 @@ export function VisualGuidePage({ onExit }: { onExit: () => void }) {
             <div className="flex gap-3">
               <button
                 onClick={() => setSelectedScreen(null)}
-                className="px-6 py-3 bg-[#2196F3] text-white rounded-xl font-bold text-sm shadow-lg hover:shadow-xl transition-all"
+                className="px-6 py-3 bg-[#199A8E] text-white rounded-xl font-bold text-sm shadow-lg hover:shadow-xl transition-all"
               >
                 العودة للدليل
               </button>
@@ -207,7 +207,7 @@ export function VisualGuidePage({ onExit }: { onExit: () => void }) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] px-4 pt-10 pb-8">
+      <div className="bg-gradient-to-b from-[#104C48] via-[#125853] to-[#199A8E] px-4 pt-10 pb-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-4">
             <button
@@ -254,7 +254,7 @@ export function VisualGuidePage({ onExit }: { onExit: () => void }) {
                   onClick={() => setActiveSection(section.id)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap transition-all ${
                     isActive
-                      ? 'bg-[#2196F3] text-white shadow-lg'
+                      ? 'bg-[#199A8E] text-white shadow-lg'
                       : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                   }`}
                 >
@@ -296,7 +296,7 @@ export function VisualGuidePage({ onExit }: { onExit: () => void }) {
                           <ScreenComponent />
                         </div>
                       </div>
-                      <p className="mt-3 text-sm font-bold text-gray-700 text-center group-hover:text-[#2196F3] transition-colors">
+                      <p className="mt-3 text-sm font-bold text-gray-700 text-center group-hover:text-[#199A8E] transition-colors">
                         {screen.label}
                       </p>
                       <p className="text-xs text-gray-400 text-center mt-1 line-clamp-2 max-w-[260px]">

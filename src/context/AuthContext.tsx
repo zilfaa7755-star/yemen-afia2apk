@@ -183,12 +183,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const logout = async () => {
-    try { await supabase.auth.signOut(); } catch {}
+  const logout = () => {
     setUser(null);
     setRole(null);
     localStorage.removeItem('yemenAfiya_user');
     localStorage.removeItem('yemenAfiya_role');
+    try {
+      supabase.auth.signOut().catch(() => {});
+    } catch {}
   };
 
   const updateLocation = (lat: number, lng: number) => setCurrentLocation({ lat, lng });

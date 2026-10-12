@@ -270,7 +270,7 @@ export function LiteLabPortalView({ onBack }: LiteLabPortalViewProps) {
         </div>
       )}
       {showSavedToast && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-blue-600 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-2 animate-slide-down">
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#199A8E] text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-2 animate-slide-down">
           <Save size={20} />
           <span className="font-bold">تم حفظ النتائج كمسودة</span>
         </div>
@@ -286,7 +286,7 @@ export function LiteLabPortalView({ onBack }: LiteLabPortalViewProps) {
           <div className="flex gap-2">
             <button
               onClick={handleFetchByMrn}
-              className="px-5 py-3 rounded-xl bg-indigo-600 text-white font-bold text-sm flex-shrink-0 hover:bg-indigo-700 transition-colors flex items-center gap-2"
+              className="px-5 py-3 rounded-xl bg-[#104C48] text-white font-bold text-sm flex-shrink-0 hover:bg-[#0d3f3c] transition-colors flex items-center gap-2"
             >
               <Search size={16} />
               جلب الفحص الأخير
@@ -351,8 +351,8 @@ export function LiteLabPortalView({ onBack }: LiteLabPortalViewProps) {
                     <button
                       key={order.id}
                       onClick={() => handleSelectOrder(order)}
-                      className={`w-full text-right px-4 py-3 border-b border-gray-50 transition-colors hover:bg-indigo-50 ${
-                        isActive ? 'bg-indigo-50 border-r-4 border-r-indigo-600' : ''
+                      className={`w-full text-right px-4 py-3 border-b border-gray-50 transition-colors hover:bg-[#E8F5F4] ${
+                        isActive ? 'bg-[#E8F5F4] border-r-4 border-r-[#199A8E]' : ''
                       }`}
                     >
                       <div className="flex items-center justify-between mb-1">
@@ -479,9 +479,9 @@ export function LiteLabPortalView({ onBack }: LiteLabPortalViewProps) {
 
               {/* Attached file indicator */}
               {attachedFile && (
-                <div className="bg-blue-50 rounded-xl p-3 flex items-center gap-2 border border-blue-100">
-                  <FileText size={16} className="text-blue-600" />
-                  <span className="text-sm text-blue-700 font-medium">{attachedFile}</span>
+                <div className="bg-[#E8F5F4] rounded-xl p-3 flex items-center gap-2 border border-[#199A8E]/20">
+                  <FileText size={16} className="text-[#199A8E]" />
+                  <span className="text-sm text-[#104C48] font-medium">{attachedFile}</span>
                   <button onClick={() => setAttachedFile(null)} className="mr-auto text-xs text-red-500">إزالة</button>
                 </div>
               )}

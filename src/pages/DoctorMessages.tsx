@@ -159,8 +159,8 @@ export function DoctorMessages() {
                 <p className="text-xs text-gray-400">{selectedContact.specialization}</p>
               </div>
               <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2196F3] to-[#1565C0] flex items-center justify-center text-white font-bold text-sm">
-                  {selectedContact.full_name.charAt(2)}
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#104C48] to-[#199A8E] flex items-center justify-center text-white font-bold text-sm">
+                  {selectedContact.full_name ? selectedContact.full_name.charAt(0) : 'ط'}
                 </div>
                 {selectedContact.online && <div className="absolute bottom-0 left-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />}
               </div>
@@ -175,7 +175,7 @@ export function DoctorMessages() {
             const isMine = msg.sender_id === myId;
             return (
               <div key={msg.id} className={`flex ${isMine ? 'justify-left' : 'justify-right'}`}>
-                <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 ${isMine ? 'bg-[#2196F3] text-white rounded-bottom-left-sm' : 'bg-white border border-gray-100 text-gray-800 rounded-bottom-right-sm'}`}>
+                <div className={`max-w-[75%] rounded-2xl px-4 py-2.5 ${isMine ? 'bg-[#199A8E] text-white rounded-bottom-left-sm' : 'bg-white border border-gray-100 text-gray-800 rounded-bottom-right-sm'}`}>
                   <p className="text-sm text-right leading-relaxed">{msg.body}</p>
                   <p className={`text-xs mt-1 ${isMine ? 'text-white/60' : 'text-gray-400'} text-left`}>
                     {new Date(msg.created_at).toLocaleTimeString('ar-YE', { hour: '2-digit', minute: '2-digit' })}
@@ -192,9 +192,9 @@ export function DoctorMessages() {
           <input type="text" value={newMessage} onChange={e => setNewMessage(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && sendMessage()}
             placeholder="اكتب رسالة..." dir="rtl"
-            className="flex-1 p-3 rounded-xl bg-gray-50 text-sm outline-none focus:ring-2 focus:ring-[#2196F3]/20" />
+            className="flex-1 p-3 rounded-xl bg-gray-50 text-sm outline-none focus:ring-2 focus:ring-[#199A8E]/20" />
           <button onClick={sendMessage} disabled={!newMessage.trim()}
-            className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${newMessage.trim() ? 'bg-[#2196F3] text-white' : 'bg-gray-200 text-gray-400'}`}>
+            className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${newMessage.trim() ? 'bg-[#199A8E] text-white' : 'bg-gray-200 text-gray-400'}`}>
             <Send size={18} className="rotate-180" />
           </button>
         </div>
@@ -205,7 +205,7 @@ export function DoctorMessages() {
   // ─── Contacts List View ────────────────────────────────────────────────────
   return (
     <div className="space-y-4">
-      <div className="bg-gradient-to-l from-[#2196F3] to-[#1565C0] rounded-2xl p-4 text-white">
+      <div className="bg-gradient-to-l from-[#104C48] to-[#199A8E] rounded-2xl p-4 text-white">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
             <MessageSquare size={24} className="text-white" />
@@ -224,7 +224,7 @@ export function DoctorMessages() {
       </div>
 
       {isLoading ? (
-        <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]" /></div>
+        <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#199A8E]" /></div>
       ) : (
         <div className="space-y-2">
           {filteredContacts.map(c => (
@@ -242,8 +242,8 @@ export function DoctorMessages() {
                   <p className="text-xs text-gray-300 text-right mt-0.5">{c.last_time}</p>
                 </div>
                 <div className="relative flex-shrink-0">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#2196F3] to-[#1565C0] flex items-center justify-center text-white font-bold">
-                    {c.full_name.charAt(2)}
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#104C48] to-[#199A8E] flex items-center justify-center text-white font-bold">
+                    {c.full_name ? c.full_name.charAt(0) : 'ط'}
                   </div>
                   {c.online && <div className="absolute bottom-0 left-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />}
                 </div>

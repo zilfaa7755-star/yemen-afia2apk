@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  ChevronLeft,
+  ChevronRight,
   Search,
   MapPin,
   Star,
@@ -10,12 +10,16 @@ import {
   Eye,
   Bone,
   Baby,
-  Ear,
   Activity,
   Sparkles,
   Stethoscope,
   Filter,
   X,
+  ShieldCheck,
+  Building2,
+  Video,
+  Droplets,
+  Smile,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -29,21 +33,6 @@ interface ClinicsPageProps {
   preselectedSpecialization?: string;
 }
 
-const specializationIcons: Record<string, { icon: React.ElementType; bg: string; color: string }> = {
-  'Cardiology': { icon: Heart, bg: 'bg-red-100', color: 'text-red-500' },
-  'Neurology': { icon: Brain, bg: 'bg-purple-100', color: 'text-purple-500' },
-  'Ophthalmology': { icon: Eye, bg: 'bg-teal-100', color: 'text-teal-500' },
-  'Orthopedics': { icon: Bone, bg: 'bg-amber-100', color: 'text-amber-600' },
-  'Pediatrics': { icon: Baby, bg: 'bg-orange-100', color: 'text-orange-500' },
-  'ENT': { icon: Ear, bg: 'bg-pink-100', color: 'text-pink-500' },
-  'Dermatology': { icon: Sparkles, bg: 'bg-pink-100', color: 'text-pink-500' },
-  'Gastroenterology': { icon: Activity, bg: 'bg-blue-100', color: 'text-blue-500' },
-  'General Medicine': { icon: Stethoscope, bg: 'bg-cyan-100', color: 'text-cyan-600' },
-  'Psychiatry': { icon: Brain, bg: 'bg-violet-100', color: 'text-violet-500' },
-  'Urology': { icon: Activity, bg: 'bg-blue-100', color: 'text-blue-500' },
-  'Obstetrics and Gynecology': { icon: Heart, bg: 'bg-rose-100', color: 'text-rose-500' },
-};
-
 export function ClinicsPage({ onBack, onSelectDoctor, preselectedSpecialization }: ClinicsPageProps) {
   const { currentLocation } = useAuth();
   const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -51,32 +40,104 @@ export function ClinicsPage({ onBack, onSelectDoctor, preselectedSpecialization 
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(preselectedSpecialization || null);
-  const [showFilters, setShowFilters] = useState(false);
+  const [feeFilter, setFeeFilter] = useState<'all' | 'under3000' | 'mid'>('all');
+  const [todayOnly, setTodayOnly] = useState(false);
+  const [locationFilter, setLocationFilter] = useState<string>('all');
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [selectedQueueInfo, setSelectedQueueInfo] = useState<{ queueNumber: number; estimatedWaitMinutes: number; estimatedArrivalTime: string } | null>(null);
   const [selectedDistance, setSelectedDistance] = useState(0);
   const [mapFacility, setMapFacility] = useState<FacilityLocation | null>(null);
 
+  const anatomicalSpecialties = [
+    { id: 'Cardiology', name: 'القلب', fullName: 'القلب والأوعية', icon: Heart, count: '48 طبيب' },
+    { id: 'General Medicine', name: 'الباطنية', fullName: 'الباطنية والجهاز الهضمي', icon: Activity, count: '62 طبيب' },
+    { id: 'hematology', name: 'أمراض الدم', fullName: 'أمراض الدم والأورام', icon: Droplets, count: '24 طبيب' },
+    { id: 'Orthopedics', name: 'العظام', fullName: 'جراحة العظام والمفاصل', icon: Bone, count: '55 طبيب' },
+    { id: 'Pediatrics', name: 'الأطفال', fullName: 'طب الأطفال وحديثي الولادة', icon: Baby, count: '71 طبيب' },
+    { id: 'dentistry', name: 'الأسنان', fullName: 'طب وجراحة الأسنان', icon: Smile, count: '83 طبيب' },
+    { id: 'Ophthalmology', name: 'العيون', fullName: 'طب وجراحة العيون', icon: Eye, count: '39 طبيب' },
+    { id: 'Dermatology', name: 'الجلدية', fullName: 'الجلدية والتناسلية', icon: Sparkles, count: '44 طبيب' },
+  ];
+
   const demoSpecializations: Specialization[] = [
-    { id: '1', name_ar: 'باطنية عامة', name_en: 'General Medicine', icon: 'stethoscope' },
-    { id: '2', name_ar: 'قلب وأوعية دموية', name_en: 'Cardiology', icon: 'heart' },
-    { id: '3', name_ar: 'مخ وأعصاب', name_en: 'Neurology', icon: 'brain' },
-    { id: '4', name_ar: 'أطفال', name_en: 'Pediatrics', icon: 'baby' },
-    { id: '5', name_ar: 'عيون', name_en: 'Ophthalmology', icon: 'eye' },
-    { id: '6', name_ar: 'عظام', name_en: 'Orthopedics', icon: 'bone' },
-    { id: '7', name_ar: 'أنف وأذن حنجرة', name_en: 'ENT', icon: 'ear' },
-    { id: '8', name_ar: 'جلدية', name_en: 'Dermatology', icon: 'sparkles' },
-    { id: '9', name_ar: 'نساء وولادة', name_en: 'Obstetrics and Gynecology', icon: 'heart' },
-    { id: '10', name_ar: 'نفسية وعصبية', name_en: 'Psychiatry', icon: 'brain' },
+    { id: '1', name_ar: 'القلب والأوعية', name_en: 'Cardiology' },
+    { id: '2', name_ar: 'باطنية عامة', name_en: 'General Medicine' },
+    { id: '3', name_ar: 'أطفال وحديثي الولادة', name_en: 'Pediatrics' },
+    { id: '4', name_ar: 'عظام ومفاصل', name_en: 'Orthopedics' },
+    { id: '5', name_ar: 'عيون وجراحة', name_en: 'Ophthalmology' },
+    { id: '6', name_ar: 'مخ وأعصاب', name_en: 'Neurology' },
+    { id: '7', name_ar: 'جلدية وتجميل', name_en: 'Dermatology' },
   ];
 
   const demoDoctors: Doctor[] = [
-    { id: '1', full_name: 'د. أحمد المقطري', specialization_id: '1', specialization: { id: '1', name_ar: 'باطنية عامة', name_en: 'General Medicine' }, clinic_id: '1', clinic: { id: '1', name: 'مركز اليمن الطبي', address: 'صنعاء - حدة', latitude: 15.3694, longitude: 44.1910, working_hours: {}, is_active: true }, consultation_fee: 3000, average_consultation_time: 25, rating: 4.2, total_reviews: 148, bio: 'طبيب استشاري بخبرة 10 سنوات في تشخيص وعلاج الأمراض الباطنة المزمنة.', working_days: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'], working_hours: { morning: { start: '08:00', end: '12:00' }, evening: { start: '16:00', end: '20:00' } }, is_active: true, is_available: true },
-    { id: '2', full_name: 'د. فاطمة الشامي', specialization_id: '2', specialization: { id: '2', name_ar: 'قلب وأوعية دموية', name_en: 'Cardiology' }, clinic_id: '2', clinic: { id: '2', name: 'عيادات الشفاء', address: 'صنعاء - الستين', latitude: 15.3570, longitude: 44.1860, working_hours: {}, is_active: true }, consultation_fee: 4200, average_consultation_time: 25, rating: 4.2, total_reviews: 95, bio: 'أخصائية قسطرة قلبية وعلاج أمراض الشرايين التاجية.', working_days: ['sunday', 'monday', 'wednesday', 'thursday'], working_hours: { evening: { start: '17:00', end: '21:00' } }, is_active: true, is_available: true },
-    { id: '3', full_name: 'د. خالد الإرياني', specialization_id: '3', specialization: { id: '3', name_ar: 'مخ وأعصاب', name_en: 'Neurology' }, clinic_id: '3', clinic: { id: '3', name: 'مجمع الحياة التخصصي', address: 'صنعاء - تونس', latitude: 15.3740, longitude: 44.1950, working_hours: {}, is_active: true }, consultation_fee: 4500, average_consultation_time: 20, rating: 4.3, total_reviews: 112, bio: 'أخصائي أعصاب طرفية وعلاج الشلل واعتلال الأعصاب.', working_days: ['sunday', 'tuesday', 'thursday'], working_hours: { morning: { start: '09:00', end: '13:00' } }, is_active: true, is_available: true },
-    { id: '4', full_name: 'د. سمية الحوثي', specialization_id: '4', specialization: { id: '4', name_ar: 'أطفال', name_en: 'Pediatrics' }, clinic_id: '4', clinic: { id: '4', name: 'مستوصف النور', address: 'صنعاء - الخمسين', latitude: 15.3665, longitude: 44.1885, working_hours: {}, is_active: true }, consultation_fee: 2500, average_consultation_time: 20, rating: 4.3, total_reviews: 88, bio: 'طبيبة أطفال متخصصة في تشخيص وعلاج الأمراض الشائعة عند الأطفال.', working_days: ['monday', 'tuesday', 'wednesday', 'thursday'], working_hours: { morning: { start: '08:00', end: '12:00' } }, is_active: true, is_available: true },
-    { id: '5', full_name: 'د. محمد العمري', specialization_id: '5', specialization: { id: '5', name_ar: 'عيون', name_en: 'Ophthalmology' }, clinic_id: '1', clinic: { id: '1', name: 'مركز اليمن الطبي', address: 'صنعاء - حدة', latitude: 15.3694, longitude: 44.1910, working_hours: {}, is_active: true }, consultation_fee: 3500, average_consultation_time: 22, rating: 4.1, total_reviews: 76, bio: 'استشاري العيون متخصص في علاج أمراض العيون والنظر.', working_days: ['sunday', 'monday', 'tuesday'], working_hours: { morning: { start: '09:00', end: '13:00' } }, is_active: true, is_available: true },
-    { id: '6', full_name: 'د. عبدالله السامي', specialization_id: '6', specialization: { id: '6', name_ar: 'عظام', name_en: 'Orthopedics' }, clinic_id: '5', clinic: { id: '5', name: 'عيادة العظام المتخصصة', address: 'صنعاء - السبعين', latitude: 15.3620, longitude: 44.1800, working_hours: {}, is_active: true }, consultation_fee: 4000, average_consultation_time: 30, rating: 4.4, total_reviews: 134, bio: 'استشاري عظام ومفاصل متخصص في علاج الكسور والإصابات.', working_days: ['sunday', 'monday', 'wednesday'], working_hours: { evening: { start: '16:00', end: '20:00' } }, is_active: true, is_available: true },
+    {
+      id: '1',
+      full_name: 'د. سامي المقطري',
+      specialization_id: '1',
+      specialization: { id: '1', name_ar: 'القلب والأوعية', name_en: 'Cardiology' },
+      clinic_id: '1',
+      clinic: { id: '1', name: 'مستشفى الثورة التعليمي', address: 'صنعاء — شارع الخمسين', latitude: 15.3694, longitude: 44.1910, working_hours: {}, is_active: true },
+      consultation_fee: 3500,
+      average_consultation_time: 20,
+      rating: 4.9,
+      total_reviews: 320,
+      bio: 'استشاري باطنية وقسطرة قلبية مع خبرة تفوق 16 عاماً في أكبر مستشفيات اليمن.',
+      working_days: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'],
+      working_hours: { morning: { start: '08:30', end: '12:30' }, evening: { start: '16:00', end: '20:30' } },
+      is_active: true,
+      is_available: true,
+    },
+    {
+      id: '2',
+      full_name: 'د. فاطمة الشامي',
+      specialization_id: '3',
+      specialization: { id: '3', name_ar: 'أطفال وحديثي الولادة', name_en: 'Pediatrics' },
+      clinic_id: '2',
+      clinic: { id: '2', name: 'المستشفى الكويتي التخصصي', address: 'صنعاء — شارع الستين', latitude: 15.3570, longitude: 44.1860, working_hours: {}, is_active: true },
+      consultation_fee: 3000,
+      average_consultation_time: 15,
+      rating: 4.8,
+      total_reviews: 284,
+      bio: 'أخصائية طب الأطفال وحديثي الولادة، متابعة النمو واللقاحات وأمراض الصدرية.',
+      working_days: ['sunday', 'monday', 'wednesday', 'thursday'],
+      working_hours: { evening: { start: '16:30', end: '21:00' } },
+      is_active: true,
+      is_available: true,
+    },
+    {
+      id: '3',
+      full_name: 'د. محمد العولقي',
+      specialization_id: '4',
+      specialization: { id: '4', name_ar: 'عظام ومفاصل', name_en: 'Orthopedics' },
+      clinic_id: '3',
+      clinic: { id: '3', name: 'المركز الاستشاري اليمني', address: 'صنعاء — حي حدة', latitude: 15.3740, longitude: 44.1950, working_hours: {}, is_active: true },
+      consultation_fee: 4000,
+      average_consultation_time: 25,
+      rating: 4.9,
+      total_reviews: 410,
+      bio: 'استشاري جراحة العظام والمفاصل والعمود الفقري ومعالجة الإصابات الرياضية.',
+      working_days: ['sunday', 'tuesday', 'thursday'],
+      working_hours: { morning: { start: '09:00', end: '13:00' } },
+      is_active: true,
+      is_available: true,
+    },
+    {
+      id: '4',
+      full_name: 'د. أحمد الصبري',
+      specialization_id: '5',
+      specialization: { id: '5', name_ar: 'عيون وجراحة', name_en: 'Ophthalmology' },
+      clinic_id: '4',
+      clinic: { id: '4', name: 'مستشفى مغربي التخصصي', address: 'صنعاء — شارع حدة', latitude: 15.3665, longitude: 44.1885, working_hours: {}, is_active: true },
+      consultation_fee: 3000,
+      average_consultation_time: 20,
+      rating: 4.7,
+      total_reviews: 195,
+      bio: 'استشاري طب وجراحة العيون والليزك وعلاج اعتلال الشبكية السكري.',
+      working_days: ['monday', 'tuesday', 'wednesday', 'thursday'],
+      working_hours: { morning: { start: '08:30', end: '13:00' } },
+      is_active: true,
+      is_available: true,
+    },
   ];
 
   useEffect(() => {
@@ -85,7 +146,7 @@ export function ClinicsPage({ onBack, onSelectDoctor, preselectedSpecialization 
 
   useEffect(() => {
     filterDoctors();
-  }, [searchQuery, selectedCategory, doctors]);
+  }, [searchQuery, selectedCategory, feeFilter, todayOnly, locationFilter, doctors]);
 
   const loadDoctors = async () => {
     setIsLoading(true);
@@ -95,72 +156,63 @@ export function ClinicsPage({ onBack, onSelectDoctor, preselectedSpecialization 
         .select('*, specialization:specializations(*), clinic:clinics(*)')
         .eq('is_active', true);
       setDoctors(data && data.length > 0 ? (data as Doctor[]) : demoDoctors);
-      setFilteredDoctors(data && data.length > 0 ? (data as Doctor[]) : demoDoctors);
     } catch {
       setDoctors(demoDoctors);
-      setFilteredDoctors(demoDoctors);
     } finally {
       setIsLoading(false);
     }
   };
 
   const filterDoctors = () => {
-    let results = doctors;
-    if (selectedCategory) {
-      results = results.filter((d) => d.specialization?.name_en === selectedCategory);
-    }
+    let list = [...doctors];
+
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      results = results.filter(
+      list = list.filter(
         (d) =>
           d.full_name.toLowerCase().includes(q) ||
-          d.specialization?.name_ar?.includes(q) ||
-          d.specialization?.name_en?.toLowerCase().includes(q) ||
-          d.clinic?.name?.toLowerCase().includes(q)
+          d.specialization?.name_ar.toLowerCase().includes(q) ||
+          d.clinic?.name.toLowerCase().includes(q)
       );
     }
-    setFilteredDoctors(results);
+
+    if (selectedCategory) {
+      list = list.filter((d) => d.specialization?.name_en === selectedCategory);
+    }
+
+    if (feeFilter === 'under3000') {
+      list = list.filter((d) => (d.consultation_fee || 0) <= 3000);
+    } else if (feeFilter === 'mid') {
+      list = list.filter((d) => (d.consultation_fee || 0) > 3000 && (d.consultation_fee || 0) <= 4500);
+    }
+
+    if (todayOnly) {
+      list = list.filter((d) => d.is_available);
+    }
+
+    if (locationFilter !== 'all') {
+      list = list.filter((d) => d.clinic?.address.includes(locationFilter));
+    }
+
+    setFilteredDoctors(list);
   };
 
   const getQueueInfo = (doctor: Doctor, index: number) => {
-    const queueNumber = index + 5;
+    const queueNumber = index + 3;
     const waitMinutes = (doctor.average_consultation_time ?? 15) * (queueNumber - 1);
     const arrivalTime = new Date(Date.now() + waitMinutes * 60 * 1000);
     return {
       queueNumber,
       estimatedWaitMinutes: waitMinutes,
-      estimatedArrivalTime: arrivalTime.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' }),
+      estimatedArrivalTime: arrivalTime.toLocaleTimeString('ar-YE', { hour: '2-digit', minute: '2-digit' }),
     };
   };
 
-  const getDistanceKm = (_doctor: Doctor, index: number) => {
-    return [1.0, 1.3, 1.6, 2.1, 1.0, 2.5][index] || 1.5;
-  };
-
-  const getSpecIcon = (spec: Specialization) =>
-    (spec.name_en && specializationIcons[spec.name_en]) || { icon: Stethoscope, bg: 'bg-gray-100', color: 'text-gray-600' };
-
   const handleDoctorClick = (doctor: Doctor, index: number) => {
     const queueInfo = getQueueInfo(doctor, index);
-    const distance = getDistanceKm(doctor, index);
     setSelectedDoctor(doctor);
     setSelectedQueueInfo(queueInfo);
-    setSelectedDistance(distance);
-  };
-
-  const handleShowClinicMap = (doctor: Doctor, index: number) => {
-    const lat = doctor.clinic?.latitude ?? (15.3694 + (index * 0.005));
-    const lng = doctor.clinic?.longitude ?? (44.1910 + (index * 0.004));
-    setMapFacility({
-      id: doctor.clinic?.id || doctor.id,
-      name: `${doctor.clinic?.name || 'عيادة'} (${doctor.full_name})`,
-      category: 'clinic',
-      address: doctor.clinic?.address || 'صنعاء، اليمن',
-      latitude: lat,
-      longitude: lng,
-      distance: getDistanceKm(doctor, index),
-      phone: doctor.phone || '777000000',
-    });
+    setSelectedDistance(1.2 + index * 0.4);
   };
 
   const handleBook = (consultationType: ConsultationType) => {
@@ -171,158 +223,280 @@ export function ClinicsPage({ onBack, onSelectDoctor, preselectedSpecialization 
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-6">
+    <div className="min-h-screen bg-[#F8FAFB] pb-28">
       {/* Header */}
-      <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] pt-3 pb-14 px-4 sticky top-0 z-40">
-        <div className="flex items-center justify-between mb-4">
-          <button onClick={onBack} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-            <ChevronLeft size={22} className="text-white rotate-180" />
-          </button>
-          <h1 className="text-xl font-bold text-white">العيادات الاستشارية</h1>
+      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#E2E8F0] px-4 py-3.5">
+        <div className="max-w-2xl mx-auto flex items-center justify-between">
+          {onBack ? (
+            <button
+              onClick={onBack}
+              className="w-10 h-10 rounded-xl bg-[#E8F5F4] text-[#199A8E] flex items-center justify-center transition active:scale-95"
+            >
+              <ChevronRight size={22} />
+            </button>
+          ) : (
+            <div className="w-10" />
+          )}
+          <h1 className="text-base font-bold text-[#104C48]">دليل الأطباء والعيادات</h1>
           <div className="w-10" />
         </div>
+      </header>
 
-        {/* Search */}
-        <div className="bg-white/95 rounded-2xl shadow-lg flex items-center px-4 py-3.5 gap-3">
-          <Search size={20} className="text-gray-400 flex-shrink-0" />
+      <main className="max-w-2xl mx-auto px-4 pt-4 space-y-4">
+        {/* Search Bar */}
+        <div className="relative">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="ابحث عن طبيب أو تخصص..."
-            className="flex-1 text-gray-700 placeholder-gray-400 outline-none text-sm bg-transparent"
+            placeholder="ابحث باسم الطبيب، المستشفى أو التخصص..."
+            className="w-full bg-white border border-[#E2E8F0] rounded-2xl py-3.5 pr-11 pl-4 text-xs md:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#199A8E] shadow-sm"
           />
+          <Search size={18} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
           {searchQuery && (
-            <button onClick={() => setSearchQuery('')} className="w-7 h-7 bg-gray-100 rounded-full flex items-center justify-center">
-              <X size={14} className="text-gray-400" />
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-400"
+            >
+              <X size={13} />
             </button>
           )}
-          <button onClick={() => setShowFilters(!showFilters)} className="w-9 h-9 bg-gray-100 rounded-xl flex items-center justify-center">
-            <Filter size={16} className="text-gray-600" />
-          </button>
         </div>
-      </div>
 
-      {/* Specializations Grid */}
-      <div className="px-4 -mt-6 relative z-30 mb-5">
-        <div className="bg-white rounded-2xl shadow-lg p-4">
-          <p className="text-sm font-bold text-gray-700 mb-3 text-right">اختر التخصص</p>
-          <div className="grid grid-cols-4 gap-2">
-            {demoSpecializations.map((spec) => {
-              const { icon: Icon, bg, color } = getSpecIcon(spec);
-              const isActive = selectedCategory === spec.name_en;
+        {/* ── التخصصات الطبية الاستشارية والتشخيصية (بنفس التنسيق المعتمد) ── */}
+        <section className="space-y-2">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-bold text-[#104C48]">التخصصات الاستشارية والتشخيصية</h2>
+            {selectedCategory && (
+              <button
+                onClick={() => setSelectedCategory(null)}
+                className="text-[11px] font-bold text-[#199A8E] hover:underline"
+              >
+                إلغاء التحديد (عرض الكل)
+              </button>
+            )}
+          </div>
+          <div className="grid grid-cols-4 gap-2 sm:gap-2.5">
+            {anatomicalSpecialties.map((spec) => {
+              const Icon = spec.icon;
+              const isSelected = selectedCategory === spec.id;
               return (
                 <button
                   key={spec.id}
-                  onClick={() => setSelectedCategory(isActive ? null : (spec.name_en || null))}
-                  className={`flex flex-col items-center gap-1.5 p-2.5 rounded-xl transition-all ${
-                    isActive ? 'bg-[#2196F3]/10 border-2 border-[#2196F3]' : 'bg-gray-50 border border-transparent'
+                  onClick={() => setSelectedCategory(isSelected ? null : spec.id)}
+                  className={`group rounded-[18px] p-2.5 sm:p-3 border flex flex-col items-center justify-center text-center transition-all duration-200 active:scale-95 ${
+                    isSelected
+                      ? 'bg-[#E8F5F4] border-[#199A8E] shadow-sm ring-2 ring-[#199A8E]/20'
+                      : 'bg-white border-[#E2E8F0] shadow-[0_2px_10px_-2px_rgba(25,154,142,0.06)] hover:border-[#199A8E]/40'
                   }`}
                 >
-                  <div className={`w-10 h-10 ${isActive ? 'bg-[#2196F3]' : bg} rounded-full flex items-center justify-center`}>
-                    <Icon size={18} className={isActive ? 'text-white' : color} />
+                  <div
+                    className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-colors mb-1.5 border ${
+                      isSelected
+                        ? 'bg-[#199A8E] text-white border-[#199A8E]'
+                        : 'bg-[#E8F5F4] text-[#199A8E] border-[#199A8E]/20 group-hover:bg-[#199A8E] group-hover:text-white'
+                    }`}
+                  >
+                    <Icon size={20} strokeWidth={2.2} />
                   </div>
-                  <span className={`text-[11px] font-medium text-center leading-tight ${
-                    isActive ? 'text-[#2196F3]' : 'text-gray-600'
-                  }`}>
-                    {spec.name_ar}
+                  <span
+                    className={`text-xs font-bold whitespace-nowrap transition-colors ${
+                      isSelected ? 'text-[#199A8E]' : 'text-[#104C48] group-hover:text-[#199A8E]'
+                    }`}
+                  >
+                    {spec.name}
+                  </span>
+                  <span className="text-[10px] text-slate-400 mt-0.5">
+                    {spec.count}
                   </span>
                 </button>
               );
             })}
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Results Count */}
-      <div className="px-4 mb-3 flex items-center justify-between">
-        <span className="text-sm text-gray-500">
-          {selectedCategory && (
-            <button onClick={() => setSelectedCategory(null)} className="text-[#2196F3] font-medium">
-              إزالة الفلتر
+        {/* ── Filter Chips Bar (By Specialty, Fee, Availability, Location) ── */}
+        <div className="space-y-2">
+          {/* Specialty Chips */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-hide">
+            <button
+              onClick={() => setSelectedCategory(null)}
+              className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition active:scale-95 border ${
+                selectedCategory === null
+                  ? 'bg-[#199A8E] text-white border-[#199A8E] shadow-sm'
+                  : 'bg-white text-slate-600 border-[#E2E8F0] hover:bg-slate-50'
+              }`}
+            >
+              جميع التخصصات
             </button>
-          )}
-        </span>
-        <span className="text-sm text-gray-600 font-medium">
-          {filteredDoctors.length} طبيب متاح
-        </span>
-      </div>
-
-      {/* Doctors List */}
-      {isLoading ? (
-        <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]" />
-        </div>
-      ) : filteredDoctors.length === 0 ? (
-        <div className="text-center py-12 px-4">
-          <Stethoscope size={48} className="mx-auto text-gray-300 mb-3" />
-          <p className="text-gray-500 mb-3">لا يوجد أطباء مطابقين للبحث</p>
-          <button onClick={() => { setSearchQuery(''); setSelectedCategory(null); }} className="text-[#2196F3] font-medium text-sm">
-            إعادة تعيين البحث
-          </button>
-        </div>
-      ) : (
-        <div className="px-4 space-y-3">
-          {filteredDoctors.map((doctor, index) => {
-            const queueInfo = getQueueInfo(doctor, index);
-            const distance = getDistanceKm(doctor, index);
-            return (
+            {demoSpecializations.map((spec) => (
               <button
-                key={doctor.id}
-                onClick={() => handleDoctorClick(doctor, index)}
-                className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 text-right"
+                key={spec.id}
+                onClick={() => setSelectedCategory(spec.name_en || null)}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition active:scale-95 border ${
+                  selectedCategory === spec.name_en
+                    ? 'bg-[#199A8E] text-white border-[#199A8E] shadow-sm'
+                    : 'bg-white text-slate-600 border-[#E2E8F0] hover:bg-slate-50'
+                }`}
               >
-                <div className="flex items-start gap-3">
-                  {/* Rating */}
-                  <div className="flex items-center gap-1 flex-shrink-0 mt-1">
-                    <span className="font-bold text-gray-800 text-sm">{doctor.rating}</span>
-                    <Star size={13} className="text-yellow-400 fill-yellow-400" />
+                {spec.name_ar}
+              </button>
+            ))}
+          </div>
+
+          {/* Secondary Quick Filters: Availability Today, Fee range, Location */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide text-[11px]">
+            {/* Availability Today */}
+            <button
+              onClick={() => setTodayOnly(!todayOnly)}
+              className={`px-2.5 py-1 rounded-xl font-bold whitespace-nowrap transition border ${
+                todayOnly
+                  ? 'bg-[#2E7D32] text-white border-[#2E7D32]'
+                  : 'bg-[#E8F5F4] text-[#104C48] border-[#199A8E]/30'
+              }`}
+            >
+              ✓ متاح اليوم
+            </button>
+
+            {/* Fee Chips */}
+            <button
+              onClick={() => setFeeFilter(feeFilter === 'under3000' ? 'all' : 'under3000')}
+              className={`px-2.5 py-1 rounded-xl font-medium whitespace-nowrap transition border ${
+                feeFilter === 'under3000'
+                  ? 'bg-[#104C48] text-white border-[#104C48]'
+                  : 'bg-white text-slate-600 border-[#E2E8F0]'
+              }`}
+            >
+              كشف ≤ 3,000 ر.ي
+            </button>
+
+            <button
+              onClick={() => setFeeFilter(feeFilter === 'mid' ? 'all' : 'mid')}
+              className={`px-2.5 py-1 rounded-xl font-medium whitespace-nowrap transition border ${
+                feeFilter === 'mid'
+                  ? 'bg-[#104C48] text-white border-[#104C48]'
+                  : 'bg-white text-slate-600 border-[#E2E8F0]'
+              }`}
+            >
+              كشف 3,500 - 4,500 ر.ي
+            </button>
+
+            {/* Location Chips */}
+            {['حدة', 'الستين', 'الخمسين'].map((loc) => (
+              <button
+                key={loc}
+                onClick={() => setLocationFilter(locationFilter === loc ? 'all' : loc)}
+                className={`px-2.5 py-1 rounded-xl font-medium whitespace-nowrap transition border ${
+                  locationFilter === loc
+                    ? 'bg-[#104C48] text-white border-[#104C48]'
+                    : 'bg-white text-slate-600 border-[#E2E8F0]'
+                }`}
+              >
+                حي {loc}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Results Count Header */}
+        <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
+          <span>يتم عرض الأطباء المعتمدين والمتاحين</span>
+          <span className="font-bold text-[#104C48]">{filteredDoctors.length} طبيب متاح</span>
+        </div>
+
+        {/* Doctors Directory List */}
+        {isLoading ? (
+          <div className="py-12 text-center">
+            <div className="w-10 h-10 border-3 border-[#199A8E] border-t-transparent rounded-full animate-spin mx-auto" />
+            <p className="text-xs text-slate-400 mt-3">جاري تحميل دليل الأطباء...</p>
+          </div>
+        ) : filteredDoctors.length === 0 ? (
+          <div className="bg-white rounded-[24px] p-8 text-center border border-[#E2E8F0] shadow-sm my-6 space-y-3">
+            <div className="w-14 h-14 rounded-full bg-[#E8F5F4] text-[#199A8E] flex items-center justify-center mx-auto">
+              <Stethoscope size={24} />
+            </div>
+            <h4 className="text-sm font-bold text-[#104C48]">لا يوجد أطباء مطابقين لهذا الفلتر</h4>
+            <p className="text-xs text-slate-400">جرب تغيير شروط البحث أو إزالة بعض الفلاتر.</p>
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory(null);
+                setFeeFilter('all');
+                setTodayOnly(false);
+                setLocationFilter('all');
+              }}
+              className="py-2 px-4 rounded-xl bg-[#199A8E] text-white font-bold text-xs"
+            >
+              إعادة تعيين الفلاتر
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-3.5">
+            {filteredDoctors.map((doc, idx) => (
+              <div
+                key={doc.id}
+                className="bg-white rounded-[22px] p-4 border border-[#E2E8F0] shadow-[0_4px_20px_-2px_rgba(25,154,142,0.06)] hover:shadow-[0_8px_25px_-4px_rgba(25,154,142,0.12)] transition-all space-y-3"
+              >
+                {/* Doctor Header */}
+                <div className="flex items-start gap-3.5">
+                  <div className="relative">
+                    <div className="w-14 h-14 rounded-2xl bg-[#E8F5F4] text-[#104C48] flex items-center justify-center font-bold text-xl border border-[#199A8E]/30 shrink-0">
+                      {doc.full_name?.split(' ')?.[1]?.[0] || 'ط'}
+                    </div>
+                    <span className="absolute -bottom-1 -left-1 w-5 h-5 rounded-full bg-[#199A8E] text-white flex items-center justify-center text-[10px] ring-2 ring-white font-bold">
+                      ✓
+                    </span>
                   </div>
-                  {/* Info */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-gray-900 text-base truncate text-right">{doctor.full_name}</h3>
-                    <p className="text-gray-500 text-sm truncate text-right">
-                      {doctor.specialization?.name_ar} • {doctor.clinic?.name}
-                    </p>
-                    <div className="flex items-center gap-2 mt-2 flex-wrap justify-end">
-                      <span className="text-xs text-gray-500">{queueInfo.queueNumber - 1} في الانتظار</span>
-                      <div className="flex items-center gap-1 bg-teal-50 rounded-lg px-2 py-1">
-                        <Clock size={12} className="text-teal-600" />
-                        <span className="text-xs text-teal-600 font-medium">~{doctor.average_consultation_time}د</span>
+
+                  <div className="flex-1 min-w-0 text-right">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5 truncate">
+                        <h3 className="font-bold text-sm text-[#104C48] truncate">{doc.full_name}</h3>
+                        <ShieldCheck size={15} className="text-[#38B2AC] shrink-0" />
                       </div>
-                      <div
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleShowClinicMap(doctor, index);
-                        }}
-                        className="flex items-center gap-1 bg-sky-50 hover:bg-sky-100 rounded-lg px-2 py-1 text-sky-700 cursor-pointer transition border border-sky-100"
-                        title="عرض العيادة على الخريطة التفاعلية"
-                      >
-                        <MapPin size={12} className="text-sky-600" />
-                        <span className="text-xs font-semibold">{distance} كم (الخريطة)</span>
+                      <div className="flex items-center gap-1 text-xs text-[#FFB800] font-bold shrink-0">
+                        <Star size={13} fill="#FFB800" strokeWidth={0} />
+                        <span>{doc.rating}</span>
+                        <span className="text-[10px] text-slate-400 font-normal">({doc.total_reviews})</span>
                       </div>
                     </div>
-                  </div>
-                  {/* Avatar */}
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#2196F3] to-[#1565C0] flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
-                    {doctor.full_name.charAt(2)}
-                  </div>
-                </div>
-                {/* Price & Book */}
-                <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
-                  <span className="text-xs text-gray-400 flex items-center gap-1">
-                    <Stethoscope size={12} /> اضغط للتفاصيل والحجز
-                  </span>
-                  <div className="text-left">
-                    <span className="text-sm text-gray-500">سعر الكشف</span>
-                    <p className="font-bold text-gray-800">{doctor.consultation_fee?.toLocaleString('ar-YE')} ر.ي</p>
+
+                    <p className="text-xs text-[#199A8E] font-medium mt-0.5 truncate">
+                      {doc.specialization?.name_ar}
+                    </p>
+
+                    <p className="text-[11px] text-slate-500 mt-1 flex items-center gap-1 truncate">
+                      <Building2 size={12} className="text-slate-400 shrink-0" />
+                      <span>{doc.clinic?.name} — {doc.clinic?.address}</span>
+                    </p>
                   </div>
                 </div>
-              </button>
-            );
-          })}
-        </div>
-      )}
+
+                {/* Footer Strip */}
+                <div className="flex items-center justify-between pt-3 border-t border-[#E2E8F0] text-xs">
+                  <div>
+                    <span className="text-[11px] text-[#2E7D32] font-semibold block">
+                      ● متاح اليوم للحجز
+                    </span>
+                    <span className="text-[11px] text-slate-500 font-mono mt-0.5 block">
+                      رسوم الكشف: <b className="text-slate-800">{doc.consultation_fee?.toLocaleString()} ر.ي</b>
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleDoctorClick(doc, idx)}
+                      className="py-2.5 px-5 rounded-xl bg-[#199A8E] hover:bg-[#104C48] text-white font-bold text-xs transition shadow-sm active:scale-95"
+                    >
+                      احجز الآن
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
 
       {/* Doctor Detail Bottom Sheet */}
       {selectedDoctor && selectedQueueInfo && (
@@ -332,15 +506,6 @@ export function ClinicsPage({ onBack, onSelectDoctor, preselectedSpecialization 
           distance={selectedDistance}
           onClose={() => setSelectedDoctor(null)}
           onBook={handleBook}
-        />
-      )}
-
-      {/* Interactive Map Modal */}
-      {mapFacility && (
-        <FacilityInteractiveMap
-          facility={mapFacility}
-          isOpen={!!mapFacility}
-          onClose={() => setMapFacility(null)}
         />
       )}
     </div>

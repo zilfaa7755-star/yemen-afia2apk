@@ -45,7 +45,7 @@ interface DoctorLane {
 
 // ─── Demo data ────────────────────────────────────────────────────────────────
 const DOCTORS: DoctorLane[] = [
-  { id: 'd1', name: 'د. سامي النجار', specialty: 'أمراض القلب والباطنية', badge: 'استشاري معتمد', badgeColor: 'bg-blue-100 text-blue-700', onBreak: false },
+  { id: 'd1', name: 'د. سامي النجار', specialty: 'أمراض القلب والباطنية', badge: 'استشاري معتمد', badgeColor: 'bg-[#E8F5F4] text-[#104C48]', onBreak: false },
   { id: 'd2', name: 'د. نجيب المتوكل', specialty: 'جراحة العظام والمفاصل', badge: 'أخصائي', badgeColor: 'bg-teal-100 text-teal-700', onBreak: false },
   { id: 'd3', name: 'د. إلهام الشامي', specialty: 'النساء والولادة', badge: 'استراحة مؤقتة', badgeColor: 'bg-amber-100 text-amber-700', onBreak: true },
 ];
@@ -234,7 +234,7 @@ export function HospitalReceptionView({ onBack }: HospitalReceptionViewProps) {
           </div>
           <button
             onClick={() => setShowWalkInModal(true)}
-            className="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-gradient-to-l from-blue-600 to-blue-800 text-white rounded-xl font-bold text-sm shadow-md whitespace-nowrap"
+            className="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 bg-gradient-to-l from-[#104C48] to-[#199A8E] text-white rounded-xl font-bold text-sm shadow-md whitespace-nowrap"
           >
             <UserPlus size={16} />
             <span className="hidden sm:inline">تسجيل مريض جديد</span>
@@ -267,8 +267,8 @@ export function HospitalReceptionView({ onBack }: HospitalReceptionViewProps) {
       {searchQuery.trim() && (
         <div className="px-4 pt-4">
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="px-4 py-3 bg-blue-50 border-b border-blue-100">
-              <p className="font-bold text-blue-800 text-sm">نتائج البحث ({searchResults.length})</p>
+            <div className="px-4 py-3 bg-[#E8F5F4] border-b border-[#199A8E]/20">
+              <p className="font-bold text-[#104C48] text-sm">نتائج البحث ({searchResults.length})</p>
             </div>
             {searchResults.length === 0 ? (
               <div className="text-center py-10">
@@ -281,15 +281,15 @@ export function HospitalReceptionView({ onBack }: HospitalReceptionViewProps) {
                   const doc = DOCTORS.find(d => d.id === p.doctorId);
                   return (
                     <div key={p.id} className="px-4 py-3 flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                        <span className="font-black text-blue-700 text-sm">{p.token}</span>
+                      <div className="w-10 h-10 bg-[#E8F5F4] rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span className="font-black text-[#104C48] text-sm">{p.token}</span>
                       </div>
                       <div className="flex-1 text-right">
                         <p className="font-bold text-gray-800 text-sm">{p.name}</p>
                         <p className="text-xs text-gray-500">{doc?.name} · {p.phone}</p>
                       </div>
                       <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                        p.status === 'in_consultation' ? 'bg-blue-100 text-blue-700' :
+                        p.status === 'in_consultation' ? 'bg-[#E8F5F4] text-[#104C48]' :
                         p.status === 'waiting' ? 'bg-amber-100 text-amber-700' :
                         p.status === 'completed' ? 'bg-green-100 text-green-700' :
                         'bg-gray-100 text-gray-500'
@@ -351,21 +351,21 @@ export function HospitalReceptionView({ onBack }: HospitalReceptionViewProps) {
                     <>
                       {/* Current patient */}
                       {stats.current && (
-                        <div className="px-4 py-3 bg-blue-50 border-b border-blue-100">
+                        <div className="px-4 py-3 bg-[#E8F5F4] border-b border-[#199A8E]/20">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-1.5">
-                              <Timer size={14} className="text-blue-600" />
-                              <span className="text-sm font-mono font-bold text-blue-700">
+                              <Timer size={14} className="text-[#199A8E]" />
+                              <span className="text-sm font-mono font-bold text-[#104C48]">
                                 {stats.current.calledAt ? formatElapsed(stats.current.calledAt) : '00:00'}
                               </span>
                             </div>
-                            <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-bold animate-pulse">
+                            <span className="text-xs bg-[#E8F5F4] text-[#104C48] px-2 py-0.5 rounded-full font-bold animate-pulse">
                               في الكشف الآن
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <span className="font-black text-blue-700 text-xs">{stats.current.token}</span>
+                            <div className="w-8 h-8 bg-[#E8F5F4] rounded-lg flex items-center justify-center flex-shrink-0">
+                              <span className="font-black text-[#104C48] text-xs">{stats.current.token}</span>
                             </div>
                             <div className="flex-1 text-right">
                               <p className="font-bold text-gray-800 text-sm">{stats.current.name}</p>
@@ -490,7 +490,7 @@ export function HospitalReceptionView({ onBack }: HospitalReceptionViewProps) {
                 <h3 className="font-black text-gray-800">تسجيل مريض جديد</h3>
                 <p className="text-xs text-gray-500">بدون حجز مسبق — تسجيل فوري</p>
               </div>
-              <UserPlus size={20} className="text-blue-600" />
+              <UserPlus size={20} className="text-[#199A8E]" />
             </div>
 
             <div className="space-y-4">
@@ -504,7 +504,7 @@ export function HospitalReceptionView({ onBack }: HospitalReceptionViewProps) {
                       onClick={() => setWalkInDoctor(d.id)}
                       disabled={d.onBreak}
                       className={`py-2.5 rounded-xl text-xs font-bold transition-all ${
-                        walkInDoctor === d.id ? 'bg-blue-600 text-white' : d.onBreak ? 'bg-gray-100 text-gray-300' : 'bg-gray-50 text-gray-600 border border-gray-200'
+                        walkInDoctor === d.id ? 'bg-[#199A8E] text-white' : d.onBreak ? 'bg-gray-100 text-gray-300' : 'bg-gray-50 text-gray-600 border border-gray-200'
                       }`}
                     >
                       {d.name.split(' ')[1]}
@@ -554,7 +554,7 @@ export function HospitalReceptionView({ onBack }: HospitalReceptionViewProps) {
                     >أنثى</button>
                     <button
                       onClick={() => setWalkInForm(p => ({ ...p, gender: 'male' }))}
-                      className={`flex-1 py-3 rounded-xl text-xs font-bold ${walkInForm.gender === 'male' ? 'bg-blue-100 text-blue-700' : 'bg-gray-50 text-gray-500'}`}
+                      className={`flex-1 py-3 rounded-xl text-xs font-bold ${walkInForm.gender === 'male' ? 'bg-[#E8F5F4] text-[#104C48]' : 'bg-gray-50 text-gray-500'}`}
                     >ذكر</button>
                   </div>
                 </div>
@@ -565,7 +565,7 @@ export function HospitalReceptionView({ onBack }: HospitalReceptionViewProps) {
                 disabled={!walkInForm.name.trim() || !walkInForm.phone.trim()}
                 className={`w-full py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all ${
                   walkInForm.name.trim() && walkInForm.phone.trim()
-                    ? 'bg-gradient-to-l from-blue-600 to-blue-800 text-white shadow-lg'
+                    ? 'bg-gradient-to-l from-[#104C48] to-[#199A8E] text-white shadow-lg'
                     : 'bg-gray-200 text-gray-400'
                 }`}
               >
@@ -642,9 +642,9 @@ export function HospitalReceptionView({ onBack }: HospitalReceptionViewProps) {
               </div>
 
               {/* Glucose */}
-              <div className="bg-blue-50 rounded-xl p-3">
+              <div className="bg-[#E8F5F4] rounded-xl p-3">
                 <div className="flex items-center gap-2 mb-2">
-                  <Droplet size={16} className="text-blue-600" />
+                  <Droplet size={16} className="text-[#199A8E]" />
                   <span className="text-sm font-bold text-gray-700">سكر الدم (mg/dL)</span>
                 </div>
                 <input

@@ -156,7 +156,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
             </div>
             <div className="flex items-center justify-between pt-3 border-t border-gray-100">
               <span className="text-gray-500 text-sm">المبلغ</span>
-              <span className="font-bold text-[#2196F3]">{selectedNursing.price} ر.ي</span>
+              <span className="font-bold text-[#199A8E]">{selectedNursing.price} ر.ي</span>
             </div>
           </div>
 
@@ -165,7 +165,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
               setStep('list');
               setSelectedNursing(null);
             }}
-            className="w-full py-4 rounded-2xl bg-[#2196F3] text-white font-bold"
+            className="w-full py-4 rounded-2xl bg-[#199A8E] text-white font-bold"
           >
             حسناً
           </button>
@@ -178,7 +178,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
   if (step === 'payment' && selectedNursing) {
     return (
       <div className="min-h-screen bg-gray-50 pb-6">
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] pt-3 pb-16 px-4 sticky top-0 z-40">
+        <div className="bg-gradient-to-b from-[#104C48] via-[#125853] to-[#199A8E] pt-3 pb-16 px-4 sticky top-0 z-40">
           <div className="flex items-center justify-between">
             <button onClick={() => setStep('booking')} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
               <ChevronLeft size={22} className="text-white rotate-180" />
@@ -191,7 +191,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
         <div className="px-4 -mt-10 relative z-30">
           <div className="bg-white rounded-2xl shadow-lg p-4 mb-4">
             <div className="flex items-center justify-between">
-              <span className="text-xl font-bold text-[#2196F3]">{selectedNursing.price} ر.ي</span>
+              <span className="text-xl font-bold text-[#199A8E]">{selectedNursing.price} ر.ي</span>
               <span className="text-gray-500">{selectedNursing.service_name}</span>
             </div>
           </div>
@@ -205,7 +205,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
                   key={method.id}
                   onClick={() => setSelectedPayment(method.id)}
                   className={`w-full p-4 rounded-2xl border-2 flex items-center gap-4 transition-all ${
-                    selectedPayment === method.id ? 'border-[#2196F3] bg-blue-50' : 'border-gray-200 bg-white'
+                    selectedPayment === method.id ? 'border-[#199A8E] bg-[#E8F5F4]' : 'border-gray-200 bg-white'
                   }`}
                 >
                   <div className={`w-12 h-12 ${method.color} rounded-xl flex items-center justify-center`}>
@@ -221,7 +221,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
             onClick={handlePayment}
             disabled={!selectedPayment || isSubmitting}
             className={`w-full mt-6 py-4 rounded-2xl font-bold text-lg ${
-              selectedPayment ? 'bg-[#2196F3] text-white' : 'bg-gray-200 text-gray-400'
+              selectedPayment ? 'bg-[#199A8E] text-white' : 'bg-gray-200 text-gray-400'
             }`}
           >
             {isSubmitting ? 'جاري المعالجة...' : 'تأكيد الدفع'}
@@ -236,7 +236,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
     const Icon = getServiceIcon(selectedNursing.service_type);
     return (
       <div className="min-h-screen bg-gray-50 pb-6">
-        <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] pt-3 pb-16 px-4 sticky top-0 z-40">
+        <div className="bg-gradient-to-b from-[#104C48] via-[#125853] to-[#199A8E] pt-3 pb-16 px-4 sticky top-0 z-40">
           <div className="flex items-center justify-between">
             <button onClick={() => setStep('list')} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
               <ChevronLeft size={22} className="text-white rotate-180" />
@@ -249,14 +249,14 @@ export function NursingPage({ onBack }: NursingPageProps) {
         <div className="px-4 -mt-10 relative z-30">
           <div className="bg-white rounded-2xl shadow-lg p-4 mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <Icon size={22} className="text-[#2196F3]" />
+              <div className="w-12 h-12 bg-[#E8F5F4] rounded-xl flex items-center justify-center">
+                <Icon size={22} className="text-[#199A8E]" />
               </div>
               <div className="flex-1 text-right">
                 <p className="font-bold text-gray-800">{selectedNursing.service_name}</p>
                 <p className="text-sm text-gray-500">{selectedNursing.nurse_name}</p>
               </div>
-              <p className="font-bold text-[#2196F3]">{selectedNursing.price} ر.ي</p>
+              <p className="font-bold text-[#199A8E]">{selectedNursing.price} ر.ي</p>
             </div>
           </div>
 
@@ -306,7 +306,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
             onClick={handleConfirmBooking}
             disabled={!bookingData.address.trim()}
             className={`w-full py-4 rounded-2xl font-bold text-lg ${
-              bookingData.address.trim() ? 'bg-[#2196F3] text-white' : 'bg-gray-200 text-gray-400'
+              bookingData.address.trim() ? 'bg-[#199A8E] text-white' : 'bg-gray-200 text-gray-400'
             }`}
           >
             المتابعة للدفع
@@ -319,7 +319,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
   // List Screen
   return (
     <div className="min-h-screen bg-gray-50 pb-6">
-      <div className="bg-gradient-to-b from-[#2196F3] to-[#1976D2] pt-3 pb-20 px-4 sticky top-0 z-40">
+      <div className="bg-gradient-to-b from-[#104C48] via-[#125853] to-[#199A8E] pt-3 pb-20 px-4 sticky top-0 z-40">
         <div className="flex items-center justify-between mb-4">
           <button onClick={onBack} className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
             <ChevronLeft size={22} className="text-white rotate-180" />
@@ -348,7 +348,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
                 key={type.id}
                 onClick={() => setSelectedService(type.id)}
                 className={`flex-shrink-0 px-4 py-2.5 rounded-xl font-medium flex items-center gap-2 transition-all ${
-                  selectedService === type.id ? 'bg-[#2196F3] text-white' : 'bg-white text-gray-600 border border-gray-200'
+                  selectedService === type.id ? 'bg-[#199A8E] text-white' : 'bg-white text-gray-600 border border-gray-200'
                 }`}
               >
                 {Icon && <Icon size={16} />}
@@ -361,7 +361,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
         {/* Services List */}
         {isLoading ? (
           <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#2196F3]" />
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-[#199A8E]" />
           </div>
         ) : sortedServices.length === 0 ? (
           <div className="text-center py-12">
@@ -381,12 +381,12 @@ export function NursingPage({ onBack }: NursingPageProps) {
                   className="w-full bg-white rounded-2xl p-4 shadow-sm border border-gray-100 text-right"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Icon size={22} className="text-[#2196F3]" />
+                    <div className="w-12 h-12 bg-[#E8F5F4] rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Icon size={22} className="text-[#199A8E]" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="font-bold text-gray-800">{service.service_name}</h3>
-                      <p className="text-sm text-[#2196F3]">{service.nurse_name}</p>
+                      <p className="text-sm text-[#199A8E]">{service.nurse_name}</p>
                       <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
                         <MapPin size={12} />
                         {distance > 0 ? `${distance} كم` : 'متاح'}
@@ -395,7 +395,7 @@ export function NursingPage({ onBack }: NursingPageProps) {
                         متاح اليوم
                       </div>
                     </div>
-                    <p className="font-bold text-[#2196F3]">{service.price} ر.ي</p>
+                    <p className="font-bold text-[#199A8E]">{service.price} ر.ي</p>
                   </div>
                 </button>
               );

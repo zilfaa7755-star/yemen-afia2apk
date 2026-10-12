@@ -4,7 +4,7 @@ import {
   BarChart2, CheckCircle, Clock, X, Plus, Phone, MapPin,
   AlertCircle, FileText, Star, TrendingUp, Settings, Bell,
   ChevronRight, Search, Filter, Send, Calendar, Activity,
-  Package, ShieldCheck, ArrowUpCircle, User, Stethoscope, Droplets, Home,
+  Package, ShieldCheck, ArrowUpCircle, User, Stethoscope, Droplets, Home, ArrowRight,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -135,12 +135,12 @@ function HospitalDashboard({ onLogout }: { onLogout: () => void }) {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <button
-              onClick={() => { window.dispatchEvent(new CustomEvent('nav-to-main')); }}
-              className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-sm active:scale-95"
-              title="العودة للقائمة الرئيسية"
+              onClick={() => { onLogout?.(); window.dispatchEvent(new CustomEvent('nav-to-main')); }}
+              className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-sm active:scale-95 border border-white/20"
+              title="العودة لشاشة الواجهات الخمس شاشة البداية"
             >
-              <Home size={16} />
-              <span>الرئيسية</span>
+              <ArrowRight size={16} />
+              <span>الواجهات الخمس</span>
             </button>
             <button onClick={onLogout} className="w-9 h-9 bg-white/20 hover:bg-white/30 rounded-xl flex items-center justify-center text-white transition active:scale-95" title="تسجيل الخروج">
               <LogOut size={16} />
@@ -210,7 +210,7 @@ function HospitalDashboard({ onLogout }: { onLogout: () => void }) {
               const urg = urgencyConfig[ref.urgency] || urgencyConfig.routine;
               const stMap: Record<string,{label:string;cls:string}> = {
                 pending:   {label:'انتظار',cls:'bg-amber-100 text-amber-700'},
-                accepted:  {label:'مقبول',cls:'bg-blue-100 text-blue-700'},
+                accepted:  {label:'مقبول',cls:'bg-[#E8F5F4] text-[#104C48]'},
                 scheduled: {label:'مجدول',cls:'bg-cyan-100 text-cyan-700'},
                 completed: {label:'مكتمل',cls:'bg-green-100 text-green-700'},
                 rejected:  {label:'مرفوض',cls:'bg-red-100 text-red-600'},
@@ -235,7 +235,7 @@ function HospitalDashboard({ onLogout }: { onLogout: () => void }) {
                   <div className="px-4 py-3">
                     {ref.referral_type && (
                       <div className="flex items-center gap-2 mb-2 justify-end">
-                        <span className="bg-blue-100 text-blue-700 text-xs px-2.5 py-1 rounded-full font-bold">
+                        <span className="bg-[#E8F5F4] text-[#104C48] text-xs px-2.5 py-1 rounded-full font-bold">
                           {referralTypeLabel[ref.referral_type]}
                           {ref.procedure_name ? `: ${ref.procedure_name}` : ''}
                         </span>
@@ -262,7 +262,7 @@ function HospitalDashboard({ onLogout }: { onLogout: () => void }) {
                         )}
                       </div>
                       <div className="text-right">
-                        <a href={`tel:${ref.patient_phone}`} className="text-xs text-blue-600 flex items-center gap-1 justify-end">
+                        <a href={`tel:${ref.patient_phone}`} className="text-xs text-[#199A8E] flex items-center gap-1 justify-end">
                           <Phone size={11}/>{ref.patient_phone}
                         </a>
                         <p className="text-[10px] text-gray-400 mt-0.5">{new Date(ref.created_at).toLocaleString('ar-YE')}</p>
@@ -289,15 +289,15 @@ function HospitalDashboard({ onLogout }: { onLogout: () => void }) {
             ].map((p, i) => (
               <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
                 <div className="flex items-start gap-3">
-                  <div className="w-11 h-11 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="w-11 h-11 bg-[#E8F5F4] rounded-xl flex items-center justify-center flex-shrink-0">
                     <User size={20} className="text-[#1565C0]" />
                   </div>
                   <div className="flex-1 text-right">
                     <p className="font-bold text-gray-800">{p.name}</p>
-                    <a href={`tel:${p.phone}`} className="text-xs text-blue-600 flex items-center gap-1 justify-end"><Phone size={10}/>{p.phone}</a>
+                    <a href={`tel:${p.phone}`} className="text-xs text-[#199A8E] flex items-center gap-1 justify-end"><Phone size={10}/>{p.phone}</a>
                     <p className="text-xs text-gray-500 mt-1">{p.status}</p>
                     <div className="flex items-center gap-2 justify-end mt-1">
-                      <span className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full">{p.dept}</span>
+                      <span className="bg-[#E8F5F4] text-[#104C48] text-xs px-2 py-0.5 rounded-full">{p.dept}</span>
                       <span className="text-xs text-gray-400"><Calendar size={10} className="inline ml-1"/>{p.date}</span>
                     </div>
                   </div>
@@ -318,7 +318,7 @@ function HospitalDashboard({ onLogout }: { onLogout: () => void }) {
                 { time: '13:00', name: 'استئصال مرارة', patient: 'فاطمة المقطري', dept: 'جراحة', status: 'scheduled' },
                 { time: '15:30', name: 'منظار معدة', patient: 'نورا الحيمي', dept: 'هضمية', status: 'scheduled' },
               ].map((p, i) => {
-                const stCls: Record<string,string> = { completed:'bg-green-100 text-green-700', in_progress:'bg-blue-100 text-blue-700 animate-pulse', scheduled:'bg-gray-100 text-gray-600' };
+                const stCls: Record<string,string> = { completed:'bg-green-100 text-green-700', in_progress:'bg-[#E8F5F4] text-[#104C48] animate-pulse', scheduled:'bg-gray-100 text-gray-600' };
                 const stLbl: Record<string,string> = { completed:'مكتمل', in_progress:'جارٍ', scheduled:'مجدول' };
                 return (
                   <div key={i} className="flex items-center gap-3 py-2.5 border-b border-gray-50 last:border-0">
@@ -387,7 +387,7 @@ function HospitalDashboard({ onLogout }: { onLogout: () => void }) {
                     <div className="flex items-center justify-between">
                       <div className="flex gap-2">
                         <button onClick={() => fulfillBlood(req.id)} className="px-3 py-2 bg-green-600 text-white rounded-xl text-xs font-bold">تم التوفير</button>
-                        <a href={`tel:${req.contact_phone}`} className="px-3 py-2 bg-blue-50 text-blue-700 rounded-xl text-xs font-bold flex items-center gap-1"><Phone size={12} />اتصال</a>
+                        <a href={`tel:${req.contact_phone}`} className="px-3 py-2 bg-[#E8F5F4] text-[#104C48] rounded-xl text-xs font-bold flex items-center gap-1"><Phone size={12} />اتصال</a>
                       </div>
                       <p className="text-xs text-gray-400">{new Date(req.created_at).toLocaleString('ar-YE')}</p>
                     </div>
@@ -728,8 +728,8 @@ function PharmacyDashboard({ onLogout }: { onLogout: () => void }) {
               </div>
               <div className="w-8" />
             </div>
-            <div className="bg-blue-50 rounded-xl px-3 py-2 mb-4 text-right">
-              <p className="text-xs text-blue-700 font-medium">التشخيص: {dispenseModal.pres.diagnosis}</p>
+            <div className="bg-[#E8F5F4] rounded-xl px-3 py-2 mb-4 text-right">
+              <p className="text-xs text-[#104C48] font-medium">التشخيص: {dispenseModal.pres.diagnosis}</p>
             </div>
             <p className="text-sm font-bold text-gray-700 text-right mb-3">اختر الأصناف المتوفرة للصرف</p>
             <div className="space-y-2 mb-4">
@@ -769,7 +769,7 @@ function PrescriptionCard({ pres, onDispense, onReject }: { pres: any; onDispens
   const stMap: Record<string,{label:string;cls:string}> = {
     pending:   { label: 'معلقة', cls: 'bg-amber-100 text-amber-700' },
     dispensed: { label: 'مصروفة', cls: 'bg-green-100 text-green-700' },
-    partial:   { label: 'جزئية', cls: 'bg-blue-100 text-blue-700' },
+    partial:   { label: 'جزئية', cls: 'bg-[#E8F5F4] text-[#104C48]' },
     rejected:  { label: 'مرفوضة', cls: 'bg-red-100 text-red-600' },
     cancelled: { label: 'ملغية', cls: 'bg-gray-100 text-gray-500' },
   };
@@ -784,8 +784,8 @@ function PrescriptionCard({ pres, onDispense, onReject }: { pres: any; onDispens
         </div>
       </div>
       <div className="px-4 py-3">
-        <div className="bg-blue-50 rounded-xl px-3 py-2 mb-3">
-          <p className="text-xs text-blue-700 font-medium text-right">التشخيص: {pres.diagnosis}</p>
+        <div className="bg-[#E8F5F4] rounded-xl px-3 py-2 mb-3">
+          <p className="text-xs text-[#104C48] font-medium text-right">التشخيص: {pres.diagnosis}</p>
         </div>
         <div className="space-y-2 mb-3">
           {pres.medications.map((m:any,i:number) => (
@@ -1183,7 +1183,7 @@ function LabDashboard({ onLogout }: { onLogout: () => void }) {
 function FacilityReport({ type }: { type: FacilityType }) {
   const stats = {
     hospital: [
-      { label: 'تحويلات مستلمة', val: 47, icon: Send, color: 'text-blue-600 bg-blue-50' },
+      { label: 'تحويلات مستلمة', val: 47, icon: Send, color: 'text-[#199A8E] bg-[#E8F5F4]' },
       { label: 'عمليات منجزة', val: 29, icon: Stethoscope, color: 'text-green-600 bg-green-50' },
       { label: 'إجراءات طبية', val: 18, icon: Activity, color: 'text-cyan-600 bg-cyan-50' },
       { label: 'إيرادات (مليون ر.ي)', val: '4.2', icon: TrendingUp, color: 'text-amber-600 bg-amber-50' },
@@ -1196,7 +1196,7 @@ function FacilityReport({ type }: { type: FacilityType }) {
     ],
     lab: [
       { label: 'فحوصات مكتملة', val: 234, icon: FlaskConical, color: 'text-purple-600 bg-purple-50' },
-      { label: 'نتائج أُرسلت', val: 234, icon: Send, color: 'text-blue-600 bg-blue-50' },
+      { label: 'نتائج أُرسلت', val: 234, icon: Send, color: 'text-[#199A8E] bg-[#E8F5F4]' },
       { label: 'إيرادات (ألف ر.ي)', val: '342', icon: TrendingUp, color: 'text-amber-600 bg-amber-50' },
       { label: 'متوسط وقت الإنجاز', val: '2.3 ساعة', icon: Clock, color: 'text-gray-600 bg-gray-50' },
     ],
@@ -1309,8 +1309,12 @@ export function MedicalFacilityDashboard() {
           ))}
         </div>
 
-        <button onClick={logout} className="mt-8 flex items-center gap-2 text-gray-500 text-sm">
-          <LogOut size={16} />تسجيل خروج
+        <button
+          onClick={() => { logout(); window.dispatchEvent(new CustomEvent('nav-to-main')); }}
+          className="mt-8 flex items-center gap-2 text-white bg-gradient-to-r from-[#104C48] to-[#199A8E] hover:opacity-90 px-5 py-2.5 rounded-2xl text-xs font-bold transition shadow-sm active:scale-95"
+        >
+          <ArrowRight size={16} />
+          <span>العودة لشاشة الواجهات الخمس</span>
         </button>
       </div>
     );

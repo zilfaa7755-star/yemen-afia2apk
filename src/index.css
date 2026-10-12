@@ -3,40 +3,48 @@
 @tailwind utilities;
 
 * {
-  font-family: 'Tajawal', sans-serif;
+  font-family: 'IBM Plex Sans Arabic', 'Cairo', 'Tajawal', sans-serif;
 }
 
 body {
-  @apply bg-gray-50 text-gray-900 antialiased;
+  background-color: #F8FAFB;
+  @apply text-slate-900 antialiased;
   direction: rtl;
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 rounded-full;
+  background: #F1F5F9;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary-300 rounded-full;
+  background: #199A8E;
+  border-radius: 9999px;
+  opacity: 0.7;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-primary-400;
+  background: #104C48;
 }
 
 /* Custom utilities */
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#199A8E] to-[#104C48];
+  }
+
+  .card-clinical {
+    @apply bg-white rounded-[20px] border border-[#E2E8F0] shadow-[0_4px_20px_-2px_rgba(25,154,142,0.07)] transition-all duration-200;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-elevated hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-[0_10px_30px_-5px_rgba(25,154,142,0.12)] hover:-translate-y-0.5;
   }
 
   .scrollbar-hide {
